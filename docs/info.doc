@@ -1,6 +1,6 @@
 1. Инициализация angular приложения.
 2. Установка и настройка eslint(airbnb), prettier.
-3. Установка библиотеки ngrx(store, effects, router-store, store-devtools)
+3. Установка библиотеки ngrx(store, effects, router-store, store-devtools, store-schematics)
 4. Примерная структура приложения:
   app
     -core
