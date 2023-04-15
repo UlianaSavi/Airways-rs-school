@@ -1,0 +1,24 @@
+.footer {
+  border-top: 1px solid #D0D9DF;
+}
+
+.footer-container {
+  height: 92px;
+  justify-content: space-between;
+}
+
+.footer-left {
+  color: #11397E;
+}
+
+.footer-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 25px;
+}
+
+.pay-icons {
+  display: flex;
+  column-gap: 15px;
+}

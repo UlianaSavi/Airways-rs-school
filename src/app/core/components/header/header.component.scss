@@ -1,0 +1,58 @@
+.header {
+  background: rgba(116, 118, 122, 0.2);
+  color: white;
+}
+
+.header-container {
+  justify-content: space-between;
+  align-items: center;
+  height: 88px;
+}
+
+.header-menu {
+  display: flex;
+  align-items: center;
+  column-gap: 40px;
+}
+
+.header-button {
+  background: rgba(241, 243, 246, 0.15);
+  border: 0.5px solid #CECECE;
+  border-radius: 4px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.header-option {
+  color: black;
+}
+
+.header-date-format {
+  width: 162px;
+  height: 40px;
+  padding-left: 10px;
+}
+
+.header-currency {
+  width: 62px;
+  height: 40px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  text-align: center;
+}
+
+.header-singIn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 114px;
+  height: 40px;
+}
+
+.header-basket {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}

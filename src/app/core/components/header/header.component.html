@@ -1,1 +1,27 @@
-<p>header works!</p>
+<header class="header">
+  <div class="container header-container">
+    <img ngSrc="assets/icons/header_logo.svg" alt="header-logo" height="39" width="112">
+    <div class="header-menu">
+      <span>Book flight</span>
+      <select class="header-button header-date-format" name="date-format" id="date-format">
+        <option class="header-option" selected>MM/DD/YYYY</option>
+        <option class="header-option">DD/MM/YYYY</option>
+        <option class="header-option">YYYY/DD/MM</option>
+        <option class="header-option">YYYY/MM/DD</option>
+      </select>
+      <select class="header-button header-currency" name="currency" id="currency">
+        <option class="header-option" selected>EUR</option>
+        <option class="header-option">USA</option>
+        <option class="header-option">RUB</option>
+        <option class="header-option">PLN</option>
+      </select>
+      <button class="header-button header-singIn">
+        <img ngSrc="assets/icons/singInIcon.svg" alt="sign in" width="24" height="24">
+        <span>Sign in</span>
+      </button>
+      <button class="header-basket">
+        <img ngSrc="assets/icons/basket_icon.svg" alt="basket" width="24" height="24">
+      </button>
+    </div>
+  </div>
+</header>

@@ -1,5 +1,5 @@
 import { NgModule, isDevMode } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
@@ -17,6 +17,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
+    NgOptimizedImage,
   ],
 })
 export class CoreModule {}
