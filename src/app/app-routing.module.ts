@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'search',
-    loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
+    loadChildren: () => import('./search/search.module').then((m) => m.SearchModule),
   },
   {
     path: 'booking',
