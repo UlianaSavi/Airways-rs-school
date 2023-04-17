@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CartFormComponent } from './components/cart-form/cart-from.component';
+import { CartFormComponent } from './components/cart-form/cart-form.component';
 
 const routes: Routes = [{ path: '', component: CartFormComponent }];
 

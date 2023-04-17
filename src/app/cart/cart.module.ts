@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CartRoutingModule } from './cart-routing.module';
-import { CartFormComponent } from './components/cart-form/cart-from.component';
+import { CartFormComponent } from './components/cart-form/cart-form.component';
 
 @NgModule({
   declarations: [CartFormComponent],
