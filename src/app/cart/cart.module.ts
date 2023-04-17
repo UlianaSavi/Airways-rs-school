@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CartRoutingModule } from './cart-routing.module';
-import { CartPageComponent } from './pages/cart-page/cart-page.component';
+import { CartFormComponent } from './components/cart-form/cart-from.component';
 
 @NgModule({
-  declarations: [CartPageComponent],
+  declarations: [CartFormComponent],
   imports: [CommonModule, CartRoutingModule],
 })
 export class CartModule {}
