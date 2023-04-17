@@ -23,6 +23,11 @@ const routes: Routes = [
     canActivate: [],
   },
   {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then((m) => m.ProfileModule),
+    canActivate: [],
+  },
+  {
     path: 'page404',
     component: PageNotFoundComponent,
   },
