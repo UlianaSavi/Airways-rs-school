@@ -14,7 +14,7 @@ const searchRoutes: Routes = [
     component: ResultListComponent,
   },
   {
-    path: '/details',
+    path: 'details',
     component: DetailsComponent,
   },
 ];
