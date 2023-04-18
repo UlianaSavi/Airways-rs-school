@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { City, mockCities } from '../../mock-data';
 import { Observable, map, startWith } from 'rxjs';
 import { PassengersType } from '../../models/passengers.model';
+import { dateDestinationValidator } from '../../validators/validators';
 
 @Component({
   selector: 'app-search-form',
@@ -18,15 +19,15 @@ export class SearchFormComponent implements OnInit {
 
   minDate = '';
 
-  typeOfPassengers: ('adult' | 'child' | 'infant')[] = ['adult', 'child', 'infant'];
+  typeOfPassengers: PassengersType[] = ['adult', 'child', 'infant'];
 
   searchForm = this.fb.group({
     typeOfFlight: ['', Validators.required],
     from: ['', Validators.required],
     destination: ['', Validators.required],
     dateFrom: ['', Validators.required],
-    dateDestination: ['', Validators.required],
-    amountOfPass: this.fb.group<Record<'adult' | 'child' | 'infant', number>>({
+    dateDestination: ['', dateDestinationValidator()],
+    amountOfPass: this.fb.group<Record<PassengersType, number>>({
       adult: 1,
       child: 0,
       infant: 0,
@@ -77,6 +78,7 @@ export class SearchFormComponent implements OnInit {
   }
 
   onSubmit() {
+    // eslint-disable-next-line no-console
     console.log(this.searchForm.value);
   }
 
