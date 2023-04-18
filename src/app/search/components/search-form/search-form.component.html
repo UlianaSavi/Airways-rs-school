@@ -1,1 +1,131 @@
-<p>search-form works!</p>
+<div class="wrapper-main">
+  <div class="container">
+    <form [formGroup]="searchForm" (submit)="onSubmit()" class="search-form">
+      <mat-radio-group formControlName="typeOfFlight" class="search-form__radio">
+        <mat-radio-button
+          value="round"
+          color="primary"
+          class="search-form__radio-btn"
+          #radioBtnRound
+          (change)="searchForm.controls.dateDestination.setValue('')"
+        >
+          Round Trip
+        </mat-radio-button>
+        <mat-radio-button
+          value="one"
+          color="primary"
+          class="search-form__radio-btn"
+          (change)="searchForm.controls.dateDestination.setValue(null)"
+        >
+          One Way
+        </mat-radio-button>
+      </mat-radio-group>
+      <mat-form-field class="search-form__field">
+        <mat-label>From</mat-label>
+        <input
+          matInput
+          formControlName="from"
+          [matAutocomplete]="autoFrom"
+          placeholder="Choose your destination"
+          #inputFrom
+        />
+        <mat-autocomplete #autoFrom="matAutocomplete" [displayWith]="displayFn">
+          <mat-option
+            *ngFor="let city of filteredFromCities$ | async"
+            [value]="city.name + ' ' + city.code"
+            [disabled]="inputDestination.value.includes(city.name)"
+          >
+            <div class="option__city-top">
+              <span>{{ city.name }}</span>
+              <span>({{ city.code }})</span>
+            </div>
+            <div class="option__city-bottom">
+              <span *ngIf="city.main_airport_name">{{ city.main_airport_name }},&nbsp;</span>
+              <span>{{ city.country_name }}</span>
+            </div>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field class="search-form__field search-form__field-dest">
+        <mat-label>Destination</mat-label>
+        <input
+          matInput
+          formControlName="destination"
+          [matAutocomplete]="autoDestination"
+          placeholder="Choose your destination"
+          #inputDestination
+        />
+        <mat-autocomplete #autoDestination="matAutocomplete" [displayWith]="displayFn">
+          <mat-option
+            *ngFor="let city of filteredDestinationCities$ | async"
+            [value]="city.name + ' ' + city.code"
+            [disabled]="inputFrom.value.includes(city.name)"
+          >
+            <div class="option__city-top">
+              <span>{{ city.name }}</span>
+              <span>({{ city.code }})</span>
+            </div>
+            <div class="option__city-bottom">
+              <span *ngIf="city.main_airport_name">{{ city.main_airport_name }},&nbsp;</span>
+              <span>{{ city.country_name }}</span>
+            </div>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <div class="search-form__dates-amount">
+        <mat-form-field
+          appearance="fill"
+          class="search-form__field search-form__field-dates"
+          *ngIf="radioBtnRound.checked; else checkedOneWay"
+        >
+          <mat-label>Dates</mat-label>
+          <mat-date-range-input [rangePicker]="pickerRound" [min]="minDate">
+            <input matStartDate placeholder="Start date" formControlName="dateFrom" />
+            <input matEndDate placeholder="End date" formControlName="dateDestination" />
+          </mat-date-range-input>
+          <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="pickerRound"></mat-datepicker-toggle>
+          <mat-date-range-picker #pickerRound></mat-date-range-picker>
+        </mat-form-field>
+        <ng-template #checkedOneWay>
+          <mat-form-field appearance="fill" class="search-form__field search-form__field-dates">
+            <mat-label>Date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dateFrom" [min]="minDate" />
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </ng-template>
+        <div class="search-form__field">
+          <div class="search-form__field-addition" (click)="hiddenAddition = !hiddenAddition">
+            <div class="passengers-amount">
+              <div class="passengers-amount__title">Passengers</div>
+              <div class="passengers-amount__amount">1 Adult, 0 Child, 0 Infant</div>
+            </div>
+            <mat-icon fontIcon="arrow_drop_down"></mat-icon>
+          </div>
+          <div *ngIf="hiddenAddition">
+            <div class="addition__dropdown">
+              <app-addition-passengers
+                *ngFor="let type of typeOfPassengers"
+                [typeOfPassengers]="type"
+                [countPassengers]="searchForm.controls.amountOfPass.controls[type].value || 0"
+                (newCountPassengers)="setCountPassengers($event)"
+              ></app-addition-passengers>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="search-form__bottom">
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="searchForm.invalid"
+          class="search-form__btn"
+        >
+          Search
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
