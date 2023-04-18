@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SummaryPageComponent } from './summary-page.component';
+import { SummaryComponent } from './summary.component';
 
-describe('SummaryPageComponent', () => {
-  let component: SummaryPageComponent;
-  let fixture: ComponentFixture<SummaryPageComponent>;
+describe('SummaryComponent', () => {
+  let component: SummaryComponent;
+  let fixture: ComponentFixture<SummaryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SummaryPageComponent],
+      declarations: [SummaryComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SummaryPageComponent);
+    fixture = TestBed.createComponent(SummaryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
