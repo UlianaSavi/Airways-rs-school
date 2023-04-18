@@ -71,6 +71,10 @@ export class SearchFormComponent implements OnInit {
     );
   }
 
+  switchDestinations(from: HTMLInputElement, to: HTMLInputElement) {
+    [from.value, to.value] = [to.value, from.value];
+  }
+
   setCountPassengers(newCountPassengers: [PassengersType, number]) {
     this.searchForm.controls.amountOfPass.controls[newCountPassengers[0]].setValue(
       newCountPassengers[1]

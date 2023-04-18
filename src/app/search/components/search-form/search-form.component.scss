@@ -71,6 +71,22 @@
 }
 
 .search-form {
+  &__switch {
+    height: 40px;
+    width: 40px;
+    border: 0.5px solid $form-border-color;
+    border-radius: 50%;
+    display: flex;
+    background: #ffffff;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 115px;
+    right: 45px;
+    z-index: 2;
+    cursor: pointer;
+  }
+
   &__bottom {
     width: 100%;
     display: flex;
