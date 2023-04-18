@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { City, mockCities } from '../../mock-data';
 import { Observable, map, startWith } from 'rxjs';
+import { PassengersType } from '../../models/passengers.model';
 
 @Component({
   selector: 'app-search-form',
@@ -17,18 +18,22 @@ export class SearchFormComponent implements OnInit {
 
   minDate = '';
 
+  typeOfPassengers: ('adult' | 'child' | 'infant')[] = ['adult', 'child', 'infant'];
+
   searchForm = this.fb.group({
     typeOfFlight: ['', Validators.required],
     from: ['', Validators.required],
     destination: ['', Validators.required],
     dateFrom: ['', Validators.required],
     dateDestination: ['', Validators.required],
-    amountOfPass: this.fb.group({
-      adults: [1],
-      children: [0],
-      infants: [0],
+    amountOfPass: this.fb.group<Record<'adult' | 'child' | 'infant', number>>({
+      adult: 1,
+      child: 0,
+      infant: 0,
     }),
   });
+
+  hiddenAddition = false;
 
   ngOnInit() {
     this.searchForm.controls.typeOfFlight.setValue('round');
@@ -62,6 +67,12 @@ export class SearchFormComponent implements OnInit {
       (city) =>
         city.name.toLowerCase().includes(filterValue) ||
         city.code.toLowerCase().includes(filterValue)
+    );
+  }
+
+  setCountPassengers(newCountPassengers: [PassengersType, number]) {
+    this.searchForm.controls.amountOfPass.controls[newCountPassengers[0]].setValue(
+      newCountPassengers[1]
     );
   }
 

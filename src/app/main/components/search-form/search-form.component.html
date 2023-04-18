@@ -72,12 +72,24 @@
           <mat-datepicker-toggle matIconSuffix [for]="pickerRound"></mat-datepicker-toggle>
           <mat-date-range-picker #pickerRound></mat-date-range-picker>
         </mat-form-field>
-        <div class="search-form__field search-form__field-addition">
-          <div class="addition">
-            <div class="addition-title">Passengers</div>
-            <div class="addition-amount">1 Adult, 0 Child, 0 Infant</div>
+        <div class="search-form__field">
+          <div class="search-form__field-addition" (click)="hiddenAddition = !hiddenAddition">
+            <div class="passengers-amount">
+              <div class="passengers-amount__title">Passengers</div>
+              <div class="passengers-amount__amount">1 Adult, 0 Child, 0 Infant</div>
+            </div>
+            <mat-icon fontIcon="arrow_drop_down"></mat-icon>
           </div>
-          <mat-icon fontIcon="arrow_drop_down"></mat-icon>
+          <div *ngIf="hiddenAddition">
+            <div class="addition__dropdown">
+              <app-addition-passengers
+                *ngFor="let type of typeOfPassengers"
+                [typeOfPassengers]="type"
+                [countPassengers]="searchForm.controls.amountOfPass.controls[type].value || 0"
+                (newCountPassengers)="setCountPassengers($event)"
+              ></app-addition-passengers>
+            </div>
+          </div>
         </div>
       </div>
       <div class="search-form__bottom">
