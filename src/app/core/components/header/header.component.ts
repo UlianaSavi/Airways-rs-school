@@ -5,12 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
-  hide = true;
-
-  singInActive = false;
-
-  changeStatusSingIn() {
-    this.singInActive = !this.singInActive;
-  }
-}
+export class HeaderComponent {}
