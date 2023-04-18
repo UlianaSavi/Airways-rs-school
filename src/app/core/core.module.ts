@@ -11,6 +11,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProfileModule } from '../profile/profile.module';
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, PageNotFoundComponent],
@@ -27,6 +28,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     ReactiveFormsModule,
     SharedModule,
+    ProfileModule,
   ],
 })
 export class CoreModule {}
