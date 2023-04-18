@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'search',
-    loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
+    loadChildren: () => import('./search/search.module').then((m) => m.SearchModule),
   },
   {
     path: 'booking',
@@ -20,6 +20,11 @@ const routes: Routes = [
   {
     path: 'cart',
     loadChildren: () => import('./cart/cart.module').then((m) => m.CartModule),
+    canActivate: [],
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then((m) => m.ProfileModule),
     canActivate: [],
   },
   {
