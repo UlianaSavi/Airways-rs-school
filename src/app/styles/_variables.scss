@@ -1,18 +1,29 @@
+//colors text
+$main-text-color: #000000;
+$primary-text-color: #11397e;
+$second-text-color: #1c1b1f;
+$third-text-color: #74767a;
+
+//colors background
+$form-background-color: rgba(255, 255, 255, 0.85);
+
+//colors border
+$form-border-color: rgba(116, 118, 122, 0.6);
 $header-bg: rgba(116, 118, 122, 0.2);
 $header-color: white;
 $header-button-bg: rgba(241, 243, 246, 0.15);
-$header-button-border: #CECECE;
+$header-button-border: #cecece;
 $header-button-color: #ffffff;
 $header-option: black;
 
-$footer-border: #D0D9DF;
-$footer-text: #11397E;
+$footer-border: #d0d9df;
+$footer-text: #11397e;
 
-$singIn-bg: #FFFFFF;
-$singIn-closeBtn: #74767A;
+$singIn-bg: #ffffff;
+$singIn-closeBtn: #74767a;
 $singIn-fastLoginBtn-color: black;
-$singIn-fastLoginBtn-border: #CECECE;
-$singIn-fastLoginBtn-bg: #F4F6F9;
-$singIn-line: #E1E5EB;
-$singIn-submitBtn-link: #11397E;
+$singIn-fastLoginBtn-border: #cecece;
+$singIn-fastLoginBtn-bg: #f4f6f9;
+$singIn-line: #e1e5eb;
+$singIn-submitBtn-link: #11397e;
 $singIn-submit-color: white;

@@ -1,0 +1,48 @@
+@import "variables";
+
+.addition__dropdown {
+  width: 200px;
+  height: 185px;
+  padding: 14px 16px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  position: relative;
+  z-index: 2;
+}
+
+.passengers,
+.passengers__control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.passengers {
+  height: 56px;
+  color: $primary-text-color;
+
+  &__title {
+    &-big {
+      font-size: 16px;
+    }
+
+    &-small {
+      color: $third-text-color;
+    }
+  }
+
+  &__control {
+    width: 72px;
+
+    & > div {
+      width: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &-btn {
+      cursor: pointer;
+    }
+  }
+}

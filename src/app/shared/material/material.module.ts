@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   exports: [
@@ -29,6 +30,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatMenuModule,
     MatTabsModule,
     MatCheckboxModule,
+    MatFormFieldModule,
   ],
 })
 export class MaterialModule {}
