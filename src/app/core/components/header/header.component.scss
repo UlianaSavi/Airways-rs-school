@@ -1,0 +1,60 @@
+@import "variables";
+
+.header {
+  background: $header-bg;
+  color: $header-color;
+}
+
+.header-container {
+  justify-content: space-between;
+  align-items: center;
+  height: 88px;
+}
+
+.header-menu {
+  display: flex;
+  align-items: center;
+  column-gap: 40px;
+}
+
+.header-button {
+  background: $header-button-bg;
+  border: 0.5px solid $header-button-border;
+  border-radius: 4px;
+  color: $header-button-color;
+  cursor: pointer;
+}
+
+.header-option {
+  color: $header-option;
+}
+
+.header-date-format {
+  width: 162px;
+  height: 40px;
+  padding-left: 10px;
+}
+
+.header-currency {
+  width: 62px;
+  height: 40px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  text-align: center;
+}
+
+.header-singIn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 114px;
+  height: 40px;
+}
+
+.header-basket {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
