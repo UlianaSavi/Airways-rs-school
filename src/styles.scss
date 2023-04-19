@@ -1,9 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
-
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 html,
@@ -14,4 +17,18 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: inherit;
+  max-width: 1430px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.active {
+  display: block !important;
 }

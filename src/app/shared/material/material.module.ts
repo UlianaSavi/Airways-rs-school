@@ -10,6 +10,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   exports: [
@@ -25,6 +27,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatAutocompleteModule,
     MatSelectModule,
     MatMenuModule,
+    MatTabsModule,
+    MatCheckboxModule,
   ],
 })
 export class MaterialModule {}

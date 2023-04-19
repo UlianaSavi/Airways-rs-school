@@ -1,0 +1,110 @@
+@import "variables";
+
+.header {
+  background: $header-bg;
+  color: $header-color;
+  position: sticky;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+}
+
+.header-container {
+  justify-content: space-between;
+  align-items: center;
+  height: 88px;
+}
+
+.header-logo {
+  cursor: pointer;
+}
+
+.header-booking {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 6px;
+}
+
+.booking-step {
+  display: flex;
+  column-gap: 8px;
+}
+
+.booking-step-icon {
+  width: 16px;
+  height: 16px;
+  background: #0090BD;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+}
+
+.active-step {
+  background: #0090BD;
+}
+
+.not-active-step {
+  background: #74767A;
+}
+
+.booking-line {
+  width: 79.9px;
+  height: 1px;
+  background: rgba(116, 118, 122, 0.6);
+  transform: matrix(1, 0, 0, -1, 0, 0);
+}
+
+.header-menu {
+  display: flex;
+  align-items: center;
+  column-gap: 40px;
+}
+
+.header-button {
+  background: $header-button-bg;
+  border: 0.5px solid $header-button-border;
+  border-radius: 4px;
+  color: $header-button-color;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-option {
+  color: $header-option;
+}
+
+.header-date-format {
+  width: 162px;
+  height: 40px;
+  padding-left: 10px;
+}
+
+.header-currency {
+  width: 62px;
+  height: 40px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  text-align: center;
+}
+
+.header-singIn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 114px;
+  height: 40px;
+}
+
+.header-basket {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}

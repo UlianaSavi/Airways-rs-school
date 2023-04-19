@@ -1,1 +1,47 @@
-<p>header works!</p>
+<header class="header">
+  <div class="container header-container">
+    <img routerLink="/" routerLinkActive="active" class="header-logo" ngSrc="assets/icons/header_logo.svg" alt="header-logo" height="39" width="112">
+    <div class="header-menu">
+      <span *ngIf="true">Book flight</span>
+      <div *ngIf="false" class="header-booking">
+        <div class="booking-step">
+          <div class="booking-step-icon active-step">
+            <img ngSrc="assets/icons/check_icon.svg" alt="current-step icon" height="9" width="10">
+          </div>
+          <span>Flights</span>
+        </div>
+        <div class="booking-line"></div>
+        <div class="booking-step">
+          <div class="booking-step-icon active-step">
+            <img ngSrc="assets/icons/pencil_icon.svg" alt="current-step icon" height="9" width="10">
+          </div>
+          <span>Passengers</span>
+        </div>
+        <div class="booking-line"></div>
+        <div class="booking-step">
+          <div class="booking-step-icon not-active-step">3</div>
+          <span>Review & Payment</span>
+        </div>
+      </div>
+      <select class="header-button header-date-format" name="date-format" id="date-format">
+        <option class="header-option" selected>MM/DD/YYYY</option>
+        <option class="header-option">DD/MM/YYYY</option>
+        <option class="header-option">YYYY/DD/MM</option>
+        <option class="header-option">YYYY/MM/DD</option>
+      </select>
+      <select class="header-button header-currency" name="currency" id="currency">
+        <option class="header-option" selected>EUR</option>
+        <option class="header-option">USA</option>
+        <option class="header-option">RUB</option>
+        <option class="header-option">PLN</option>
+      </select>
+      <button class="header-button header-singIn" (click)="changeStatusSingIn()">
+        <img ngSrc="assets/icons/singInIcon.svg" alt="sign in" width="24" height="24">
+        <span>Sign in</span>
+      </button>
+      <button routerLink="/cart" routerLinkActive="active" class="header-basket">
+        <img ngSrc="assets/icons/basket_icon.svg" alt="basket" width="24" height="24">
+      </button>
+    </div>
+  </div>
+</header>
