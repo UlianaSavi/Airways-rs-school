@@ -15,7 +15,11 @@ export class AuthService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  login(email: string, password: string): Observable<IUser> | IUser | null {
+  isLoggedIn = false;
+
+  currentUser: IUser | null = null;
+
+  login(email: string, password: string): Observable<IUser> | IUser | string {
     // method for server
     // return this.http.post(
     //   this.AUTH_API + 'signin',
@@ -27,8 +31,14 @@ export class AuthService {
     // );
 
     const users: IUser[] = JSON.parse(localStorage.getItem('users') || '');
-    const currUser = users.find((user) => user.email === email && user.password === password);
-    return currUser || null;
+    this.currentUser =
+      users.find((user) => user.email === email && user.password === password) || null;
+    const errMessage = 'Incorrect email or password';
+    if (this.currentUser) {
+      localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+      this.isLoggedIn = true;
+    }
+    return this.currentUser || errMessage;
   }
 
   register(userData: IUser): Observable<IUser[]> | void {
@@ -46,10 +56,11 @@ export class AuthService {
     const users: IUser[] = this.isUsers() ? JSON.parse(localStorage.getItem('users') || '') : [];
     const newUsersArr = [...users].concat(userData);
     localStorage.setItem('users', JSON.stringify(newUsersArr));
-    console.log(JSON.parse(localStorage.getItem('users') || ''));
+    this.isLoggedIn = true;
   }
 
-  logout(): Observable<unknown> | void {
+  logout(): Observable<unknown> {
+    this.isLoggedIn = false;
     return this.http.post(this.AUTH_API + 'signout', {}, this.httpOptions);
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SingInStatusService } from '../../services/sing-in-status.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  constructor(private singInStatusService: SingInStatusService) {}
+  constructor(private singInStatusService: SingInStatusService, public authServise: AuthService) {}
 
   singInSubscription: Subscription | undefined;
 
@@ -16,6 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   changeStatusSingIn() {
     this.singInStatusService.setSingInStatus(!this.singInActive);
+    console.log(this.authServise.isLoggedIn);
   }
 
   ngOnInit(): void {

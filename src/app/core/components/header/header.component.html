@@ -55,7 +55,10 @@
       </select>
       <button class="header-button header-singIn" (click)="changeStatusSingIn()">
         <img ngSrc="assets/icons/singInIcon.svg" alt="sign in" width="24" height="24" />
-        <span>Sign in</span>
+        <span *ngIf="!authServise.isLoggedIn">Sign in</span>
+        <span *ngIf="authServise.isLoggedIn">
+          {{ authServise.currentUser?.name?.firstName }}
+        </span>
       </button>
       <button routerLink="/cart" routerLinkActive="active" class="header-basket">
         <img ngSrc="assets/icons/basket_icon.svg" alt="basket" width="24" height="24" />
