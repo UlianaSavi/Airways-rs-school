@@ -1,6 +1,8 @@
+@import "variables";
+
 .header {
-  background: rgba(116, 118, 122, 0.2);
-  color: white;
+  background: $header-bg;
+  color: $header-color;
   position: sticky;
   width: 100%;
   top: 0;
@@ -62,10 +64,10 @@
 }
 
 .header-button {
-  background: rgba(241, 243, 246, 0.15);
-  border: 0.5px solid #CECECE;
+  background: $header-button-bg;
+  border: 0.5px solid $header-button-border;
   border-radius: 4px;
-  color: #ffffff;
+  color: $header-button-color;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -74,7 +76,7 @@
 }
 
 .header-option {
-  color: black;
+  color: $header-option;
 }
 
 .header-date-format {
@@ -96,6 +98,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 8px;
   width: 114px;
   height: 40px;
 }
