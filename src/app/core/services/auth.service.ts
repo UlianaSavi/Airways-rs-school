@@ -43,12 +43,17 @@ export class AuthService {
     //   this.httpOptions
     // );
 
-    const users: IUser[] = JSON.parse(localStorage.getItem('users') || '');
+    const users: IUser[] = this.isUsers() ? JSON.parse(localStorage.getItem('users') || '') : [];
     const newUsersArr = [...users].concat(userData);
     localStorage.setItem('users', JSON.stringify(newUsersArr));
+    console.log(JSON.parse(localStorage.getItem('users') || ''));
   }
 
   logout(): Observable<unknown> | void {
     return this.http.post(this.AUTH_API + 'signout', {}, this.httpOptions);
   }
+
+  isUsers = (): boolean => {
+    return localStorage.length ? true : false;
+  };
 }

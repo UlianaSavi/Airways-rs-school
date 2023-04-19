@@ -7,10 +7,18 @@ import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfileModule } from './profile/profile.module';
 import { AuthService } from './core/services/auth.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, CoreModule, BrowserAnimationsModule, ProfileModule],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    CoreModule,
+    BrowserAnimationsModule,
+    ProfileModule,
+  ],
   providers: [AuthService],
   bootstrap: [AppComponent],
 })
