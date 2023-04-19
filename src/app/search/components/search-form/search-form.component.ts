@@ -81,10 +81,7 @@ export class SearchFormComponent implements OnInit {
     );
   }
 
-  onSubmit() {
-    // eslint-disable-next-line no-console
-    console.log(this.searchForm.value);
-  }
+  onSubmit() {}
 
   constructor(private fb: FormBuilder) {}
 }
