@@ -1,3 +1,5 @@
+@import "variables";
+
 .singIn-modal {
   display: none;
   position: absolute;
@@ -7,7 +9,7 @@
 
 .singIn {
   width: 494px;
-  background: #FFFFFF;
+  background: $singIn-bg;
   border-radius: 8px;
   padding: 32px 24px;
   box-sizing: border-box;
@@ -18,7 +20,7 @@
   position: absolute;
   right: -25px;
   top: -15px;
-  color: #74767A;
+  color: $singIn-closeBtn;
   cursor: pointer;
   z-index: 10;
 }
@@ -41,23 +43,28 @@
 .fastLogin-button {
   width: 100%;
   height: 56px;
-  color: black;
+  color: $singIn-fastLoginBtn-color;
   font-size: 16px;
-  border: #CECECE;
-  background: #F4F6F9;
+  border: $singIn-fastLoginBtn-border;
+  background: $singIn-fastLoginBtn-bg;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 8px;
+  cursor: pointer;
 }
 
 .singIn-line {
   width: 142px;
   height: 1px;
-  background: #E1E5EB;
+  background: $singIn-line;
   transform: matrix(1, 0, 0, -1, 0, 0);
 }
 
 .singUp-line {
   width: 137px;
   height: 1px;
-  background: #E1E5EB;
+  background: $singIn-line;
   transform: matrix(1, 0, 0, -1, 0, 0);
 }
 
@@ -79,7 +86,7 @@
 
 .singIn-link {
   text-align: right;
-  color: #11397E;
+  color: $singIn-submitBtn-link;
   cursor: pointer;
   &:hover {
     text-decoration: underline;
@@ -87,9 +94,10 @@
 }
 
 .login-submit {
-  background: #11397E;
+  background: $singIn-submitBtn-link;
   border-radius: 4px;
   height: 44px;
+  color: $singIn-submit-color;
 }
 
 .signUp-phone {
