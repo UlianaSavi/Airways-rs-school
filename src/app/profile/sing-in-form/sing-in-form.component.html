@@ -5,11 +5,16 @@
         <div class="login-tab">
           <div class="fastLogin-buttons">
             <button class="header-button fastLogin-button">
-              <img ngSrc="assets/icons/google_icon.svg" alt="google icon" height="19" width="18">
+              <img ngSrc="assets/icons/google_icon.svg" alt="google icon" height="19" width="18" />
               <span>Continue with Google</span>
             </button>
             <button class="header-button fastLogin-button">
-              <img ngSrc="assets/icons/facebook_icon.svg" alt="google icon" height="19" width="18">
+              <img
+                ngSrc="assets/icons/facebook_icon.svg"
+                alt="google icon"
+                height="19"
+                width="18"
+              />
               <span>Continue with Facebook</span>
             </button>
           </div>
@@ -25,9 +30,23 @@
             </mat-form-field>
             <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
               <mat-label>Password</mat-label>
-              <input matInput [type]="hide ? 'password' : 'text'" name="password" formControlName="password" />
-              <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                <mat-icon style="color: #CECECE">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <input
+                matInput
+                [type]="hide ? 'password' : 'text'"
+                name="password"
+                formControlName="password"
+              />
+              <button
+                mat-icon-button
+                matSuffix
+                type="button"
+                (click)="hide = !hide"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide"
+              >
+                <mat-icon style="color: #cecece">
+                  {{ hide ? "visibility_off" : "visibility" }}
+                </mat-icon>
               </button>
             </mat-form-field>
             <span class="singIn-link">Forgot password?</span>
@@ -39,11 +58,16 @@
         <div class="signup-tab">
           <div class="fastLogin-buttons">
             <button class="header-button fastLogin-button">
-              <img ngSrc="assets/icons/google_icon.svg" alt="google icon" height="19" width="18">
+              <img ngSrc="assets/icons/google_icon.svg" alt="google icon" height="19" width="18" />
               <span>Continue with Google</span>
             </button>
             <button class="header-button fastLogin-button">
-              <img ngSrc="assets/icons/facebook_icon.svg" alt="google icon" height="19" width="18">
+              <img
+                ngSrc="assets/icons/facebook_icon.svg"
+                alt="google icon"
+                height="19"
+                width="18"
+              />
               <span>Continue with Facebook</span>
             </button>
           </div>
@@ -63,7 +87,7 @@
             </mat-form-field>
             <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
               <mat-label>First name</mat-label>
-              <input matInput type="text" name="firstName" formControlName="firstName"/>
+              <input matInput type="text" name="firstName" formControlName="firstName" />
             </mat-form-field>
             <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
               <mat-label>Last name</mat-label>
@@ -71,12 +95,22 @@
             </mat-form-field>
             <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
               <mat-label>Date of bird</mat-label>
-              <input matInput [matDatepicker]="dp" type="text" name="dateOfBird" formControlName="dateOfBird" />
+              <input
+                matInput
+                [matDatepicker]="dp"
+                type="text"
+                name="dateOfBird"
+                formControlName="dateOfBird"
+              />
               <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
               <mat-datepicker #dp></mat-datepicker>
             </mat-form-field>
 
-            <mat-button-toggle-group name="fontStyle" aria-label="Font Style" #group="matButtonToggleGroup">
+            <mat-button-toggle-group
+              name="fontStyle"
+              aria-label="Font Style"
+              #group="matButtonToggleGroup"
+            >
               <mat-button-toggle value="male" style="width: 50%">
                 <mat-icon *ngIf="group.value === 'male'">check</mat-icon>
                 <span style="padding-left: 8px">Male</span>
@@ -91,33 +125,28 @@
               <mat-form-field subscriptSizing="dynamic" appearance="fill" style="width: 50%">
                 <mat-label>Country code</mat-label>
                 <mat-select value="+93">
-                  <mat-option [value]="'+93'">
-                    Afghanistan (+93)
-                  </mat-option>
-                  <mat-option [value]="'+7'">
-                    Russia (+7)
-                  </mat-option>
+                  <mat-option [value]="'+93'">Afghanistan (+93)</mat-option>
+                  <mat-option [value]="'+7'">Russia (+7)</mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-form-field subscriptSizing="dynamic" style="width: 50%">
                 <mat-label>Mobile phone number</mat-label>
-                <input type="tel" matInput placeholder="e.g. 111111111">
+                <input type="tel" matInput placeholder="e.g. 111111111" />
               </mat-form-field>
             </div>
 
             <mat-form-field subscriptSizing="dynamic" appearance="fill">
               <mat-label>Citizenship</mat-label>
               <mat-select>
-                <mat-option [value]="'afghanistan'">
-                  Afghanistan
-                </mat-option>
-                <mat-option [value]="'russia'">
-                  Russia
-                </mat-option>
+                <mat-option [value]="'afghanistan'">Afghanistan</mat-option>
+                <mat-option [value]="'russia'">Russia</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-checkbox color="primary">
-              I agree to Airway's <span class="singIn-link">Privacy Policy</span> and <span class="singIn-link">Terms of Use</span>
+              I agree to Airway's
+              <span class="singIn-link">Privacy Policy</span>
+              and
+              <span class="singIn-link">Terms of Use</span>
             </mat-checkbox>
             <button class="login-submit" type="submit" [disabled]="true">Sign Up</button>
           </form>

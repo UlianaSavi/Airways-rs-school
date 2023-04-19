@@ -8,8 +8,6 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { SharedModule } from '../shared/shared.module';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileModule } from '../profile/profile.module';
 
@@ -23,10 +21,8 @@ import { ProfileModule } from '../profile/profile.module';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
-    NgOptimizedImage,
-    SharedModule,
-    MatFormFieldModule,
     ReactiveFormsModule,
+    NgOptimizedImage,
     ProfileModule,
   ],
 })
