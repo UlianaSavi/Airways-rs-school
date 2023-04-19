@@ -7,6 +7,11 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { SharedModule } from '../shared/shared.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ProfileModule } from '../profile/profile.module';
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, PageNotFoundComponent],
@@ -18,6 +23,12 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
     NgOptimizedImage,
+    SharedModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    SharedModule,
+    ProfileModule,
   ],
 })
 export class CoreModule {}
