@@ -13,6 +13,13 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "cli": {
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "src/app/styles"
+          ]
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -47,8 +54,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
