@@ -5,7 +5,7 @@ export interface IUser {
   };
   email: string;
   password: string;
-  birthDate: Date;
+  birthDate: Date | string;
   gender: string;
   phone: string;
   citizenship: string;

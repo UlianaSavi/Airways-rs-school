@@ -9,15 +9,15 @@ import { AuthService } from '../../../core/services/auth.service';
 export class CartFormComponent {
   constructor(private autServise: AuthService) {}
 
-  testSingIn = () => {
+  testRegister = () => {
     const test = {
       name: {
-        firstName: 'Tester',
-        lastName: 'Tester123',
+        firstName: 'tester4',
+        lastName: 'tester4',
       },
-      email: 'tester',
-      password: '',
-      birthDate: new Date(),
+      email: 'tester4@test.ru',
+      password: '666666',
+      birthDate: '08.12.1999',
       gender: '',
       phone: '',
       citizenship: '',
@@ -27,8 +27,8 @@ export class CartFormComponent {
   };
 
   testLogIn = () => {
-    const testEmail = 'tester';
-    const testPassword = '';
+    const testEmail = 'tester4@test.ru';
+    const testPassword = '666666';
 
     this.autServise.login(testEmail, testPassword);
   };

@@ -66,12 +66,7 @@
         routerLink="/profile"
         class="header-button header-singIn"
       >
-        <span>
-          {{ authServise.currentUser?.name?.firstName }}
-        </span>
-        <span>
-          {{ authServise.currentUser?.name?.lastName }}
-        </span>
+        <span>{{ authServise.currentUser?.name?.firstName }}</span>
       </button>
       <button routerLink="/cart" routerLinkActive="active" class="header-basket">
         <img ngSrc="assets/icons/basket_icon.svg" alt="basket" width="24" height="24" />
