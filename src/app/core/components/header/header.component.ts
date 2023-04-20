@@ -17,7 +17,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   changeStatusSingIn() {
     this.singInStatusService.setSingInStatus(!this.singInActive);
-    console.log(this.authServise.isLoggedIn);
   }
 
   ngOnInit(): void {
