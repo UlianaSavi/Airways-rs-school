@@ -7,6 +7,7 @@ import { DetailsComponent } from './components/details/details.component';
 import { AdditionPassengersComponent } from './components/addition-passengers/addition-passengers.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { SearchInfoBlockComponent } from './components/search-info-block/search-info-block.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { SharedModule } from '../shared/shared.module';
     SearchFormComponent,
     DetailsComponent,
     AdditionPassengersComponent,
+    SearchInfoBlockComponent,
   ],
   imports: [CommonModule, SearchRoutingModule, ReactiveFormsModule, SharedModule],
 })

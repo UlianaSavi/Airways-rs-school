@@ -4,6 +4,7 @@ import { Observable, map, startWith } from 'rxjs';
 import { PassengersType } from '../../models/passengers.model';
 import { dateDestinationValidator } from '../../validators/validators';
 import { City, mockCities } from '../../mock-data';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-form',
@@ -11,6 +12,8 @@ import { City, mockCities } from '../../mock-data';
   styleUrls: ['./search-form.component.scss'],
 })
 export class SearchFormComponent implements OnInit {
+  constructor(private router: Router, private fb: FormBuilder) {}
+
   private cities: City[] = mockCities;
 
   filteredFromCities$!: Observable<City[]>;
@@ -81,7 +84,15 @@ export class SearchFormComponent implements OnInit {
     );
   }
 
-  onSubmit() {}
-
-  constructor(private fb: FormBuilder) {}
+  onSubmit(e: SubmitEvent) {
+    e.preventDefault();
+    const formVal = this.searchForm.value;
+    this.router.navigate(['search', 'results'], {
+      queryParams: {
+        from: formVal.from,
+        to: formVal.destination ? formVal.destination : '',
+        date: `${formVal.dateFrom}&${formVal.dateDestination}`,
+      },
+    });
+  }
 }
