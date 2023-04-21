@@ -54,6 +54,8 @@ export class SingInFormComponent implements OnInit, OnDestroy {
   // Методы с данными форм для дальнейшего использования
   login() {
     this.authService.login(this.logInForm.value.email!, this.logInForm.value.password!);
+    this.changeStatus();
+    this.logInForm.reset();
   }
 
   registration() {
@@ -71,6 +73,8 @@ export class SingInFormComponent implements OnInit, OnDestroy {
     };
 
     this.authService.register(userReg);
+    this.changeStatus();
+    this.registrationForm.reset();
   }
 
   hide = true;
