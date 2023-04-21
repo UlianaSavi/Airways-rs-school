@@ -9,6 +9,8 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { AuthService } from '../../core/services/auth.service';
+import { IUser } from '../../core/models/user.model';
 
 @Component({
   selector: 'app-sing-in-form',
@@ -16,6 +18,8 @@ import {
   styleUrls: ['./sing-in-form.component.scss'],
 })
 export class SingInFormComponent implements OnInit, OnDestroy {
+  constructor(private singInStatusService: SingInStatusService, private authService: AuthService) {}
+
   passwordPattern = '(?=.*[0-9])(?=.*[!@#$%^?&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^?&*]{8,}';
 
   emailPattern = /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/;
@@ -49,16 +53,27 @@ export class SingInFormComponent implements OnInit, OnDestroy {
 
   // Методы с данными форм для дальнейшего использования
   login() {
-    console.log('Данные формы singIn>', this.logInForm.value);
+    this.authService.login(this.logInForm.value.email!, this.logInForm.value.password!);
   }
 
   registration() {
-    console.log('Данные формы регистрации>', this.registrationForm.value);
+    const userReg: IUser = {
+      name: {
+        firstName: this.registrationForm.value.firstName!,
+        lastName: this.registrationForm.value.lastName!,
+      },
+      email: this.registrationForm.value.email!,
+      password: this.registrationForm.value.password!,
+      birthDate: this.registrationForm.value.dateOfBird!,
+      gender: this.registrationForm.value.gender!,
+      phone: this.registrationForm.value.countryCode! + this.registrationForm.value.phone!,
+      citizenship: this.registrationForm.value.citizenship!,
+    };
+
+    this.authService.register(userReg);
   }
 
   hide = true;
-
-  constructor(private singInStatusService: SingInStatusService) {}
 
   singInActive = false;
 
