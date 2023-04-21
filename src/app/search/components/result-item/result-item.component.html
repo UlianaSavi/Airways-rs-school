@@ -1,0 +1,13 @@
+<div class="result-item">
+  <div class="result-item__title">
+    <img
+      class="result-item__title-img"
+      src="/assets/icons/airplane.svg"
+      [ngClass]="{ back: isBack }"
+    />
+    <span>{{ cityFrom }} to {{ cityTo }}</span>
+  </div>
+  <app-calendar class="result-item__calendar"></app-calendar>
+  <app-details class="result-item__details"></app-details>
+  <app-details class="result-item__details"></app-details>
+</div>

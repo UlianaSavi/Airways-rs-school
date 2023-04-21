@@ -7,6 +7,8 @@ import { DetailsComponent } from './components/details/details.component';
 import { AdditionPassengersComponent } from './components/addition-passengers/addition-passengers.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { ResultItemComponent } from './components/result-item/result-item.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +16,8 @@ import { SharedModule } from '../shared/shared.module';
     SearchFormComponent,
     DetailsComponent,
     AdditionPassengersComponent,
+    ResultItemComponent,
+    CalendarComponent,
   ],
   imports: [CommonModule, SearchRoutingModule, ReactiveFormsModule, SharedModule],
 })

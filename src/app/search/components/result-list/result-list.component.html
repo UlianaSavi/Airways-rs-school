@@ -1,1 +1,6 @@
-<p>result-list works!</p>
+<div class="container">
+  <div class="result-list">
+    <app-result-item [isBack]="false"></app-result-item>
+    <app-result-item *ngIf="hasBack" [isBack]="true"></app-result-item>
+  </div>
+</div>

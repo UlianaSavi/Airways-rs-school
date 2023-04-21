@@ -5,4 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './result-list.component.html',
   styleUrls: ['./result-list.component.scss'],
 })
-export class ResultListComponent {}
+export class ResultListComponent {
+  hasBack = true;
+}

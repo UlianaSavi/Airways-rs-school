@@ -1,0 +1,27 @@
+.result-item {
+  margin-bottom: 24px;
+
+  &__title {
+    height: 44px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 28px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    &-img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__calendar {}
+
+  &__details {}
+}
+
+.back {
+  transform: translateX(180);
+}
