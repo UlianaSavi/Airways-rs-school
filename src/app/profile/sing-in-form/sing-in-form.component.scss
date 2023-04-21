@@ -90,6 +90,8 @@
   border-radius: 4px;
   height: 44px;
   color: $singIn-submit-color;
+  cursor: pointer;
+
   &:disabled {
     background: $singIn-disabledBtn-link;
     color: $singIn-disabledSubmit-color;
