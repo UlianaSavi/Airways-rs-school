@@ -15,7 +15,7 @@ export class AuthService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  isLoggedIn = localStorage.getItem('currentUser') ? true : false;
+  isLoggedIn = !!localStorage.getItem('currentUser');
 
   currentUser: IUser | null = localStorage.getItem('currentUser')
     ? JSON.parse(localStorage.getItem('currentUser') || '')
@@ -41,14 +41,17 @@ export class AuthService {
   }
 
   register(userData: IUser) {
-    this.http
-      .post(this.AUTH_API + '/register', userData, this.httpOptions)
-      .subscribe((response) => {
+    this.http.post(this.AUTH_API + '/register', userData, this.httpOptions).subscribe({
+      next: (response) => {
         const res = response as IResponse;
         this.currentUser = res.user;
         localStorage.setItem('currentUser', JSON.stringify(res.user));
         localStorage.setItem('accessToken', JSON.stringify(res.accessToken));
         this.isLoggedIn = true;
-      });
+      },
+      error: (err) => {
+        console.error(err.message);
+      },
+    });
   }
 }
