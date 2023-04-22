@@ -91,7 +91,9 @@ export class SearchFormComponent implements OnInit {
       queryParams: {
         from: formVal.from,
         to: formVal.destination ? formVal.destination : '',
-        date: `${formVal.dateFrom}&${formVal.dateDestination}`,
+        dateFrom: formVal.dateFrom,
+        dateTo: formVal.dateDestination,
+        passengers: formVal.amountOfPass,
       },
     });
   }
