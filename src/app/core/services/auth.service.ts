@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { IUser } from '../models/user.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { IResponse } from '../models/register-response.model';
+import { catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -41,17 +42,21 @@ export class AuthService {
   }
 
   register(userData: IUser) {
-    this.http.post(this.AUTH_API + '/register', userData, this.httpOptions).subscribe({
-      next: (response) => {
+    this.http
+      .post(this.AUTH_API + '/register', userData, this.httpOptions)
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          console.log('error caught in service: ', err.error);
+
+          return throwError(() => err);
+        })
+      )
+      .subscribe((response) => {
         const res = response as IResponse;
         this.currentUser = res.user;
         localStorage.setItem('currentUser', JSON.stringify(res.user));
         localStorage.setItem('accessToken', JSON.stringify(res.accessToken));
         this.isLoggedIn = true;
-      },
-      error: (err) => {
-        console.error(err.message);
-      },
-    });
+      });
   }
 }
