@@ -10,18 +10,22 @@
   }
 
   &__ways {
-    font-size: 16px;
+    display: flex;
+    align-items: center;
+
+    font-size: 1.14em;
     font-weight: 500;
-    margin-right: 30px;
+    margin-right: 3em;
   }
 
   &__img {
-    padding: 0 10px;
+    margin: 0 10px;
   }
 
   &__counts {
     display: flex;
     align-items: center;
+    margin-right: 3em;
 
     color: $grey;
     font-weight: 500;
@@ -31,7 +35,7 @@
       height: fit-content;
       padding: 0 5px;
 
-      font-size: 24px;
+      font-size: 0.9em;
       color: $lite-blue;
       vertical-align: bottom;
     }
@@ -39,6 +43,10 @@
     .icon {
       transform: scale(0.8) translate(0px, -2px);
       color: $grey;
+    }
+
+    i {
+      padding: 0 3px;
     }
   }
 

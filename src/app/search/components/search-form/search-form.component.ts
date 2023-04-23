@@ -87,7 +87,6 @@ export class SearchFormComponent implements OnInit {
   onSubmit(e: SubmitEvent) {
     e.preventDefault();
     const formVal = this.searchForm.value;
-    console.log(formVal);
     this.router.navigate(['search', 'results'], {
       queryParams: {
         from: formVal.from,
