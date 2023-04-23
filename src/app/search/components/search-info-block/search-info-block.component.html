@@ -2,16 +2,23 @@
   <div class="container">
     <div class="search-info__ways">
       <span>{{ from }}</span>
-      <mat-icon fontIcon="home"></mat-icon>
+      <img
+        class="search-info__img"
+        ngSrc="assets/icons/github-icon.svg"
+        alt="Arrows"
+        width="24"
+        height="24"
+      />
       <span>{{ to }}</span>
     </div>
     <div class="search-info__counts">
       Return
-      <span>{{ dateFrom }}</span>
+      <span>{{ dateFrom | date : "MMM d" }}</span>
       <span>-</span>
       <span></span>
-      <span>{{ dateTo }}</span>
+      <span>{{ dateTo | date : "MMM d" }}</span>
     </div>
+    <div class="search-info-people">{{ count }}</div>
     <button class="search-info___edit btn">Edit</button>
   </div>
 </div>

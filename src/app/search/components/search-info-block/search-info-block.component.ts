@@ -13,20 +13,23 @@ export class SearchInfoBlockComponent implements OnInit {
 
   to: string | null = null;
 
-  dateFrom: string | null | undefined = null;
+  dateFrom: string | null = null;
 
   dateTo: string | null = null;
 
-  passengers: string | null = null;
+  count: number | null = null;
 
   ngOnInit() {
     this.route.queryParamMap.subscribe((params) => {
-      // TO DO: translate data to currect format
-      this.from = params.get('from');
-      this.to = params.get('to');
+      this.from = params.get('from')?.slice(0, -4) || null;
+      this.to = params.get('to')?.slice(0, -4) || null;
       this.dateFrom = params.get('dateFrom');
       this.dateTo = params.get('dateTo');
-      this.passengers = params.get('passengers');
+      const adult = params.get('adult')?.replace(/[^0-9]/g, '') || null;
+      const child = params.get('child')?.replace(/[^0-9]/g, '') || null;
+      const infant = params.get('infant')?.replace(/[^0-9]/g, '') || null;
+
+      this.count = Number(adult) + Number(child) + Number(infant);
     });
   }
 }

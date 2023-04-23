@@ -2,6 +2,16 @@
   .container {
     justify-content: flex-start;
   }
+
+  &__ways {
+    font-size: 16px;
+    font-weight: 500;
+    margin-right: 30px;
+  }
+
+  &__img {
+    padding: 0 10px;
+  }
 }
 
 
