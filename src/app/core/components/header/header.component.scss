@@ -1,4 +1,4 @@
-@import "/src/app/styles/variables";
+@import "variables";
 
 .header {
   height: 88px;
@@ -11,10 +11,6 @@
   color: $header-color;
 }
 
-.header-container {
-  justify-content: space-between;
-  align-items: center;
-}
 
 .header-logo {
   cursor: pointer;
