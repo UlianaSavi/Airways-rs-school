@@ -10,6 +10,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileModule } from '../profile/profile.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, PageNotFoundComponent],
@@ -24,6 +25,7 @@ import { ProfileModule } from '../profile/profile.module';
     ReactiveFormsModule,
     NgOptimizedImage,
     ProfileModule,
+    SharedModule,
   ],
 })
 export class CoreModule {}
