@@ -13,20 +13,49 @@
     <div *ngIf="stepsActivate" class="header-booking">
       <div class="booking-step">
         <div class="booking-step-icon" [ngClass]="{ activeStep: activeSearchStep }">
-          <img ngSrc="assets/icons/check_icon.svg" alt="current-step icon" height="9" width="10" />
+          <img
+            *ngIf="activeSearchStep"
+            ngSrc="assets/icons/check_icon.svg"
+            alt="current-step icon"
+            height="9"
+            width="10"
+          />
         </div>
         <span>Flights</span>
       </div>
       <div class="booking-line"></div>
       <div class="booking-step">
         <div class="booking-step-icon" [ngClass]="{ activeStep: activeBookingStep }">
-          <img ngSrc="assets/icons/pencil_icon.svg" alt="current-step icon" height="9" width="10" />
+          <img
+            *ngIf="(activeBookingStep && !activeLastStep) || !activeSearchStep"
+            ngSrc="assets/icons/pencil_icon.svg"
+            alt="current-step icon"
+            height="9"
+            width="10"
+          />
+          <img
+            *ngIf="activeLastStep"
+            ngSrc="assets/icons/check_icon.svg"
+            alt="current-step icon"
+            height="9"
+            width="10"
+          />
+          <span *ngIf="activeSearchStep && !activeBookingStep">2</span>
         </div>
         <span>Passengers</span>
       </div>
       <div class="booking-line"></div>
       <div class="booking-step">
-        <div class="booking-step-icon" [ngClass]="{ activeStep: activeLastStep }">3</div>
+        <div class="booking-step-icon" [ngClass]="{ activeStep: activeLastStep }">
+          <img
+            *ngIf="activeLastStep"
+            ngSrc="assets/icons/pencil_icon.svg"
+            alt="current-step icon"
+            height="9"
+            width="10"
+          />
+          <span *ngIf="!activeLastStep">3</span>
+        </div>
         <span>Review & Payment</span>
       </div>
     </div>
