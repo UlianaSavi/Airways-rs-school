@@ -15,7 +15,7 @@
       Return
       <span class="search-info__counts__round">&bull;</span>
       <span>{{ dateFrom | date : "MMM d" }}</span>
-      <i>-</i>
+      <i *ngIf="dateTo">-</i>
       <span>{{ dateTo | date : "MMM d" }}</span>
       <span class="search-info__counts__round">&bull;</span>
       <span class="search-info__counts__people">{{ count }}</span>
