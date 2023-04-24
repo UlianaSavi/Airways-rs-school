@@ -1,8 +1,21 @@
 @import 'variables';
 
 .calendar {
-  height: 70px;
+  height: 83px;
   display: flex;
-  background-color: $second-background;
+  align-items: flex-end;
   margin-bottom: 10px;
+
+  &__item {
+    height: 70px;
+    background-color: $second-background;
+    flex: 1 0 20%;
+    border-left: 1px solid $main-border-color;
+    cursor: pointer;
+
+    &-active {
+      height: 83px;
+      border-bottom: 4px solid $first-active-border-color;
+    }
+  }
 }

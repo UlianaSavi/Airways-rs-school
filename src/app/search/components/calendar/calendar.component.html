@@ -1,3 +1,7 @@
 <div class="calendar">
-  <p>calendar works!</p>
+  <app-calendar-item
+    class="calendar__item"
+    *ngFor="let date of dates; trackBy: trackByFn"
+    [date]="date"
+  ></app-calendar-item>
 </div>
