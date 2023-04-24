@@ -10,7 +10,7 @@ const searchRoutes: Routes = [
     component: SearchFormComponent,
   },
   {
-    path: ':searchRequest',
+    path: 'results',
     component: ResultListComponent,
   },
   {

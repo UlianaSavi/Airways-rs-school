@@ -1,19 +1,16 @@
 @import "variables";
 
 .header {
-  background: $header-bg;
-  color: $header-color;
-  position: sticky;
+  height: 88px;
   width: 100%;
+  position: sticky;
   top: 0;
   z-index: 10;
+
+  background: $header-bg;
+  color: $header-color;
 }
 
-.header-container {
-  justify-content: space-between;
-  align-items: center;
-  height: 88px;
-}
 
 .header-logo {
   cursor: pointer;
@@ -34,48 +31,43 @@
 .booking-step-icon {
   width: 16px;
   height: 16px;
-  background: #0090bd;
-  border-radius: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  background: $grey;
+  border-radius: 100px;
   font-size: 12px;
 }
 
-.active-step {
-  background: #0090bd;
-}
-
-.not-active-step {
-  background: #74767a;
+.activeStep {
+  background: $lite-blue-background;
 }
 
 .booking-line {
   width: 79.9px;
   height: 1px;
-  background: rgba(116, 118, 122, 0.6);
   transform: matrix(1, 0, 0, -1, 0, 0);
+  background: $lite-grey;
 }
 
 .header-menu {
-  width: 100%;
-  max-width: 700px;
-
   display: flex;
   align-items: center;
   column-gap: 40px;
 }
 
 .header-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
   background: $header-button-bg;
   border: 0.5px solid $header-button-border;
   border-radius: 4px;
   color: $header-button-color;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
 }
 
 .header-option {
@@ -98,13 +90,13 @@
 }
 
 .header-singIn {
+  width: 100%;
+  max-width: 200px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
-  width: 100%;
-  max-width: 200px;
-  height: 40px;
   overflow: hidden;
 }
 

@@ -3,11 +3,17 @@ $main-text-color: #000000;
 $primary-text-color: #11397e;
 $second-text-color: #1c1b1f;
 $third-text-color: #74767a;
+$lite-blue: rgb(96, 179, 248);
+$grey: rgb(87, 87, 87);
+$lite-grey: rgb(193 193 193);
 
 //colors background
 $form-background-color: rgba(255, 255, 255, 0.85);
 $main-background: #F5F5F5;
 $second-background: #ffffff;
+$btn-transparent: #F4F6F9;
+$lite-grey-background: #FAFAFA;
+$lite-blue-background: #0090bd;
 
 //colors border
 $form-border-color: rgba(116, 118, 122, 0.6);
@@ -32,4 +38,9 @@ $singIn-fastLoginBtn-border: #cecece;
 $singIn-fastLoginBtn-bg: #f4f6f9;
 $singIn-line: #e1e5eb;
 $singIn-submitBtn-link: #11397e;
+$singIn-disabledBtn-link: rgba(38, 77, 215, 0.5);
+$singIn-disabledSubmit-color: rgba(103, 103, 103, 0.5);
+$singIn-submit-color: white;
+$singIn-disabledBtn-link: rgba(38, 77, 215, 0.5);
+$singIn-disabledSubmit-color: rgba(103, 103, 103, 0.5);
 $singIn-submit-color: white;

@@ -1,6 +1,6 @@
 <div class="wrapper-main">
   <div class="container">
-    <form [formGroup]="searchForm" (submit)="onSubmit()" class="search-form">
+    <form [formGroup]="searchForm" (submit)="onSubmit($event)" class="search-form">
       <mat-radio-group formControlName="typeOfFlight" class="search-form__radio">
         <mat-radio-button
           value="round"
@@ -128,6 +128,7 @@
       </div>
       <div class="search-form__bottom">
         <button
+          type="submit"
           mat-flat-button
           color="primary"
           [disabled]="searchForm.invalid"
