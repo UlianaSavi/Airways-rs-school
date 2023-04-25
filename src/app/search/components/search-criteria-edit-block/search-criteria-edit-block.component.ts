@@ -4,7 +4,7 @@ import { dateDestinationValidator } from '../../validators/validators';
 import { PassengersType } from '../../models/passengers.model';
 import { City, mockCities } from '../../mock-data';
 import { Observable, map, startWith } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-criteria-edit-block',
@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./search-criteria-edit-block.component.scss'],
 })
 export class SearchCriteriaEditBlockComponent implements OnInit {
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {}
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router) {}
 
   private cities: City[] = mockCities;
 
@@ -42,11 +42,6 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
 
   typeOfFlight: string | null = null;
 
-  onSubmit = (e: SubmitEvent) => {
-    e.preventDefault();
-    // TO DO: send data to query
-  };
-
   switchDestinations(from: HTMLInputElement, to: HTMLInputElement) {
     [from.value, to.value] = [to.value, from.value];
   }
@@ -75,8 +70,13 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParamMap.subscribe((params) => {
-      this.from = params.get('from')?.slice(0, -4) || null;
-      this.to = params.get('to')?.slice(0, -4) || null;
+      if (params.get('searchType') === 'afterEdit') {
+        this.from = params.get('from') || null;
+        this.to = params.get('to') || null;
+      } else {
+        this.from = params.get('from')?.slice(0, -4) || null;
+        this.to = params.get('to')?.slice(0, -4) || null;
+      }
       this.dateFrom = new Date(params.get('dateFrom') || '');
       this.dateTo = new Date(params.get('dateTo') || '');
       this.adult = params.get('adult')?.replace(/[^0-9]/g, '') || null;
@@ -124,4 +124,22 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
         city.code.toLowerCase().includes(filterValue)
     );
   }
+
+  onSubmit = (e: SubmitEvent) => {
+    e.preventDefault();
+    console.log('submit');
+    this.router.navigate(['search', 'results'], {
+      queryParams: {
+        from: this.from,
+        to: this.to ? this.to : '',
+        dateFrom: this.dateFrom,
+        dateTo: this.dateTo,
+        adult: this.adult,
+        child: this.child,
+        infant: this.infant,
+        typeOfFlight: this.typeOfFlight,
+        searchType: 'afterEdit',
+      },
+    });
+  };
 }

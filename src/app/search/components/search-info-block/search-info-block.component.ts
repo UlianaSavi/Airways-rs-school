@@ -25,14 +25,18 @@ export class SearchInfoBlockComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParamMap.subscribe((params) => {
-      this.from = params.get('from')?.slice(0, -4) || null;
-      this.to = params.get('to')?.slice(0, -4) || null;
+      if (params.get('searchType') === 'afterEdit') {
+        this.from = params.get('from') || null;
+        this.to = params.get('to') || null;
+      } else {
+        this.from = params.get('from')?.slice(0, -4) || null;
+        this.to = params.get('to')?.slice(0, -4) || null;
+      }
       this.dateFrom = params.get('dateFrom');
       this.dateTo = params.get('dateTo');
       const adult = params.get('adult')?.replace(/[^0-9]/g, '') || null;
       const child = params.get('child')?.replace(/[^0-9]/g, '') || null;
       const infant = params.get('infant')?.replace(/[^0-9]/g, '') || null;
-
       this.count = Number(adult) + Number(child) + Number(infant);
     });
   }
