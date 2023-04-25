@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -19,6 +19,10 @@ export class SearchInfoBlockComponent implements OnInit {
 
   count: number | null = null;
 
+  editBlock = false;
+
+  @Output() editBlockChanged = new EventEmitter<boolean>();
+
   ngOnInit() {
     this.route.queryParamMap.subscribe((params) => {
       this.from = params.get('from')?.slice(0, -4) || null;
@@ -32,4 +36,9 @@ export class SearchInfoBlockComponent implements OnInit {
       this.count = Number(adult) + Number(child) + Number(infant);
     });
   }
+
+  showEditBlock = () => {
+    this.editBlock = !this.editBlock;
+    this.editBlockChanged.emit(this.editBlock);
+  };
 }
