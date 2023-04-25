@@ -8,6 +8,7 @@ import { AdditionPassengersComponent } from './components/addition-passengers/ad
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { SearchInfoBlockComponent } from './components/search-info-block/search-info-block.component';
+import { SearchCriteriaEditBlockComponent } from './components/search-criteria-edit-block/search-criteria-edit-block.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { SearchInfoBlockComponent } from './components/search-info-block/search-
     DetailsComponent,
     AdditionPassengersComponent,
     SearchInfoBlockComponent,
+    SearchCriteriaEditBlockComponent,
   ],
   imports: [CommonModule, SearchRoutingModule, ReactiveFormsModule, SharedModule, NgOptimizedImage],
 })
