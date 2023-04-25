@@ -1,16 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { dateDestinationValidator } from '../../validators/validators';
 import { PassengersType } from '../../models/passengers.model';
 import { City, mockCities } from '../../mock-data';
-import { Observable } from 'rxjs';
+import { Observable, map, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-search-criteria-edit-block',
   templateUrl: './search-criteria-edit-block.component.html',
   styleUrls: ['./search-criteria-edit-block.component.scss'],
 })
-export class SearchCriteriaEditBlockComponent {
+export class SearchCriteriaEditBlockComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
 
   private cities: City[] = mockCities;
@@ -55,5 +55,36 @@ export class SearchCriteriaEditBlockComponent {
 
   displayFn(city: string): string {
     return city ? city : '';
+  }
+
+  ngOnInit() {
+    this.searchEditForm.controls.typeOfFlight.setValue('round');
+
+    this.filteredFromCities$ = this.searchEditForm.valueChanges.pipe(
+      startWith(''),
+      map((value) => {
+        const name = typeof value === 'string' ? value : value?.from;
+        return name ? this._filter(name as string) : this.cities.slice();
+      })
+    );
+    this.filteredDestinationCities$ = this.searchEditForm.valueChanges.pipe(
+      startWith(''),
+      map((value) => {
+        const name = typeof value === 'string' ? value : value?.destination;
+        return name ? this._filter(name as string) : this.cities.slice();
+      })
+    );
+
+    this.minDate = new Date().toISOString().slice(0, 10);
+  }
+
+  private _filter(name: string): City[] {
+    const filterValue = name.toLowerCase();
+
+    return this.cities.filter(
+      (city) =>
+        city.name.toLowerCase().includes(filterValue) ||
+        city.code.toLowerCase().includes(filterValue)
+    );
   }
 }
