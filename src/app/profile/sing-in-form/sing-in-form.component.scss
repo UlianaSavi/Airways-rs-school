@@ -21,7 +21,7 @@
   position: absolute;
   right: -25px;
   top: -15px;
-  color: $singIn-closeBtn;
+  color: $third-text-color;
   cursor: pointer;
   z-index: 10;
 }
@@ -36,10 +36,10 @@
 .fastLogin-button {
   width: 100%;
   height: 56px;
-  color: $singIn-fastLoginBtn-color;
+  color: $black;
   font-size: 16px;
-  border: $singIn-fastLoginBtn-border;
-  background: $singIn-fastLoginBtn-bg;
+  border: $header-button-border;
+  background: $btn-transparent;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,7 +78,7 @@
 }
 
 .singIn-link {
-  color: $singIn-submitBtn-link;
+  color: $primary-text-color;
   cursor: pointer;
   &:hover {
     text-decoration: underline;
@@ -86,10 +86,10 @@
 }
 
 .login-submit {
-  background: $singIn-submitBtn-link;
+  background: $primary-text-color;
   border-radius: 4px;
   height: 44px;
-  color: $singIn-submit-color;
+  color: $white;
   cursor: pointer;
 
   &:disabled {
