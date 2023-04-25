@@ -127,19 +127,6 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
 
   onSubmit = (e: SubmitEvent) => {
     e.preventDefault();
-    console.log('submit');
-    this.router.navigate(['search', 'results'], {
-      queryParams: {
-        from: this.from,
-        to: this.to ? this.to : '',
-        dateFrom: this.dateFrom,
-        dateTo: this.dateTo,
-        adult: this.adult,
-        child: this.child,
-        infant: this.infant,
-        typeOfFlight: this.typeOfFlight,
-        searchType: 'afterEdit',
-      },
-    });
+    // TO DO: UrlServise.setUrlParams(params)
   };
 }
