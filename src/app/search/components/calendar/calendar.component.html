@@ -1,7 +1,11 @@
 <div class="calendar">
+  <div class="calendar__btn calendar__btn-left btn" (click)="datePrev()"><</div>
   <app-calendar-item
     class="calendar__item"
     *ngFor="let date of dates; trackBy: trackByFn"
     [date]="date"
+    (click)="selectDate = date"
+    [ngClass]="{ 'calendar__item-active': selectDate.getTime() === date.getTime() }"
   ></app-calendar-item>
+  <div class="calendar__btn calendar__btn-right btn" (click)="dateNext()">></div>
 </div>

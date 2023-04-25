@@ -1,5 +1,8 @@
 <div class="calendar-item">
   <div class="calendar-item__date">{{ date | date : dateFormat }}</div>
   <div class="calendar-item__day">{{ date | date : "EEEE" }}</div>
-  <div class="calendar-item__price">{{ price | currency : currentCurrency }}</div>
+  <div class="calendar-item__price">
+    <span *ngIf="price > 10; else noFly">{{ price | currency : currentCurrency }}</span>
+    <ng-template #noFly><img src="/assets/icons/do_not_fly.svg" /></ng-template>
+  </div>
 </div>

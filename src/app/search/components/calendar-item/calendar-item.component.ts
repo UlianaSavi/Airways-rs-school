@@ -8,7 +8,9 @@ import { Component, Input } from '@angular/core';
 export class CalendarItemComponent {
   @Input() date: Date = new Date();
 
-  @Input() price = 12.34;
+  @Input() selectDate: Date = new Date();
+
+  @Input() price = Math.random() * 100;
 
   dateFormat = 'dd LLL';
 
