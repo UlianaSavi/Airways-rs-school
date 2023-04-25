@@ -30,9 +30,9 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
 
   to: string | null = null;
 
-  dateFrom: string | null = null;
+  dateFrom: Date | null = null;
 
-  dateTo: string | null = null;
+  dateTo: Date | null = null;
 
   adult: string | null = null;
 
@@ -64,8 +64,8 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
   searchEditForm = this.fb.group({
     from: ['', Validators.required],
     destination: ['', Validators.required],
-    dateFrom: ['', Validators.required],
-    dateDestination: ['', dateDestinationValidator()],
+    dateFrom: [new Date(), Validators.required],
+    dateDestination: [new Date(), dateDestinationValidator()],
     amountOfPass: this.fb.group<Record<PassengersType, number>>({
       adult: 1,
       child: 0,
@@ -77,15 +77,12 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
     this.route.queryParamMap.subscribe((params) => {
       this.from = params.get('from')?.slice(0, -4) || null;
       this.to = params.get('to')?.slice(0, -4) || null;
-      this.dateFrom = params.get('dateFrom');
-      this.dateTo = params.get('dateTo');
+      this.dateFrom = new Date(params.get('dateFrom') || '');
+      this.dateTo = new Date(params.get('dateTo') || '');
       this.adult = params.get('adult')?.replace(/[^0-9]/g, '') || null;
       this.child = params.get('child')?.replace(/[^0-9]/g, '') || null;
       this.infant = params.get('infant')?.replace(/[^0-9]/g, '') || null;
     });
-
-    console.log(this.dateFrom);
-    console.log(this.dateTo);
 
     this.searchEditForm.setValue({
       from: this.from,
