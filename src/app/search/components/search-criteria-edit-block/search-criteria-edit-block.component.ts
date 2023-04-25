@@ -82,6 +82,7 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
       this.adult = params.get('adult')?.replace(/[^0-9]/g, '') || null;
       this.child = params.get('child')?.replace(/[^0-9]/g, '') || null;
       this.infant = params.get('infant')?.replace(/[^0-9]/g, '') || null;
+      this.typeOfFlight = params.get('typeOfFlight') || null;
     });
 
     this.searchEditForm.setValue({

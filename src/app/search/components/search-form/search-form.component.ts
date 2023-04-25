@@ -96,6 +96,7 @@ export class SearchFormComponent implements OnInit {
         adult: formVal.amountOfPass?.adult,
         child: formVal.amountOfPass?.child,
         infant: formVal.amountOfPass?.infant,
+        typeOfFlight: formVal.typeOfFlight,
       },
     });
   }

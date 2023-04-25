@@ -49,7 +49,11 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-    <mat-form-field appearance="fill" class="edit-form__field edit-form__field-dates">
+    <mat-form-field
+      *ngIf="typeOfFlight === 'round'"
+      appearance="fill"
+      class="edit-form__field edit-form__field-dates"
+    >
       <mat-label>Dates</mat-label>
       <mat-date-range-input [rangePicker]="pickerRound" [min]="minDate">
         <input matStartDate placeholder="Start date" formControlName="dateFrom" />
@@ -58,14 +62,16 @@
       <mat-datepicker-toggle matIconSuffix [for]="pickerRound"></mat-datepicker-toggle>
       <mat-date-range-picker #pickerRound></mat-date-range-picker>
     </mat-form-field>
-    <ng-template #checkedOneWay>
-      <mat-form-field appearance="fill" class="edit-form__field edit-form__field-dates">
-        <mat-label>Date</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="dateFrom" [min]="minDate" />
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-    </ng-template>
+    <mat-form-field
+      *ngIf="typeOfFlight === 'one'"
+      appearance="fill"
+      class="edit-form__field edit-form__field-dates"
+    >
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dateFrom" [min]="minDate" />
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
     <div class="edit-form__field">
       <div class="edit-form__field-addition" (click)="hiddenAddition = !hiddenAddition">
         <div class="passengers-amount">
