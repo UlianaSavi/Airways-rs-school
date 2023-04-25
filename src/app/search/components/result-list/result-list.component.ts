@@ -10,6 +10,5 @@ export class ResultListComponent {
 
   editBlockChanged(editBlock: boolean) {
     this.canEditBlock = editBlock;
-    console.log(this.canEditBlock);
   }
 }

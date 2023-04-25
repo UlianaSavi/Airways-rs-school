@@ -4,6 +4,7 @@ import { dateDestinationValidator } from '../../validators/validators';
 import { PassengersType } from '../../models/passengers.model';
 import { City, mockCities } from '../../mock-data';
 import { Observable, map, startWith } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-search-criteria-edit-block',
@@ -11,7 +12,7 @@ import { Observable, map, startWith } from 'rxjs';
   styleUrls: ['./search-criteria-edit-block.component.scss'],
 })
 export class SearchCriteriaEditBlockComponent implements OnInit {
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private route: ActivatedRoute) {}
 
   private cities: City[] = mockCities;
 
@@ -25,22 +26,25 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
 
   hiddenAddition = false;
 
-  searchEditForm = this.fb.group({
-    typeOfFlight: ['', Validators.required],
-    from: ['', Validators.required],
-    destination: ['', Validators.required],
-    dateFrom: ['', Validators.required],
-    dateDestination: ['', dateDestinationValidator()],
-    amountOfPass: this.fb.group<Record<PassengersType, number>>({
-      adult: 1,
-      child: 0,
-      infant: 0,
-    }),
-  });
+  from: string | null = null;
+
+  to: string | null = null;
+
+  dateFrom: string | null = null;
+
+  dateTo: string | null = null;
+
+  adult: string | null = null;
+
+  child: string | null = null;
+
+  infant: string | null = null;
+
+  typeOfFlight: string | null = null;
 
   onSubmit = (e: SubmitEvent) => {
     e.preventDefault();
-    console.log(123);
+    // TO DO: send data to query
   };
 
   switchDestinations(from: HTMLInputElement, to: HTMLInputElement) {
@@ -57,8 +61,43 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
     return city ? city : '';
   }
 
+  searchEditForm = this.fb.group({
+    from: ['', Validators.required],
+    destination: ['', Validators.required],
+    dateFrom: ['', Validators.required],
+    dateDestination: ['', dateDestinationValidator()],
+    amountOfPass: this.fb.group<Record<PassengersType, number>>({
+      adult: 1,
+      child: 0,
+      infant: 0,
+    }),
+  });
+
   ngOnInit() {
-    this.searchEditForm.controls.typeOfFlight.setValue('round');
+    this.route.queryParamMap.subscribe((params) => {
+      this.from = params.get('from')?.slice(0, -4) || null;
+      this.to = params.get('to')?.slice(0, -4) || null;
+      this.dateFrom = params.get('dateFrom');
+      this.dateTo = params.get('dateTo');
+      this.adult = params.get('adult')?.replace(/[^0-9]/g, '') || null;
+      this.child = params.get('child')?.replace(/[^0-9]/g, '') || null;
+      this.infant = params.get('infant')?.replace(/[^0-9]/g, '') || null;
+    });
+
+    console.log(this.dateFrom);
+    console.log(this.dateTo);
+
+    this.searchEditForm.setValue({
+      from: this.from,
+      destination: this.to,
+      dateFrom: this.dateFrom,
+      dateDestination: this.dateTo,
+      amountOfPass: {
+        adult: Number(this.adult),
+        child: Number(this.child),
+        infant: Number(this.infant),
+      },
+    });
 
     this.filteredFromCities$ = this.searchEditForm.valueChanges.pipe(
       startWith(''),

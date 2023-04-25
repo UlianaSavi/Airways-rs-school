@@ -1,2 +1,2 @@
 <app-search-info-block (editBlockChanged)="editBlockChanged($event)"></app-search-info-block>
-<app-search-criteria-edit-block *ngIf="canEditBlock"></app-search-criteria-edit-block>
+<app-search-criteria-edit-block *ngIf="!canEditBlock"></app-search-criteria-edit-block>
