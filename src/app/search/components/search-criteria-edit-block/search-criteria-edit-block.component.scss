@@ -38,7 +38,7 @@
     height: 56px;
     border: 0.5px solid $form-border-color;
     border-radius: 4px;
-    background: whitesmoke;
+    background: $btn-transparent;
 
     .mat-mdc-form-field-subscript-wrapper {
       height: 0;
@@ -72,7 +72,7 @@
     border: 0.5px solid $form-border-color;
     border-radius: 50%;
     display: flex;
-    background: #ffffff;
+    background: $white;
     justify-content: center;
     align-items: center;
     position: absolute;
