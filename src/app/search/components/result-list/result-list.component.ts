@@ -5,4 +5,10 @@ import { Component } from '@angular/core';
   templateUrl: './result-list.component.html',
   styleUrls: ['./result-list.component.scss'],
 })
-export class ResultListComponent {}
+export class ResultListComponent {
+  canEditBlock = false;
+
+  editBlockChanged(editBlock: boolean) {
+    this.canEditBlock = editBlock;
+  }
+}
