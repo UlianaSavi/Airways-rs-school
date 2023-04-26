@@ -4,11 +4,11 @@ import { Observable, map, startWith } from 'rxjs';
 import { PassengersType } from '../../models/passengers.model';
 import { dateDestinationValidator } from '../../validators/validators';
 import { City, mockCities } from '../../mock-data';
-import { ApiService } from 'src/app/core/services/api.service';
 import { IQueryParams } from 'src/app/core/models/query-params.model';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { CatalogState } from 'src/app/store';
-import { Router } from '@angular/router';
+import { ApiTicketsType } from 'src/app/store/actions/tickets.action';
 
 @Component({
   selector: 'app-search-form',
@@ -18,14 +18,9 @@ import { Router } from '@angular/router';
 export class SearchFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
-    private apiSevise: ApiService,
-    private store: Store<CatalogState>,
-    private router: Router
-  ) {
-    this.store.subscribe((state) => {
-      console.log('catalog now: ', state.catalog);
-    });
-  }
+    private router: Router,
+    private store: Store<CatalogState>
+  ) {}
 
   private cities: City[] = mockCities;
 
@@ -113,5 +108,6 @@ export class SearchFormComponent implements OnInit {
     this.router.navigate(['search', 'results'], {
       queryParams: { ...query },
     });
+    this.store.dispatch(new ApiTicketsType());
   }
 }

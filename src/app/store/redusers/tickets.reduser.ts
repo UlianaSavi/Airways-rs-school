@@ -3,10 +3,10 @@ import { CatalogState } from '../index';
 
 export const TicketsReducers = (state: CatalogState['catalog'], action: TicketsActions) => {
   switch (action?.type) {
-    case TicketsActionsEnum.getAllTickets: {
+    case TicketsActionsEnum.setAllTickets: {
       return { tickets: [...state, action.payload] };
     }
-    case TicketsActionsEnum.getOneWayTickets: {
+    case TicketsActionsEnum.setOneWayTickets: {
       return { tickets: [...state, action.payload] };
     }
     default: {
