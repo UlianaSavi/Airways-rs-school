@@ -25,15 +25,18 @@ export class SearchInfoBlockComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParamMap.subscribe((params) => {
-      if (params.get('searchType') === 'afterEdit') {
-        this.from = params.get('from') || null;
-        this.to = params.get('to') || null;
-      } else {
-        this.from = params.get('from')?.slice(0, -4) || null;
-        this.to = params.get('to')?.slice(0, -4) || null;
-      }
-      this.dateFrom = params.get('dateFrom');
-      this.dateTo = params.get('dateTo');
+      this.from = params.get('from') || null;
+      this.to = params.get('destination') || null;
+      this.dateFrom = new Date(params.get('dateFrom') || '').toLocaleString('ru', {
+        day: 'numeric',
+        month: 'numeric',
+        year: 'numeric',
+      });
+      this.dateTo = new Date(params.get('dateDestination') || '').toLocaleString('ru', {
+        day: 'numeric',
+        month: 'numeric',
+        year: 'numeric',
+      });
       const adult = params.get('adult')?.replace(/[^0-9]/g, '') || null;
       const child = params.get('child')?.replace(/[^0-9]/g, '') || null;
       const infant = params.get('infant')?.replace(/[^0-9]/g, '') || null;

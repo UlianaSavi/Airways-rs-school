@@ -71,9 +71,9 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
   ngOnInit() {
     this.route.queryParamMap.subscribe((params) => {
       this.from = params.get('from') || null;
-      this.to = params.get('to') || null;
+      this.to = params.get('destination') || null;
       this.dateFrom = new Date(params.get('dateFrom') || '');
-      this.dateTo = new Date(params.get('dateTo') || '');
+      this.dateTo = new Date(params.get('dateDestination') || '');
       this.adult = params.get('adult')?.replace(/[^0-9]/g, '') || null;
       this.child = params.get('child')?.replace(/[^0-9]/g, '') || null;
       this.infant = params.get('infant')?.replace(/[^0-9]/g, '') || null;

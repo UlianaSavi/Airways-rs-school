@@ -104,23 +104,11 @@ export class SearchFormComponent implements OnInit {
       typeOfFlight: formVal.typeOfFlight || '',
       from: formVal.from?.slice(0, -4) || '',
       destination: formVal.destination?.slice(0, -4) || '',
-      dateFrom:
-        new Date(formVal.dateFrom || '').toLocaleString('ru', {
-          day: 'numeric',
-          month: 'numeric',
-          year: 'numeric',
-        }) || '',
-      dateDestination:
-        new Date(formVal.dateDestination || '').toLocaleString('ru', {
-          day: 'numeric',
-          month: 'numeric',
-          year: 'numeric',
-        }) || '',
-      amountOfPass: {
-        adult: formVal.amountOfPass?.adult || 0,
-        child: formVal.amountOfPass?.child || 0,
-        infant: formVal.amountOfPass?.infant || 0,
-      },
+      dateFrom: new Date(formVal.dateFrom || '').toString() || '',
+      dateDestination: new Date(formVal.dateDestination || '').toString() || '',
+      adult: formVal.amountOfPass?.adult || 0,
+      child: formVal.amountOfPass?.child || 0,
+      infant: formVal.amountOfPass?.infant || 0,
     };
     this.router.navigate(['search', 'results'], {
       queryParams: { ...query },
