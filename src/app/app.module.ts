@@ -9,6 +9,9 @@ import { ProfileModule } from './profile/profile.module';
 import { AuthService } from './core/services/auth.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ApiInterceptor } from './core/interceptor/api.interceptor';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { SearchModule } from './search/search.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +22,8 @@ import { ApiInterceptor } from './core/interceptor/api.interceptor';
     CoreModule,
     BrowserAnimationsModule,
     ProfileModule,
+    [StoreModule.forRoot({}, {}), SearchModule],
+    EffectsModule.forRoot(),
   ],
   providers: [
     AuthService,

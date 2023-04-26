@@ -4,9 +4,11 @@ import { Observable, map, startWith } from 'rxjs';
 import { PassengersType } from '../../models/passengers.model';
 import { dateDestinationValidator } from '../../validators/validators';
 import { City, mockCities } from '../../mock-data';
-import { Router } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api.service';
 import { IQueryParams } from 'src/app/core/models/query-params.model';
+import { Store } from '@ngrx/store';
+import { CatalogState } from 'src/app/store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-form',
@@ -14,7 +16,16 @@ import { IQueryParams } from 'src/app/core/models/query-params.model';
   styleUrls: ['./search-form.component.scss'],
 })
 export class SearchFormComponent implements OnInit {
-  constructor(private router: Router, private fb: FormBuilder, private apiSevise: ApiService) {}
+  constructor(
+    private fb: FormBuilder,
+    private apiSevise: ApiService,
+    private store: Store<CatalogState>,
+    private router: Router
+  ) {
+    this.store.subscribe((state) => {
+      console.log('catalog now: ', state.catalog);
+    });
+  }
 
   private cities: City[] = mockCities;
 
@@ -111,11 +122,8 @@ export class SearchFormComponent implements OnInit {
         infant: formVal.amountOfPass?.infant || 0,
       },
     };
-    if (formVal.typeOfFlight === 'round') {
-      this.apiSevise.getAllTickets(query);
-    }
-    if (formVal.typeOfFlight === 'one') {
-      this.apiSevise.getOneWayTickets(query);
-    }
+    this.router.navigate(['search', 'results'], {
+      queryParams: { ...query },
+    });
   }
 }
