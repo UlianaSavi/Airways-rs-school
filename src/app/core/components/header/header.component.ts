@@ -3,6 +3,8 @@ import { SingInStatusService } from '../../services/sing-in-status.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { CurrentStep } from '../../models/current-step.model';
+import { Store } from '@ngrx/store';
+import * as CurrencyDateActions from '../../../redux/actions/currency-date.actions';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +12,21 @@ import { CurrentStep } from '../../models/current-step.model';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
-  constructor(private singInStatusService: SingInStatusService, public authServise: AuthService) {}
+  constructor(
+    private singInStatusService: SingInStatusService,
+    public authService: AuthService,
+    private store: Store
+  ) {}
+
+  dateFormat = 'MM/DD/YYYY';
+
+  currency = 'EUR';
+
+  onChange() {
+    this.store.dispatch(
+      CurrencyDateActions.setCurrencyDates({ formatDate: this.dateFormat, currency: this.currency })
+    );
+  }
 
   singInSubscription: Subscription | undefined;
 

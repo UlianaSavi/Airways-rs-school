@@ -59,20 +59,20 @@
         <span>Review & Payment</span>
       </div>
     </div>
-    <select class="header-button header-date-format" name="date-format" id="date-format">
+    <select class="header-button header-date-format" name="date-format" id="date-format" [(ngModel)]="dateFormat" (ngModelChange)="onChange()">
       <option class="header-option" selected>MM/DD/YYYY</option>
       <option class="header-option">DD/MM/YYYY</option>
       <option class="header-option">YYYY/DD/MM</option>
       <option class="header-option">YYYY/MM/DD</option>
     </select>
-    <select class="header-button header-currency" name="currency" id="currency">
+    <select class="header-button header-currency" name="currency" id="currency" [(ngModel)]="currency" (ngModelChange)="onChange()">
       <option class="header-option" selected>EUR</option>
       <option class="header-option">USA</option>
       <option class="header-option">RUB</option>
       <option class="header-option">PLN</option>
     </select>
     <button
-      *ngIf="!authServise.isLoggedIn"
+      *ngIf="!authService.isLoggedIn"
       class="header-button header-singIn"
       (click)="changeStatusSingIn()"
     >
@@ -80,11 +80,11 @@
       <span>Sign in</span>
     </button>
     <button
-      *ngIf="authServise.isLoggedIn"
+      *ngIf="authService.isLoggedIn"
       routerLink="/profile"
       class="header-button header-singIn"
     >
-      <span>{{ authServise.currentUser?.name?.firstName }}</span>
+      <span>{{ authService.currentUser?.name?.firstName }}</span>
     </button>
     <button routerLink="/cart" routerLinkActive="active" class="header-basket">
       <img ngSrc="assets/icons/basket_icon.svg" alt="basket" width="24" height="24" />

@@ -8,9 +8,11 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileModule } from '../profile/profile.module';
 import { SharedModule } from '../shared/shared.module';
+import { metaReducers, reducers } from '../redux/state.models';
+import { AppEffects } from '../redux/effects/app.effects';
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, PageNotFoundComponent],
@@ -18,14 +20,24 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({}, {}),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true },
+    }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: !isDevMode(),
+      autoPause: true,
+      trace: false,
+      traceLimit: 75,
+    }),
+    EffectsModule.forRoot([AppEffects]),
     StoreRouterConnectingModule.forRoot(),
     ReactiveFormsModule,
     NgOptimizedImage,
     ProfileModule,
     SharedModule,
+    FormsModule,
   ],
 })
 export class CoreModule {}
