@@ -5,6 +5,7 @@ import { PassengersType } from '../../models/passengers.model';
 import { dateDestinationValidator } from '../../validators/validators';
 import { City, mockCities } from '../../mock-data';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/core/services/api.service';
 
 @Component({
   selector: 'app-search-form',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./search-form.component.scss'],
 })
 export class SearchFormComponent implements OnInit {
-  constructor(private router: Router, private fb: FormBuilder) {}
+  constructor(private router: Router, private fb: FormBuilder, private apiSevise: ApiService) {}
 
   private cities: City[] = mockCities;
 
@@ -87,17 +88,24 @@ export class SearchFormComponent implements OnInit {
   onSubmit(e: SubmitEvent) {
     e.preventDefault();
     const formVal = this.searchForm.value;
-    this.router.navigate(['search', 'results'], {
-      queryParams: {
-        from: formVal.from,
-        to: formVal.destination ? formVal.destination : '',
-        dateFrom: formVal.dateFrom,
-        dateTo: formVal.dateDestination,
-        adult: formVal.amountOfPass?.adult,
-        child: formVal.amountOfPass?.child,
-        infant: formVal.amountOfPass?.infant,
-        typeOfFlight: formVal.typeOfFlight,
-      },
-    });
+    if (formVal.typeOfFlight === 'round') {
+      this.apiSevise.getAllTickets();
+    }
+    if (formVal.typeOfFlight === 'one') {
+      this.apiSevise.getOneWayTickets(formVal.from?.slice(0, -4) || '');
+    }
+
+    // this.router.navigate(['search', 'results'], {
+    //   queryParams: {
+    //     from: formVal.from,
+    //     to: formVal.destination ? formVal.destination : '',
+    //     dateFrom: formVal.dateFrom,
+    //     dateTo: formVal.dateDestination,
+    //     adult: formVal.amountOfPass?.adult,
+    //     child: formVal.amountOfPass?.child,
+    //     infant: formVal.amountOfPass?.infant,
+    //     typeOfFlight: formVal.typeOfFlight,
+    //   },
+    // });
   }
 }

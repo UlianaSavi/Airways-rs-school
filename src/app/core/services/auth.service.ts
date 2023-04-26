@@ -10,7 +10,7 @@ import { catchError, throwError } from 'rxjs';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  AUTH_API = 'http://localhost:4000';
+  API_URL = 'http://localhost:4000';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -25,7 +25,7 @@ export class AuthService {
   login(email: string, password: string) {
     return this.http
       .post(
-        this.AUTH_API + '/login',
+        this.API_URL + '/login',
         {
           email,
           password,
@@ -43,11 +43,9 @@ export class AuthService {
 
   register(userData: IUser) {
     this.http
-      .post(this.AUTH_API + '/register', userData, this.httpOptions)
+      .post(this.API_URL + '/register', userData, this.httpOptions)
       .pipe(
         catchError((err: HttpErrorResponse) => {
-          console.log('error caught in service: ', err.error);
-
           return throwError(() => err);
         })
       )
