@@ -6,25 +6,10 @@ import { dateDestinationValidator } from '../../validators/validators';
 import { City, mockCities } from '../../mock-data';
 import { Router } from '@angular/router';
 
-// import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-//
-// export const MY_FORMATS = {
-//   parse: {
-//     dateInput: 'LL',
-//   },
-//   display: {
-//     dateInput: 'LL',
-//     monthYearLabel: 'MMM YYYY',
-//     dateA11yLabel: 'LL',
-//     monthYearA11yLabel: 'MMMM YYYY',
-//   },
-// };
-
 @Component({
   selector: 'app-search-form',
   templateUrl: './search-form.component.html',
   styleUrls: ['./search-form.component.scss'],
-  // providers: [{ provide: DateAdapter, useValue: MY_FORMATS }],
 })
 export class SearchFormComponent implements OnInit {
   constructor(private router: Router, private fb: FormBuilder) {}
