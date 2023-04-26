@@ -6,6 +6,7 @@ import { dateDestinationValidator } from '../../validators/validators';
 import { City, mockCities } from '../../mock-data';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api.service';
+import { IQueryParams } from 'src/app/core/models/query-params.model';
 
 @Component({
   selector: 'app-search-form',
@@ -88,24 +89,33 @@ export class SearchFormComponent implements OnInit {
   onSubmit(e: SubmitEvent) {
     e.preventDefault();
     const formVal = this.searchForm.value;
+    const query: IQueryParams = {
+      typeOfFlight: formVal.typeOfFlight || '',
+      from: formVal.from?.slice(0, -4) || '',
+      destination: formVal.destination?.slice(0, -4) || '',
+      dateFrom:
+        new Date(formVal.dateFrom || '').toLocaleString('ru', {
+          day: 'numeric',
+          month: 'numeric',
+          year: 'numeric',
+        }) || '',
+      dateDestination:
+        new Date(formVal.dateDestination || '').toLocaleString('ru', {
+          day: 'numeric',
+          month: 'numeric',
+          year: 'numeric',
+        }) || '',
+      amountOfPass: {
+        adult: formVal.amountOfPass?.adult || 0,
+        child: formVal.amountOfPass?.child || 0,
+        infant: formVal.amountOfPass?.infant || 0,
+      },
+    };
     if (formVal.typeOfFlight === 'round') {
-      this.apiSevise.getAllTickets(formVal.from?.slice(0, -4) || '');
+      this.apiSevise.getAllTickets(query);
     }
     if (formVal.typeOfFlight === 'one') {
-      this.apiSevise.getOneWayTickets(formVal.from?.slice(0, -4) || '');
+      this.apiSevise.getOneWayTickets(query);
     }
-
-    // this.router.navigate(['search', 'results'], {
-    //   queryParams: {
-    //     from: formVal.from,
-    //     to: formVal.destination ? formVal.destination : '',
-    //     dateFrom: formVal.dateFrom,
-    //     dateTo: formVal.dateDestination,
-    //     adult: formVal.amountOfPass?.adult,
-    //     child: formVal.amountOfPass?.child,
-    //     infant: formVal.amountOfPass?.infant,
-    //     typeOfFlight: formVal.typeOfFlight,
-    //   },
-    // });
   }
 }

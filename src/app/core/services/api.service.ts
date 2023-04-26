@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { IQueryParams } from '../models/query-params.model';
 
 @Injectable({
   providedIn: 'root',
@@ -7,17 +8,24 @@ import { Injectable } from '@angular/core';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  getAllTickets = (query: string) => {
+  getAllTickets = (query: IQueryParams) => {
     const url = '/tickets';
-    const params = new HttpParams().set('q', `${query}`);
+    const params = new HttpParams()
+      .set('from', `${query.from}`)
+      .set('to', `${query.destination}`)
+      .set('dateFrom', `${query.dateFrom}`);
     return this.http.get(url, { params }).subscribe((response) => {
       console.log(response);
     });
   };
 
-  getOneWayTickets = (from: string) => {
-    const url = `/tickets?counrty.from=${from}`;
-    return this.http.get(url).subscribe((response) => {
+  getOneWayTickets = (query: IQueryParams) => {
+    const url = `/tickets?counrty.from=${query.from}`;
+    const params = new HttpParams()
+      .set('from', `${query.from}`)
+      .set('to', `${query.destination}`)
+      .set('dateFrom', `${query.dateFrom}`);
+    return this.http.get(url, { params }).subscribe((response) => {
       console.log(response);
     });
   };
