@@ -89,7 +89,7 @@ export class SearchFormComponent implements OnInit {
     e.preventDefault();
     const formVal = this.searchForm.value;
     if (formVal.typeOfFlight === 'round') {
-      this.apiSevise.getAllTickets();
+      this.apiSevise.getAllTickets(formVal.from?.slice(0, -4) || '');
     }
     if (formVal.typeOfFlight === 'one') {
       this.apiSevise.getOneWayTickets(formVal.from?.slice(0, -4) || '');

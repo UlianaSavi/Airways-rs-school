@@ -7,7 +7,8 @@ import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfileModule } from './profile/profile.module';
 import { AuthService } from './core/services/auth.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ApiInterceptor } from './core/interceptor/api.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +20,14 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     ProfileModule,
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
