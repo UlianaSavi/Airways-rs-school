@@ -24,12 +24,20 @@
             <div class="singIn-line"></div>
           </div>
 
-          <form [formGroup]=logInForm  class="singIn-form" novalidate (ngSubmit)="login()">
+          <form [formGroup]="logInForm" class="singIn-form" novalidate (ngSubmit)="login()">
             <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
               <mat-label>E-mail</mat-label>
               <input matInput type="text" name="e-mail" formControlName="email" />
-              <mat-error *ngIf="logInForm.get('email')?.hasError('required')">E-mail is required</mat-error>
-              <mat-error *ngIf="logInForm.controls['email']?.value?.length && logInForm.controls['email'].invalid">Please enter a valid email</mat-error>
+              <mat-error *ngIf="logInForm.get('email')?.hasError('required')">
+                E-mail is required
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  logInForm.controls['email']?.value?.length && logInForm.controls['email'].invalid
+                "
+              >
+                Please enter a valid email
+              </mat-error>
             </mat-form-field>
             <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
               <mat-label>Password</mat-label>
@@ -51,12 +59,16 @@
                   {{ hide ? "visibility_off" : "visibility" }}
                 </mat-icon>
               </button>
-              <mat-error *ngIf="logInForm.get('password')?.hasError('required')"> Password is required</mat-error>
+              <mat-error *ngIf="logInForm.get('password')?.hasError('required')">
+                Password is required
+              </mat-error>
             </mat-form-field>
             <div style="text-align: right">
               <span class="singIn-link">Forgot password?</span>
             </div>
-            <button class="login-submit" type="submit" [disabled]="logInForm.invalid">Log in</button>
+            <button class="login-submit" type="submit" [disabled]="logInForm.invalid">
+              Log in
+            </button>
           </form>
         </div>
       </mat-tab>
@@ -83,18 +95,39 @@
             <div class="singUp-line"></div>
           </div>
 
-          <form [formGroup]="registrationForm" class="singIn-form" novalidate (ngSubmit)="registration()">
+          <form
+            [formGroup]="registrationForm"
+            class="singIn-form"
+            novalidate
+            (ngSubmit)="registration()"
+          >
             <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
               <mat-label>E-mail</mat-label>
               <input matInput type="text" name="e-mail" formControlName="email" />
-              <mat-error *ngIf="registrationForm.get('email')?.hasError('required')">E-mail is required</mat-error>
-              <mat-error *ngIf="registrationForm.controls['email']?.value?.length && registrationForm.controls['email'].invalid">Please enter a valid email</mat-error>
+              <mat-error *ngIf="registrationForm.get('email')?.hasError('required')">
+                E-mail is required
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  registrationForm.controls['email']?.value?.length &&
+                  registrationForm.controls['email'].invalid
+                "
+              >
+                Please enter a valid email
+              </mat-error>
             </mat-form-field>
             <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
               <mat-label>Password</mat-label>
               <input matInput type="password" name="password" formControlName="password" />
-              <mat-error *ngIf="registrationForm.get('password')?.hasError('required')"> Password is required</mat-error>
-              <mat-error *ngIf="registrationForm.controls['password']?.value?.length && registrationForm.controls['password'].invalid">
+              <mat-error *ngIf="registrationForm.get('password')?.hasError('required')">
+                Password is required
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  registrationForm.controls['password']?.value?.length &&
+                  registrationForm.controls['password'].invalid
+                "
+              >
                 Your password isn't strong enough
                 <ul>
                   <li>at least 8 characters</li>
@@ -107,12 +140,16 @@
             <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
               <mat-label>First name</mat-label>
               <input matInput type="text" name="firstName" formControlName="firstName" />
-              <mat-error *ngIf="registrationForm.get('firstName')?.hasError('required')">First name is required</mat-error>
+              <mat-error *ngIf="registrationForm.get('firstName')?.hasError('required')">
+                First name is required
+              </mat-error>
             </mat-form-field>
             <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
               <mat-label>Last name</mat-label>
               <input matInput type="text" name="lastName" formControlName="lastName" />
-              <mat-error *ngIf="registrationForm.get('lastName')?.hasError('required')">Last name is required</mat-error>
+              <mat-error *ngIf="registrationForm.get('lastName')?.hasError('required')">
+                Last name is required
+              </mat-error>
             </mat-form-field>
             <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
               <mat-label>Date of bird</mat-label>
@@ -125,8 +162,12 @@
               />
               <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
               <mat-datepicker #dp></mat-datepicker>
-              <mat-error *ngIf="registrationForm.get('dateOfBird')?.hasError('required')">Date of bird is required</mat-error>
-              <mat-error *ngIf="registrationForm.get('dateOfBird')?.hasError('validDate')">You must be over 18 years old</mat-error>
+              <mat-error *ngIf="registrationForm.get('dateOfBird')?.hasError('required')">
+                Date of bird is required
+              </mat-error>
+              <mat-error *ngIf="registrationForm.get('dateOfBird')?.hasError('validDate')">
+                You must be over 18 years old
+              </mat-error>
             </mat-form-field>
 
             <mat-button-toggle-group
@@ -152,13 +193,24 @@
                   <mat-option [value]="'+93'">Afghanistan (+93)</mat-option>
                   <mat-option [value]="'+7'">Russia (+7)</mat-option>
                 </mat-select>
-                <mat-error *ngIf="registrationForm.get('countryCode')?.hasError('required')">Country code is required</mat-error>
+                <mat-error *ngIf="registrationForm.get('countryCode')?.hasError('required')">
+                  Country code is required
+                </mat-error>
               </mat-form-field>
               <mat-form-field subscriptSizing="dynamic" style="width: 50%">
                 <mat-label>Mobile phone number</mat-label>
-                <input type="number" matInput placeholder="e.g. 111111111" formControlName="phone"/>
-                <mat-error *ngIf="registrationForm.get('phone')?.hasError('required')">Phone is required</mat-error>
-                <mat-error *ngIf="registrationForm.get('phone')?.hasError('minlength')">Min length 10 symbols</mat-error>
+                <input
+                  type="number"
+                  matInput
+                  placeholder="e.g. 111111111"
+                  formControlName="phone"
+                />
+                <mat-error *ngIf="registrationForm.get('phone')?.hasError('required')">
+                  Phone is required
+                </mat-error>
+                <mat-error *ngIf="registrationForm.get('phone')?.hasError('minlength')">
+                  Min length 10 symbols
+                </mat-error>
               </mat-form-field>
             </div>
 
@@ -168,7 +220,9 @@
                 <mat-option [value]="'afghanistan'">Afghanistan</mat-option>
                 <mat-option [value]="'russia'">Russia</mat-option>
               </mat-select>
-              <mat-error *ngIf="registrationForm.get('citizenship')?.hasError('required')">Citizenship is required</mat-error>
+              <mat-error *ngIf="registrationForm.get('citizenship')?.hasError('required')">
+                Citizenship is required
+              </mat-error>
             </mat-form-field>
             <mat-checkbox color="primary" formControlName="agree">
               I agree to Airway's
@@ -176,7 +230,9 @@
               and
               <span class="singIn-link">Terms of Use</span>
             </mat-checkbox>
-            <button class="login-submit" type="submit" [disabled]="registrationForm.invalid">Sign Up</button>
+            <button class="login-submit" type="submit" [disabled]="registrationForm.invalid">
+              Sign Up
+            </button>
           </form>
         </div>
       </mat-tab>

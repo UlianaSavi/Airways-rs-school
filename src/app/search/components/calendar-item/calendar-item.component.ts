@@ -10,7 +10,7 @@ export class CalendarItemComponent {
 
   @Input() selectDate: Date = new Date();
 
-  @Input() price = Math.random() * 100;
+  @Input() price = 0;
 
   dateFormat = 'dd LLL';
 

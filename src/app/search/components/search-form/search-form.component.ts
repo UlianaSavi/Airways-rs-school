@@ -20,7 +20,7 @@ export class SearchFormComponent implements OnInit {
 
   filteredDestinationCities$!: Observable<City[]>;
 
-  minDate = '';
+  minDate = new Date();
 
   typeOfPassengers: PassengersType[] = ['adult', 'child', 'infant'];
 
@@ -56,8 +56,6 @@ export class SearchFormComponent implements OnInit {
         return name ? this._filter(name as string) : this.cities.slice();
       })
     );
-
-    this.minDate = new Date().toISOString().slice(0, 10);
   }
 
   displayFn(city: string): string {

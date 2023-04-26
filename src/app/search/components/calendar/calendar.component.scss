@@ -1,4 +1,4 @@
-@import 'variables';
+@import "variables";
 
 .calendar {
   position: relative;
@@ -15,13 +15,18 @@
     cursor: pointer;
     color: $lite-blue-background;
 
-    &-active {
+    &-selected {
       height: 83px;
       border-bottom: 4px solid $first-active-border-color;
       color: $primary-text-color;
       font-weight: 700;
       font-size: 30px;
       line-height: 100%;
+    }
+
+    &-inactive {
+      color: $inactive-text-color;
+      cursor: auto;
     }
   }
 

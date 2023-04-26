@@ -1,16 +1,40 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CalendarComponent {
-  searchDate = new Date('2024-01-01');
+export class CalendarComponent implements OnInit {
+  @Input() isFrom = true;
 
-  selectDate = this.searchDate;
+  selectedDate!: Date;
 
-  dates: Date[] = this.getDatesForCalendar(this.searchDate);
+  centerDateForCalendar!: Date;
+
+  dates: Date[] = [];
+
+  disabledBtn = false;
+
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.route.queryParamMap.subscribe((params) => {
+      const dateFromTemp = this.isFrom ? params.get('dateFrom') : params.get('dateTo');
+      if (dateFromTemp !== null) {
+        this.initDates(dateFromTemp);
+      }
+    });
+    this.disabledBtn = this.isFrom && this.isChangedDateMoreToday(this.centerDateForCalendar);
+  }
+
+  private initDates(dateFromTemp: string) {
+    this.selectedDate = new Date(dateFromTemp);
+    this.centerDateForCalendar = this.selectedDate;
+    this.dates = this.getDatesForCalendar(this.selectedDate);
+  }
 
   private getDatesForCalendar(centerDate: Date): Date[] {
     const day = (d: number) => new Date(centerDate.getTime() + d * 24 * 60 * 60 * 1000);
@@ -21,14 +45,28 @@ export class CalendarComponent {
     return date;
   }
 
+  public isChangedDateMoreToday = (changedDate: Date): boolean =>
+    changedDate.getTime() >= new Date(new Date().toDateString()).getTime();
+
   public datePrev() {
-    if (this.searchDate.getDate() > Date.now()) return;
-    this.searchDate = new Date(this.searchDate.getTime() - 24 * 60 * 60 * 1000);
-    this.dates = this.getDatesForCalendar(this.searchDate);
+    if (this.disabledBtn) return;
+    this.centerDateForCalendar = new Date(
+      this.centerDateForCalendar.getTime() - 24 * 60 * 60 * 1000
+    );
+    this.dates = this.getDatesForCalendar(this.centerDateForCalendar);
+    this.disabledBtn = !this.isChangedDateMoreToday(this.centerDateForCalendar);
   }
 
   public dateNext() {
-    this.searchDate = new Date(this.searchDate.getTime() + 24 * 60 * 60 * 1000);
-    this.dates = this.getDatesForCalendar(this.searchDate);
+    this.centerDateForCalendar = new Date(
+      this.centerDateForCalendar.getTime() + 24 * 60 * 60 * 1000
+    );
+    this.dates = this.getDatesForCalendar(this.centerDateForCalendar);
+    this.disabledBtn = false;
+  }
+
+  public getPrice(date: Date) {
+    if (this.isChangedDateMoreToday(date)) return 55.66;
+    return 0;
   }
 }
