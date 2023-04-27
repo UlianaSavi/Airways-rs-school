@@ -1,10 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ITicket } from '../../models/tickets.model';
-import { selectTickets } from 'src/app/store/selectors/tickets.selector';
 import { Store } from '@ngrx/store';
-import { CatalogState } from 'src/app/store';
 import { Observable } from 'rxjs';
+import { selectTickets } from 'src/app/redux/selectors/tickets.selector';
+import { CatalogState } from 'src/app/redux';
 
 @Component({
   selector: 'app-search-info-block',

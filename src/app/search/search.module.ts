@@ -9,9 +9,9 @@ import { SharedModule } from '../shared/shared.module';
 import { SearchInfoBlockComponent } from './components/search-info-block/search-info-block.component';
 import { SearchCriteriaEditBlockComponent } from './components/search-criteria-edit-block/search-criteria-edit-block.component';
 import { StoreModule } from '@ngrx/store';
-import { TicketsReducers } from '../store/redusers/tickets.reduser';
-import { TicketsEffects } from '../store/effects/tickets.effects';
 import { EffectsModule } from '@ngrx/effects';
+import { TicketsEffects } from '../redux/effects/tickets.effects';
+import { TicketsReducers } from '../redux/redusers/tickets.reduser';
 
 @NgModule({
   declarations: [

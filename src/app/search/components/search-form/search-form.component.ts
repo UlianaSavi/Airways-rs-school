@@ -7,10 +7,10 @@ import { City, mockCities } from '../../mock-data';
 import { IQueryParams } from 'src/app/core/models/query-params.model';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { CatalogState } from 'src/app/store';
-import { ApiOneWayTicketsType, ApiTicketsType } from 'src/app/store/actions/tickets.actions';
 import { ApiService } from 'src/app/core/services/api.service';
 import { ITicket } from '../../models/tickets.model';
+import { CatalogState } from 'src/app/redux';
+import { ApiOneWayTicketsType, ApiTicketsType } from 'src/app/redux/actions/tickets.actions';
 
 @Component({
   selector: 'app-search-form',
