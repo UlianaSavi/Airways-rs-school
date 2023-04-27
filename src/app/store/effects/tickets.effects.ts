@@ -12,7 +12,6 @@ export class TicketsEffects {
       switchMap(() =>
         this.dataService.getAllTickets().pipe(
           map((tickets) => {
-            console.log('in EFFECT, tickets: ', tickets);
             return new SetAllTickets(tickets);
           })
         )

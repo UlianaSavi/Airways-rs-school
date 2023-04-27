@@ -9,14 +9,13 @@ import { CatalogState } from 'src/app/store';
   styleUrls: ['./result-list.component.scss'],
 })
 export class ResultListComponent implements OnInit {
-  tickets$: ITicket[] = [];
+  tickets: ITicket[] = [];
 
   constructor(private store: Store<CatalogState>) {}
 
   ngOnInit = () => {
     this.store.subscribe((state) => {
-      console.log('in COMPONENT', state);
-      this.tickets$ = [...(state?.catalog ?? [])];
+      this.tickets = [...(state?.catalog ?? [])];
     });
   };
 

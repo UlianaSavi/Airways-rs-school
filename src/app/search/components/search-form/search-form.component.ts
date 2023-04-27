@@ -73,7 +73,6 @@ export class SearchFormComponent implements OnInit {
     this.minDate = new Date().toISOString().slice(0, 10);
 
     this.store.subscribe((state) => {
-      console.log('in COMPONENT', state);
       this.tickets = [...(state?.catalog ?? [])];
     });
   }
