@@ -109,7 +109,9 @@ export class SearchFormComponent implements OnInit {
       from: formVal.from?.slice(0, -4) || '',
       destination: formVal.destination?.slice(0, -4) || '',
       dateFrom: new Date(formVal.dateFrom || '').toString() || '',
-      dateDestination: new Date(formVal.dateDestination || '').toString() || '',
+      dateDestination: formVal.dateDestination
+        ? new Date(formVal.dateDestination || '').toString() || ''
+        : null,
       adult: formVal.amountOfPass?.adult || 0,
       child: formVal.amountOfPass?.child || 0,
       infant: formVal.amountOfPass?.infant || 0,
@@ -119,8 +121,8 @@ export class SearchFormComponent implements OnInit {
       this.store.dispatch(new ApiTicketsType());
     }
     if (formVal.typeOfFlight === 'one') {
-      this.apiService.getOneWayTickets();
-      this.store.dispatch(new ApiOneWayTicketsType());
+      this.apiService.getOneWayTickets(query.from || '');
+      this.store.dispatch(new ApiOneWayTicketsType(query.from || ''));
     }
     this.router.navigate(['search', 'results'], {
       queryParams: { ...query },

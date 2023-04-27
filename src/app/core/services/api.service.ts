@@ -14,11 +14,7 @@ export class ApiService {
     return this.http.get<ITicket[]>(url);
   };
 
-  getOneWayTickets = () => {
-    let from: string | null = null;
-    this.route.queryParamMap.subscribe((params) => {
-      from = params.get('from');
-    });
+  getOneWayTickets = (from: string) => {
     const url = `/tickets?counrty.from=${from}`;
     return this.http.get<ITicket[]>(url);
   };

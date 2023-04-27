@@ -15,6 +15,8 @@ export class ApiTicketsType implements Action {
 
 export class ApiOneWayTicketsType implements Action {
   readonly type = TicketsActionsEnum.getOneWayTickets;
+
+  constructor(public payload: string) {}
 }
 
 export class SetAllTickets implements Action {

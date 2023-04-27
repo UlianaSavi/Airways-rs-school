@@ -32,11 +32,13 @@ export class SearchInfoBlockComponent implements OnInit {
         month: 'numeric',
         year: 'numeric',
       });
-      this.dateTo = new Date(params.get('dateDestination') || '').toLocaleString('ru', {
-        day: 'numeric',
-        month: 'numeric',
-        year: 'numeric',
-      });
+      this.dateTo = params.get('dateDestination')
+        ? new Date(params.get('dateDestination') || '').toLocaleString('ru', {
+            day: 'numeric',
+            month: 'numeric',
+            year: 'numeric',
+          })
+        : null;
       const adult = params.get('adult')?.replace(/[^0-9]/g, '') || null;
       const child = params.get('child')?.replace(/[^0-9]/g, '') || null;
       const infant = params.get('infant')?.replace(/[^0-9]/g, '') || null;
