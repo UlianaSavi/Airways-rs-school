@@ -16,6 +16,8 @@
       'calendar__item-inactive': !isChangedDateMoreToday(date)
     }"
     (click)="isChangedDateMoreToday(date) && (selectedDate = date)"
+    appCalendarSeatIndicator
+    [availableSeats]="101"
   ></app-calendar-item>
   <button class="calendar__btn calendar__btn-right btn" (click)="dateNext()">></button>
 </div>

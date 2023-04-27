@@ -1,0 +1,41 @@
+<div class="details">
+  <div class="details__flight">
+    <div class="details__flight-info details__flight-departure">
+      <div class="info__date">{{ dateDeparture | date : "EEE, MMM d yyyy" }}</div>
+      <div class="info__time">
+        <span>8:40</span>
+        UTC +0
+      </div>
+      <div class="info__city">Dublin</div>
+    </div>
+    <div class="details__flight-center">
+      <div class="details__flight-center-container">
+        <div class="flight-center__time">2h 30m</div>
+        <img class="flight-center__img" src="/assets/icons/flight.svg" alt="Flight icon" />
+        <div class="flight-center__direct">Direct</div>
+      </div>
+    </div>
+    <div class="details__flight-info details__flight-arrival">
+      <div class="info__date">{{ dateArrival | date : "EEE, MMM d yyyy" }}</div>
+      <div class="info__time">
+        UTC +1
+        <span>12:00</span>
+      </div>
+      <div class="info__city">Warsaw Modlin</div>
+    </div>
+    <div class="details__flight-number">
+      Flight no.
+      <span>FR 1925</span>
+    </div>
+  </div>
+  <div class="details__select">
+    <div class="seat-price">
+      <div class="seat" appSeatBackground [availableSeats]="10">100 seats available</div>
+      <div class="price-title">Price</div>
+      <div class="price">{{ 140.5 | currency : "EUR" }}</div>
+    </div>
+    <div class="details__select-btn-container">
+      <button class="details__select-btn btn">Select</button>
+    </div>
+  </div>
+</div>

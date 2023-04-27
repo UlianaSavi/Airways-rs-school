@@ -7,6 +7,8 @@ $lite-blue: rgb(96, 179, 248);
 $grey: rgb(87, 87, 87);
 $lite-grey: rgb(193 193 193);
 $inactive-text-color: #d0d9df;
+$seat-text-color: #454A53;
+$select-btn-text-color: #ffffff;
 
 //colors background
 $form-background-color: rgba(255, 255, 255, 0.85);
@@ -16,12 +18,14 @@ $btn-transparent: #f4f6f9;
 $lite-grey-background: #fafafa;
 $lite-blue-background: #0090bd;
 $calendar-btn-color: #e9edf1;
+$select-btn-color: linear-gradient(108.75deg, #0090BD 59.91%, #073590 95.36%);
 
 //colors border
 $form-border-color: rgba(116, 118, 122, 0.6);
 $main-border-color: #cecece;
 $first-active-border-color: #f1c933;
 $second-active-border-color: #b3261e;
+$select-btn-border: #11397E;
 
 $header-bg: rgba(116, 118, 122, 0.2);
 $header-color: white;

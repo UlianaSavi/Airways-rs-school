@@ -3,7 +3,7 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { SearchRoutingModule } from './search-routing.module';
 import { ResultListComponent } from './components/result-list/result-list.component';
 import { SearchFormComponent } from './components/search-form/search-form.component';
-import { DetailsComponent } from './components/details/details.component';
+import { TicketComponent } from './components/ticket/ticket.component';
 import { AdditionPassengersComponent } from './components/addition-passengers/addition-passengers.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
@@ -11,17 +11,21 @@ import { SearchInfoBlockComponent } from './components/search-info-block/search-
 import { ResultItemComponent } from './components/result-item/result-item.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { CalendarItemComponent } from './components/calendar-item/calendar-item.component';
+import { SeatBackgroundDirective } from './directives/seat-background.directive';
+import { CalendarSeatIndicatorDirective } from './directives/calendar-seat-indicator.directive';
 
 @NgModule({
   declarations: [
     ResultListComponent,
     SearchFormComponent,
-    DetailsComponent,
+    TicketComponent,
     AdditionPassengersComponent,
     SearchInfoBlockComponent,
     ResultItemComponent,
     CalendarComponent,
     CalendarItemComponent,
+    SeatBackgroundDirective,
+    CalendarSeatIndicatorDirective,
   ],
   imports: [CommonModule, SearchRoutingModule, ReactiveFormsModule, SharedModule, NgOptimizedImage],
 })
