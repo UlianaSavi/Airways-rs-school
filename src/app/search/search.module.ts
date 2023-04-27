@@ -11,7 +11,7 @@ import { SearchCriteriaEditBlockComponent } from './components/search-criteria-e
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { TicketsEffects } from '../redux/effects/tickets.effects';
-import { TicketsReducers } from '../redux/redusers/tickets.reduser';
+import { ticketsReducers } from '../redux/redusers/tickets.reduser';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import { TicketsReducers } from '../redux/redusers/tickets.reduser';
     SharedModule,
     NgOptimizedImage,
     EffectsModule.forFeature([TicketsEffects]),
-    StoreModule.forFeature('catalog', TicketsReducers),
+    StoreModule.forFeature('catalog', ticketsReducers),
   ],
 })
 export class SearchModule {}

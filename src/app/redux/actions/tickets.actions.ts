@@ -1,34 +1,19 @@
-/* eslint-disable @ngrx/prefer-action-creator */
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { ITicket } from 'src/app/search/models/tickets.model';
 
-export enum TicketsActionsEnum {
-  getAllTickets = '[Search Page] getAllTickets',
-  setAllTickets = '[Search Page] setAllTickets',
-  getOneWayTickets = '[Search Page] getOneWayTickets',
-  setOneWayTickets = '[Search Page] setOneWayTickets',
-}
+export const ApiTicketsType = createAction('[Search Page] getAllTickets');
 
-export class ApiTicketsType implements Action {
-  readonly type = TicketsActionsEnum.getAllTickets;
-}
+export const ApiOneWayTicketsType = createAction(
+  '[Search Page] getOneWayTickets',
+  props<{ query: string }>()
+);
 
-export class ApiOneWayTicketsType implements Action {
-  readonly type = TicketsActionsEnum.getOneWayTickets;
+export const SetAllTickets = createAction(
+  '[Search Page] setAllTickets',
+  props<{ tickets: ITicket[] }>()
+);
 
-  constructor(public payload: string) {}
-}
-
-export class SetAllTickets implements Action {
-  public readonly type = TicketsActionsEnum.setAllTickets;
-
-  constructor(public payload: ITicket[]) {}
-}
-
-export class SetOneWayTickets implements Action {
-  public readonly type = TicketsActionsEnum.setOneWayTickets;
-
-  constructor(public payload: ITicket[]) {}
-}
-
-export type TicketsActions = SetAllTickets | SetOneWayTickets;
+export const SetOneWayTickets = createAction(
+  '[Search Page] setOneWayTickets',
+  props<{ tickets: ITicket[] }>()
+);

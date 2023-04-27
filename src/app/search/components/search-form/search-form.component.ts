@@ -8,7 +8,6 @@ import { IQueryParams } from 'src/app/core/models/query-params.model';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ApiService } from 'src/app/core/services/api.service';
-import { ITicket } from '../../models/tickets.model';
 import { CatalogState } from 'src/app/redux';
 import { ApiOneWayTicketsType, ApiTicketsType } from 'src/app/redux/actions/tickets.actions';
 
@@ -50,8 +49,6 @@ export class SearchFormComponent implements OnInit {
 
   hiddenAddition = false;
 
-  tickets: ITicket[] = [];
-
   ngOnInit() {
     this.searchForm.controls.typeOfFlight.setValue('round');
 
@@ -71,10 +68,6 @@ export class SearchFormComponent implements OnInit {
     );
 
     this.minDate = new Date().toISOString().slice(0, 10);
-
-    this.store.subscribe((state) => {
-      this.tickets = [...(state?.catalog ?? [])];
-    });
   }
 
   displayFn(city: string): string {
@@ -118,11 +111,11 @@ export class SearchFormComponent implements OnInit {
     };
     if (formVal.typeOfFlight === 'round') {
       this.apiService.getAllTickets();
-      this.store.dispatch(new ApiTicketsType());
+      this.store.dispatch(ApiTicketsType());
     }
     if (formVal.typeOfFlight === 'one') {
       this.apiService.getOneWayTickets(query.from || '');
-      this.store.dispatch(new ApiOneWayTicketsType(query.from || ''));
+      this.store.dispatch(ApiOneWayTicketsType({ query: query.from || '' }));
     }
     this.router.navigate(['search', 'results'], {
       queryParams: { ...query },

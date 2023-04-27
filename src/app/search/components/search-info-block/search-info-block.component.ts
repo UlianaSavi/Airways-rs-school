@@ -4,7 +4,6 @@ import { ITicket } from '../../models/tickets.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectTickets } from 'src/app/redux/selectors/tickets.selector';
-import { CatalogState } from 'src/app/redux';
 
 @Component({
   selector: 'app-search-info-block',
@@ -12,7 +11,7 @@ import { CatalogState } from 'src/app/redux';
   styleUrls: ['./search-info-block.component.scss'],
 })
 export class SearchInfoBlockComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private store: Store<CatalogState>) {}
+  constructor(private route: ActivatedRoute, private store: Store) {}
 
   tickets$: Observable<ITicket[]> = this.store.select(selectTickets);
 
@@ -31,6 +30,8 @@ export class SearchInfoBlockComponent implements OnInit {
   @Output() editBlockChanged = new EventEmitter<boolean>();
 
   ngOnInit() {
+    this.tickets$.subscribe((tickets) => console.log('tickets for catalog: ', tickets));
+
     this.route.queryParamMap.subscribe((params) => {
       this.from = params.get('from') || null;
       this.to = params.get('destination') || null;
