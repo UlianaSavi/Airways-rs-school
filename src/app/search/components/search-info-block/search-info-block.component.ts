@@ -1,5 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ITicket } from '../../models/tickets.model';
+import { selectTickets } from 'src/app/store/selectors/tickets.selector';
+import { Store } from '@ngrx/store';
+import { CatalogState } from 'src/app/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-search-info-block',
@@ -7,7 +12,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./search-info-block.component.scss'],
 })
 export class SearchInfoBlockComponent implements OnInit {
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private store: Store<CatalogState>) {}
+
+  tickets$: Observable<ITicket[]> = this.store.select(selectTickets);
 
   from: string | null = null;
 

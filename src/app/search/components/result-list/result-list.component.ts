@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ITicket } from '../../models/tickets.model';
-import { CatalogState } from 'src/app/store';
+import { Observable } from 'rxjs/internal/Observable';
+import { CatalogState } from 'src/app/redux';
+import { selectTickets } from 'src/app/redux/selectors/tickets.selector';
 
 @Component({
   selector: 'app-result-list',
@@ -11,11 +13,14 @@ import { CatalogState } from 'src/app/store';
 export class ResultListComponent implements OnInit {
   tickets: ITicket[] = [];
 
+  tickets$: Observable<ITicket[]> = this.store.select(selectTickets);
+
   constructor(private store: Store<CatalogState>) {}
 
   ngOnInit = () => {
     this.store.subscribe((state) => {
       this.tickets = [...(state?.catalog ?? [])];
+      console.log(state);
     });
   };
 
