@@ -8,7 +8,9 @@ import { IQueryParams } from 'src/app/core/models/query-params.model';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { CatalogState } from 'src/app/store';
-import { ApiTicketsType } from 'src/app/store/actions/tickets.action';
+import { ApiOneWayTicketsType, ApiTicketsType } from 'src/app/store/actions/tickets.actions';
+import { ApiService } from 'src/app/core/services/api.service';
+import { ITicket } from '../../models/tickets.model';
 
 @Component({
   selector: 'app-search-form',
@@ -19,7 +21,8 @@ export class SearchFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private store: Store<CatalogState>
+    private store: Store<CatalogState>,
+    private apiService: ApiService
   ) {}
 
   private cities: City[] = mockCities;
@@ -47,6 +50,8 @@ export class SearchFormComponent implements OnInit {
 
   hiddenAddition = false;
 
+  tickets: ITicket[] = [];
+
   ngOnInit() {
     this.searchForm.controls.typeOfFlight.setValue('round');
 
@@ -66,6 +71,11 @@ export class SearchFormComponent implements OnInit {
     );
 
     this.minDate = new Date().toISOString().slice(0, 10);
+
+    this.store.subscribe((state) => {
+      console.log('in COMPONENT', state);
+      this.tickets = [...(state?.catalog ?? [])];
+    });
   }
 
   displayFn(city: string): string {
@@ -105,9 +115,16 @@ export class SearchFormComponent implements OnInit {
       child: formVal.amountOfPass?.child || 0,
       infant: formVal.amountOfPass?.infant || 0,
     };
+    if (formVal.typeOfFlight === 'round') {
+      this.apiService.getAllTickets();
+      this.store.dispatch(new ApiTicketsType());
+    }
+    if (formVal.typeOfFlight === 'one') {
+      this.apiService.getOneWayTickets();
+      this.store.dispatch(new ApiOneWayTicketsType());
+    }
     this.router.navigate(['search', 'results'], {
       queryParams: { ...query },
     });
-    this.store.dispatch(new ApiTicketsType());
   }
 }

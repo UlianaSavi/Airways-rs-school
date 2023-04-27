@@ -20,7 +20,9 @@ export class ApiOneWayTicketsType implements Action {
 export class SetAllTickets implements Action {
   public readonly type = TicketsActionsEnum.setAllTickets;
 
-  constructor(public payload: ITicket[]) {}
+  constructor(public payload: ITicket[]) {
+    console.log('in ACTION SetAllTickets, payload: ', payload);
+  }
 }
 
 export class SetOneWayTickets implements Action {

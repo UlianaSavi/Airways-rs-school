@@ -22,8 +22,9 @@ import { SearchModule } from './search/search.module';
     CoreModule,
     BrowserAnimationsModule,
     ProfileModule,
-    [StoreModule.forRoot({}, {}), SearchModule],
-    EffectsModule.forRoot(),
+    SearchModule,
+    EffectsModule.forRoot([]),
+    StoreModule.forRoot({}),
   ],
   providers: [
     AuthService,

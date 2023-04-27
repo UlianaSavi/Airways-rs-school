@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ITicket } from '../../models/tickets.model';
 import { CatalogState } from 'src/app/store';
@@ -8,15 +8,17 @@ import { CatalogState } from 'src/app/store';
   templateUrl: './result-list.component.html',
   styleUrls: ['./result-list.component.scss'],
 })
-export class ResultListComponent {
-  tickets: ITicket[] = [];
+export class ResultListComponent implements OnInit {
+  tickets$: ITicket[] = [];
 
-  constructor(private store: Store<CatalogState>) {
+  constructor(private store: Store<CatalogState>) {}
+
+  ngOnInit = () => {
     this.store.subscribe((state) => {
-      this.tickets = [...(state?.catalog ?? [])];
+      console.log('in COMPONENT', state);
+      this.tickets$ = [...(state?.catalog ?? [])];
     });
-    console.log('tickets: ', this.tickets);
-  }
+  };
 
   canEditBlock = false;
 

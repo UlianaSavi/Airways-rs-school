@@ -10,8 +10,8 @@ import { SearchInfoBlockComponent } from './components/search-info-block/search-
 import { SearchCriteriaEditBlockComponent } from './components/search-criteria-edit-block/search-criteria-edit-block.component';
 import { StoreModule } from '@ngrx/store';
 import { TicketsReducers } from '../store/redusers/tickets.reduser';
+import { TicketsEffects } from '../store/effects/tickets.effects';
 import { EffectsModule } from '@ngrx/effects';
-import { TicketsEffects } from '../store/effects/tickets.effect';
 
 @NgModule({
   declarations: [
@@ -27,8 +27,8 @@ import { TicketsEffects } from '../store/effects/tickets.effect';
     ReactiveFormsModule,
     SharedModule,
     NgOptimizedImage,
-    StoreModule.forFeature('catalog', TicketsReducers),
     EffectsModule.forFeature([TicketsEffects]),
+    StoreModule.forFeature('catalog', TicketsReducers),
   ],
 })
 export class SearchModule {}
