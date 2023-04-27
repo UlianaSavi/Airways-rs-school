@@ -5,6 +5,8 @@ import { PassengersType } from '../../models/passengers.model';
 import { dateDestinationValidator } from '../../validators/validators';
 import { City, mockCities } from '../../mock-data';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
 
 @Component({
   selector: 'app-search-form',
@@ -12,7 +14,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./search-form.component.scss'],
 })
 export class SearchFormComponent implements OnInit {
-  constructor(private router: Router, private fb: FormBuilder) {}
+  constructor(private router: Router, private fb: FormBuilder, private store: Store) {}
+
+  $dateFormat = this.store.select(CurrencyDateSelectors.selectDateFormat);
 
   private cities: City[] = mockCities;
 

@@ -4,7 +4,17 @@ import { currencyDateFeatureKey, CurrencyDateState } from '../reducers/currency-
 export const selectCurrencyDateFeature =
   createFeatureSelector<CurrencyDateState>(currencyDateFeatureKey);
 
-export const selectCurrencyDate = createSelector(
+export const selectDateCurrency = createSelector(
   selectCurrencyDateFeature,
   (state: CurrencyDateState): CurrencyDateState => state
+);
+
+export const selectDateFormat = createSelector(
+  selectCurrencyDateFeature,
+  (state: CurrencyDateState): string => state.formatDate
+);
+
+export const selectCurrencyFormat = createSelector(
+  selectCurrencyDateFeature,
+  (state: CurrencyDateState): { name: string; euroCoefficient: number } => state.currency
 );

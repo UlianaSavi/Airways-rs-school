@@ -5,6 +5,14 @@ import { AuthService } from '../../services/auth.service';
 import { CurrentStep } from '../../models/current-step.model';
 import { Store } from '@ngrx/store';
 import * as CurrencyDateActions from '../../../redux/actions/currency-date.actions';
+import { MY_FORMATS } from '../../../shared/shared.module';
+
+enum EuroCoefficient {
+  EUR = 1,
+  USA = 0.9,
+  RUB = 90,
+  PLN = 0.22,
+}
 
 @Component({
   selector: 'app-header',
@@ -22,10 +30,33 @@ export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
 
   currency = 'EUR';
 
-  onChange() {
+  onChangeDateFormat() {
+    this.store.dispatch(CurrencyDateActions.setDateFormat({ formatDate: this.dateFormat }));
+    MY_FORMATS.parse.dateInput = this.dateFormat;
+    MY_FORMATS.display.dateInput = this.dateFormat;
+  }
+
+  onChangeCurrencyFormat() {
     this.store.dispatch(
-      CurrencyDateActions.setCurrencyDates({ formatDate: this.dateFormat, currency: this.currency })
+      CurrencyDateActions.setCurrencyFormat({
+        currency: { name: this.currency, euroCoefficient: this.getEuroCoefficient(this.currency) },
+      })
     );
+  }
+
+  private getEuroCoefficient(currency: string): number {
+    switch (currency) {
+      case 'EUR':
+        return EuroCoefficient.EUR;
+      case 'USA':
+        return EuroCoefficient.USA;
+      case 'RUB':
+        return EuroCoefficient.RUB;
+      case 'PLN':
+        return EuroCoefficient.PLN;
+      default:
+        return EuroCoefficient.EUR;
+    }
   }
 
   singInSubscription: Subscription | undefined;

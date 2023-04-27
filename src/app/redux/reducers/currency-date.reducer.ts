@@ -5,22 +5,28 @@ export const currencyDateFeatureKey = 'currencyDate';
 
 export interface CurrencyDateState {
   formatDate: string;
-  currency: string;
+  currency: { name: string; euroCoefficient: number };
 }
 
 export const initialState: CurrencyDateState = {
   formatDate: 'MM/DD/YYYY',
-  currency: 'EUR',
+  currency: { name: 'EUR', euroCoefficient: 1 },
 };
 
 export const currencyDateReducer = createReducer(
   initialState,
   on(
-    CurrencyDateActions.setCurrencyDates,
+    CurrencyDateActions.setDateFormat,
     (state, action): CurrencyDateState => ({
       ...state,
       formatDate: action.formatDate,
-      currency: action.currency,
+    })
+  ),
+  on(
+    CurrencyDateActions.setCurrencyFormat,
+    (state, action): CurrencyDateState => ({
+      ...state,
+      currency: { name: action.currency.name, euroCoefficient: action.currency.euroCoefficient },
     })
   )
 );

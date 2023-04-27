@@ -89,7 +89,7 @@
             <input matStartDate placeholder="Start date" formControlName="dateFrom" />
             <input matEndDate placeholder="End date" formControlName="dateDestination" />
           </mat-date-range-input>
-          <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+          <mat-hint>{{$dateFormat | async}} - {{$dateFormat | async}}</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="pickerRound"></mat-datepicker-toggle>
           <mat-date-range-picker #pickerRound></mat-date-range-picker>
         </mat-form-field>

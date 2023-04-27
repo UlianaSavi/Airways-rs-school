@@ -23,7 +23,6 @@ export const MY_FORMATS = {
     monthYearA11yLabel: 'MMMM YYYY',
   },
 };
-//todo: Сделать разделение экшенов и селекторов для получения даты, валюты, и общего объекта, сделать эффект изменения MY-FORMATS при изменении формата даты.
 
 @NgModule({
   declarations: [],
