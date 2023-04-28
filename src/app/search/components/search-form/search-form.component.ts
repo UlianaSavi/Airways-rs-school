@@ -4,9 +4,12 @@ import { Observable, map, startWith } from 'rxjs';
 import { PassengersType } from '../../models/passengers.model';
 import { dateDestinationValidator } from '../../validators/validators';
 import { City, mockCities } from '../../mock-data';
+import { IQueryParams } from 'src/app/core/models/query-params.model';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
+import { ApiService } from 'src/app/core/services/api.service';
+import { ApiOneWayTicketsType, ApiTicketsType } from 'src/app/redux/actions/tickets.actions';
 
 @Component({
   selector: 'app-search-form',
@@ -14,7 +17,12 @@ import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.s
   styleUrls: ['./search-form.component.scss'],
 })
 export class SearchFormComponent implements OnInit {
-  constructor(private router: Router, private fb: FormBuilder, private store: Store) {}
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private store: Store,
+    private apiService: ApiService
+  ) {}
 
   $dateFormat = this.store.select(CurrencyDateSelectors.selectDateFormat);
 
@@ -91,17 +99,28 @@ export class SearchFormComponent implements OnInit {
   onSubmit(e: SubmitEvent) {
     e.preventDefault();
     const formVal = this.searchForm.value;
+    const query: IQueryParams = {
+      typeOfFlight: formVal.typeOfFlight || '',
+      from: formVal.from?.slice(0, -4) || '',
+      destination: formVal.destination?.slice(0, -4) || '',
+      dateFrom: new Date(formVal.dateFrom || '').toString() || '',
+      dateDestination: formVal.dateDestination
+        ? new Date(formVal.dateDestination || '').toString() || ''
+        : null,
+      adult: formVal.amountOfPass?.adult || 0,
+      child: formVal.amountOfPass?.child || 0,
+      infant: formVal.amountOfPass?.infant || 0,
+    };
+    if (formVal.typeOfFlight === 'round') {
+      this.apiService.getAllTickets();
+      this.store.dispatch(ApiTicketsType());
+    }
+    if (formVal.typeOfFlight === 'one') {
+      this.apiService.getOneWayTickets(query.from || '');
+      this.store.dispatch(ApiOneWayTicketsType({ query: query.from || '' }));
+    }
     this.router.navigate(['search', 'results'], {
-      queryParams: {
-        from: formVal.from,
-        to: formVal.destination ? formVal.destination : '',
-        dateFrom: formVal.dateFrom,
-        dateTo: formVal.dateDestination,
-        adult: formVal.amountOfPass?.adult,
-        child: formVal.amountOfPass?.child,
-        infant: formVal.amountOfPass?.infant,
-        typeOfFlight: formVal.typeOfFlight,
-      },
+      queryParams: { ...query },
     });
   }
 }

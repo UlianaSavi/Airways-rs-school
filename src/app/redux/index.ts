@@ -1,0 +1,4 @@
+import { ITicket } from '../search/models/tickets.model';
+export interface CatalogState {
+  items: ITicket[] | [];
+}
