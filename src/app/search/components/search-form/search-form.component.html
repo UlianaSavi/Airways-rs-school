@@ -86,8 +86,8 @@
         >
           <mat-label>Dates</mat-label>
           <mat-date-range-input [rangePicker]="pickerRound" [min]="minDate">
-            <input matStartDate placeholder="Start date" formControlName="dateFrom" />
-            <input matEndDate placeholder="End date" formControlName="dateDestination" />
+            <input matStartDate placeholder="Start date" formControlName="dateFrom" [(ngModel)]="dateFrom"/>
+            <input matEndDate placeholder="End date" formControlName="dateDestination" [(ngModel)]="dateDest"/>
           </mat-date-range-input>
           <mat-hint>{{$dateFormat | async}} - {{$dateFormat | async}}</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="pickerRound"></mat-datepicker-toggle>

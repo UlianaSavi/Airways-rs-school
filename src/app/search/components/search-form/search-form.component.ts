@@ -51,7 +51,16 @@ export class SearchFormComponent implements OnInit {
 
   hiddenAddition = false;
 
+  dateFrom: Date | undefined;
+
+  dateDest: Date | undefined;
+
   ngOnInit() {
+    this.$dateFormat.subscribe(() => {
+      this.dateFrom = new Date(this.searchForm.value.dateFrom!.toString());
+      this.dateDest = new Date(this.searchForm.value.dateDestination!.toString());
+    });
+
     this.searchForm.controls.typeOfFlight.setValue('round');
 
     this.filteredFromCities$ = this.searchForm.valueChanges.pipe(
