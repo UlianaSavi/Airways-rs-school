@@ -3,9 +3,13 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { dateDestinationValidator } from '../../validators/validators';
 import { PassengersType } from '../../models/passengers.model';
 import { Observable, map, startWith } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { City } from '../../models/cities.model';
 import { CitiesService } from 'src/app/core/services/cities.service';
+import { IQueryParams } from 'src/app/core/models/query-params.model';
+import { ApiOneWayTicketsType, ApiTicketsType } from 'src/app/redux/actions/tickets.actions';
+import { Store } from '@ngrx/store';
+import { ApiService } from 'src/app/core/services/api.service';
 
 @Component({
   selector: 'app-search-criteria-edit-block',
@@ -16,7 +20,10 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private citiesService: CitiesService
+    private citiesService: CitiesService,
+    private router: Router,
+    private store: Store,
+    private apiService: ApiService
   ) {}
 
   private cities: City[] | [] = [];
@@ -133,6 +140,29 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
 
   onSubmit = (e: SubmitEvent) => {
     e.preventDefault();
-    // TO DO: UrlServise.setUrlParams(params)
+    const formVal = this.searchEditForm.value;
+    const query: IQueryParams = {
+      typeOfFlight: this.typeOfFlight || '',
+      from: formVal.from || '',
+      destination: formVal.destination || '',
+      dateFrom: new Date(formVal.dateFrom || '').toString() || '',
+      dateDestination: formVal.dateDestination
+        ? new Date(formVal.dateDestination || '').toString() || ''
+        : null,
+      adult: formVal.amountOfPass?.adult || 0,
+      child: formVal.amountOfPass?.child || 0,
+      infant: formVal.amountOfPass?.infant || 0,
+    };
+    if (this.typeOfFlight === 'round') {
+      this.apiService.getAllTickets();
+      this.store.dispatch(ApiTicketsType());
+    }
+    if (this.typeOfFlight === 'one') {
+      this.apiService.getOneWayTickets(query.from || '');
+      this.store.dispatch(ApiOneWayTicketsType({ query: query.from || '' }));
+    }
+    this.router.navigate(['search', 'results'], {
+      queryParams: { ...query },
+    });
   };
 }
