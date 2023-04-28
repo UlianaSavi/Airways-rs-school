@@ -22,6 +22,8 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
 
   minDate = '';
 
+  maxDate = '';
+
   typeOfPassengers: PassengersType[] = ['adult', 'child', 'infant'];
 
   hiddenAddition = false;
@@ -107,7 +109,8 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
       })
     );
 
-    this.minDate = new Date().toISOString().slice(0, 10);
+    this.minDate = new Date('05.08.2023').toISOString().slice(0, 10);
+    this.maxDate = new Date('05.17.2023').toISOString().slice(0, 10);
   }
 
   private _filter(name: string): City[] {

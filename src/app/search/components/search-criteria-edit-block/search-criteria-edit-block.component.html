@@ -55,7 +55,7 @@
       class="edit-form__field edit-form__field-dates"
     >
       <mat-label>Dates</mat-label>
-      <mat-date-range-input [rangePicker]="pickerRound" [min]="minDate">
+      <mat-date-range-input [rangePicker]="pickerRound" [min]="minDate" [max]="maxDate">
         <input matStartDate placeholder="Start date" formControlName="dateFrom" />
         <input matEndDate placeholder="End date" formControlName="dateDestination" />
       </mat-date-range-input>
@@ -68,7 +68,13 @@
       class="edit-form__field edit-form__field-dates"
     >
       <mat-label>Date</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="dateFrom" [min]="minDate" />
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="dateFrom"
+        [min]="minDate"
+        [max]="maxDate"
+      />
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>

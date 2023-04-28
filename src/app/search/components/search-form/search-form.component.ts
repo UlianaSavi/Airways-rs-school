@@ -31,6 +31,8 @@ export class SearchFormComponent implements OnInit {
 
   minDate = '';
 
+  maxDate = '';
+
   typeOfPassengers: PassengersType[] = ['adult', 'child', 'infant'];
 
   searchForm = this.fb.group({
@@ -66,7 +68,8 @@ export class SearchFormComponent implements OnInit {
       })
     );
 
-    this.minDate = new Date().toISOString().slice(0, 10);
+    this.minDate = new Date('05.08.2023').toISOString().slice(0, 10);
+    this.maxDate = new Date('05.17.2023').toISOString().slice(0, 10);
   }
 
   displayFn(city: string): string {
