@@ -1,12 +1,18 @@
 import { createReducer, on } from '@ngrx/store';
 import * as TicketsActions from '../actions/tickets.actions';
-import { CatalogState } from '..';
+import { ITicket } from '../../search/models/tickets.model';
+
+export const ticketsFeatureKey = 'catalogTickets';
+
+export interface CatalogState {
+  items: ITicket[] | [];
+}
 
 export const initialState: CatalogState = {
   items: [],
 };
 
-export const ticketsReducers = createReducer(
+export const ticketsReducer = createReducer(
   initialState,
   on(
     TicketsActions.SetAllTickets,

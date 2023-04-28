@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { CatalogState } from '..';
+import { CatalogState, ticketsFeatureKey } from '../reducers/tickets.reducer';
 
 export const selectTickets = createSelector(
-  createFeatureSelector<CatalogState>('catalog'),
+  createFeatureSelector<CatalogState>(ticketsFeatureKey),
   (tickets: CatalogState) => tickets.items
 );
