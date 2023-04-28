@@ -3,12 +3,13 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { PassengersType } from '../../models/passengers.model';
 import { dateDestinationValidator } from '../../validators/validators';
-import { City, mockCities } from '../../mock-data';
+import { City } from '../../models/cities.model';
 import { IQueryParams } from 'src/app/core/models/query-params.model';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ApiService } from 'src/app/core/services/api.service';
 import { ApiOneWayTicketsType, ApiTicketsType } from 'src/app/redux/actions/tickets.actions';
+import { CitiesService } from 'src/app/core/services/cities.service';
 
 @Component({
   selector: 'app-search-form',
@@ -20,10 +21,11 @@ export class SearchFormComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private store: Store,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private citiesService: CitiesService
   ) {}
 
-  private cities: City[] = mockCities;
+  cities: City[] | [] = [];
 
   filteredFromCities$!: Observable<City[]>;
 
@@ -51,22 +53,24 @@ export class SearchFormComponent implements OnInit {
   hiddenAddition = false;
 
   ngOnInit() {
+    this.citiesService.getCities().subscribe((cities) => {
+      this.cities = cities;
+      this.filteredFromCities$ = this.searchForm.valueChanges.pipe(
+        startWith(''),
+        map((value) => {
+          const name = typeof value === 'string' ? value : value?.from;
+          return name ? this._filter(name as string) : this.cities.slice();
+        })
+      );
+      this.filteredDestinationCities$ = this.searchForm.valueChanges.pipe(
+        startWith(''),
+        map((value) => {
+          const name = typeof value === 'string' ? value : value?.destination;
+          return name ? this._filter(name as string) : this.cities.slice();
+        })
+      );
+    });
     this.searchForm.controls.typeOfFlight.setValue('round');
-
-    this.filteredFromCities$ = this.searchForm.valueChanges.pipe(
-      startWith(''),
-      map((value) => {
-        const name = typeof value === 'string' ? value : value?.from;
-        return name ? this._filter(name as string) : this.cities.slice();
-      })
-    );
-    this.filteredDestinationCities$ = this.searchForm.valueChanges.pipe(
-      startWith(''),
-      map((value) => {
-        const name = typeof value === 'string' ? value : value?.destination;
-        return name ? this._filter(name as string) : this.cities.slice();
-      })
-    );
 
     this.minDate = new Date('05.08.2023').toISOString().slice(0, 10);
     this.maxDate = new Date('05.17.2023').toISOString().slice(0, 10);

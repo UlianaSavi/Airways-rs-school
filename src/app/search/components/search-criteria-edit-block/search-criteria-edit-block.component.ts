@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { dateDestinationValidator } from '../../validators/validators';
 import { PassengersType } from '../../models/passengers.model';
-import { City, mockCities } from '../../mock-data';
 import { Observable, map, startWith } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { City } from '../../models/cities.model';
+import { CitiesService } from 'src/app/core/services/cities.service';
 
 @Component({
   selector: 'app-search-criteria-edit-block',
@@ -12,9 +13,13 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./search-criteria-edit-block.component.scss'],
 })
 export class SearchCriteriaEditBlockComponent implements OnInit {
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private citiesService: CitiesService
+  ) {}
 
-  private cities: City[] = mockCities;
+  private cities: City[] | [] = [];
 
   filteredFromCities$!: Observable<City[]>;
 
@@ -71,6 +76,9 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
   });
 
   ngOnInit() {
+    this.citiesService.getCities().subscribe((cities) => {
+      this.cities = cities;
+    });
     this.route.queryParamMap.subscribe((params) => {
       this.from = params.get('from') || null;
       this.to = params.get('destination') || null;
