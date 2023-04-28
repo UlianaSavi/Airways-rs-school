@@ -8,6 +8,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { SearchInfoBlockComponent } from './components/search-info-block/search-info-block.component';
 import { SearchCriteriaEditBlockComponent } from './components/search-criteria-edit-block/search-criteria-edit-block.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { TicketsEffects } from '../redux/effects/tickets.effects';
+import { ticketsReducers } from '../redux/redusers/tickets.reduser';
 
 @NgModule({
   declarations: [
@@ -17,6 +21,14 @@ import { SearchCriteriaEditBlockComponent } from './components/search-criteria-e
     SearchInfoBlockComponent,
     SearchCriteriaEditBlockComponent,
   ],
-  imports: [CommonModule, SearchRoutingModule, ReactiveFormsModule, SharedModule, NgOptimizedImage],
+  imports: [
+    CommonModule,
+    SearchRoutingModule,
+    ReactiveFormsModule,
+    SharedModule,
+    NgOptimizedImage,
+    EffectsModule.forFeature([TicketsEffects]),
+    StoreModule.forFeature('catalog', ticketsReducers),
+  ],
 })
 export class SearchModule {}

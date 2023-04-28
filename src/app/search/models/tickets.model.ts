@@ -6,7 +6,7 @@ export interface ITicket {
     start: string;
     end: string;
   };
-  counrty: {
+  country: {
     from: string;
     to: string;
   };
