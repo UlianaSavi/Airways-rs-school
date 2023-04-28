@@ -8,7 +8,6 @@ import { IQueryParams } from 'src/app/core/models/query-params.model';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ApiService } from 'src/app/core/services/api.service';
-import { CatalogState } from 'src/app/redux';
 import { ApiOneWayTicketsType, ApiTicketsType } from 'src/app/redux/actions/tickets.actions';
 
 @Component({
@@ -20,7 +19,7 @@ export class SearchFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private store: Store<CatalogState>,
+    private store: Store,
     private apiService: ApiService
   ) {}
 
