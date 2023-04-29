@@ -2,10 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { dateDestinationValidator } from '../../validators/validators';
 import { PassengersType } from '../../models/passengers.model';
-import { City, mockCities } from '../../mock-data';
 import { Observable, map, startWith } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { City } from '../../models/cities.model';
+import { CitiesService } from 'src/app/core/services/cities.service';
+import { IQueryParams } from 'src/app/core/models/query-params.model';
+import { ApiOneWayTicketsType, ApiTicketsType } from 'src/app/redux/actions/tickets.actions';
 import { Store } from '@ngrx/store';
+import { ApiService } from 'src/app/core/services/api.service';
 import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
 
 @Component({
@@ -17,17 +21,21 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
+    private citiesService: CitiesService,
     private router: Router,
-    private store: Store
+    private store: Store,
+    private apiService: ApiService
   ) {}
 
-  private cities: City[] = mockCities;
+  private cities: City[] | [] = [];
 
   filteredFromCities$!: Observable<City[]>;
 
   filteredDestinationCities$!: Observable<City[]>;
 
   minDate = '';
+
+  maxDate = '';
 
   typeOfPassengers: PassengersType[] = ['adult', 'child', 'infant'];
 
@@ -78,6 +86,9 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
   formatDate$ = this.store.select(CurrencyDateSelectors.selectDateFormat);
 
   ngOnInit() {
+    this.citiesService.getCities().subscribe((cities) => {
+      this.cities = cities;
+    });
     this.formatDate$.subscribe(() => {
       this.dateFrom = new Date(this.searchEditForm.value.dateFrom!.toString());
       this.dateTo = new Date(this.searchEditForm.value.dateDestination!.toString());
@@ -121,7 +132,8 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
       })
     );
 
-    this.minDate = new Date().toISOString().slice(0, 10);
+    this.minDate = new Date('05.08.2023').toISOString().slice(0, 10);
+    this.maxDate = new Date('05.17.2023').toISOString().slice(0, 10);
   }
 
   private _filter(name: string): City[] {
@@ -136,6 +148,29 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
 
   onSubmit = (e: SubmitEvent) => {
     e.preventDefault();
-    // TODO: UrlServise.setUrlParams(params)
+    const formVal = this.searchEditForm.value;
+    const query: IQueryParams = {
+      typeOfFlight: this.typeOfFlight || '',
+      from: formVal.from || '',
+      destination: formVal.destination || '',
+      dateFrom: new Date(formVal.dateFrom || '').toString() || '',
+      dateDestination: formVal.dateDestination
+        ? new Date(formVal.dateDestination || '').toString() || ''
+        : null,
+      adult: formVal.amountOfPass?.adult || 0,
+      child: formVal.amountOfPass?.child || 0,
+      infant: formVal.amountOfPass?.infant || 0,
+    };
+    if (this.typeOfFlight === 'round') {
+      this.apiService.getAllTickets();
+      this.store.dispatch(ApiTicketsType());
+    }
+    if (this.typeOfFlight === 'one') {
+      this.apiService.getOneWayTickets(query.from || '');
+      this.store.dispatch(ApiOneWayTicketsType({ query: query.from || '' }));
+    }
+    this.router.navigate(['search', 'results'], {
+      queryParams: { ...query },
+    });
   };
 }

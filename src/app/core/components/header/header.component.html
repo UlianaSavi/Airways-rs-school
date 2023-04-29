@@ -59,13 +59,25 @@
         <span>Review & Payment</span>
       </div>
     </div>
-    <select class="header-button header-date-format" name="date-format" id="date-format" [(ngModel)]="dateFormat" (ngModelChange)="onChangeDateFormat()">
+    <select
+      class="header-button header-date-format"
+      name="date-format"
+      id="date-format"
+      [(ngModel)]="dateFormat"
+      (ngModelChange)="onChangeDateFormat()"
+    >
       <option class="header-option" selected>MM/DD/YYYY</option>
       <option class="header-option">DD/MM/YYYY</option>
       <option class="header-option">YYYY/DD/MM</option>
       <option class="header-option">YYYY/MM/DD</option>
     </select>
-    <select class="header-button header-currency" name="currency" id="currency" [(ngModel)]="currency" (ngModelChange)="onChangeCurrencyFormat()">
+    <select
+      class="header-button header-currency"
+      name="currency"
+      id="currency"
+      [(ngModel)]="currency"
+      (ngModelChange)="onChangeCurrencyFormat()"
+    >
       <option class="header-option" selected>EUR</option>
       <option class="header-option">USA</option>
       <option class="header-option">RUB</option>

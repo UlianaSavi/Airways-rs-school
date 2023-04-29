@@ -55,9 +55,19 @@
       class="edit-form__field edit-form__field-dates"
     >
       <mat-label>Dates</mat-label>
-      <mat-date-range-input [rangePicker]="pickerRound" [min]="minDate">
-        <input matStartDate placeholder="Start date" formControlName="dateFrom" [(ngModel)]="dateFrom"/>
-        <input matEndDate placeholder="End date" formControlName="dateDestination" [(ngModel)]="dateTo"/>
+      <mat-date-range-input [rangePicker]="pickerRound" [min]="minDate" [max]="maxDate">
+        <input
+          matStartDate
+          placeholder="Start date"
+          formControlName="dateFrom"
+          [(ngModel)]="dateFrom"
+        />
+        <input
+          matEndDate
+          placeholder="End date"
+          formControlName="dateDestination"
+          [(ngModel)]="dateTo"
+        />
       </mat-date-range-input>
       <mat-datepicker-toggle matIconSuffix [for]="pickerRound"></mat-datepicker-toggle>
       <mat-date-range-picker #pickerRound></mat-date-range-picker>
@@ -68,7 +78,13 @@
       class="edit-form__field edit-form__field-dates"
     >
       <mat-label>Date</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="dateFrom" [min]="minDate" />
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="dateFrom"
+        [min]="minDate"
+        [max]="maxDate"
+      />
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
@@ -95,5 +111,14 @@
         </div>
       </div>
     </div>
+    <button
+      type="submit"
+      mat-flat-button
+      color="primary"
+      [disabled]="searchEditForm.invalid"
+      class="search-form__btn"
+    >
+      Search
+    </button>
   </form>
 </div>

@@ -30,8 +30,6 @@ export class SearchInfoBlockComponent implements OnInit {
   @Output() editBlockChanged = new EventEmitter<boolean>();
 
   ngOnInit() {
-    this.tickets$.subscribe((tickets) => console.log('tickets for catalog: ', tickets));
-
     this.route.queryParamMap.subscribe((params) => {
       this.from = params.get('from') || null;
       this.to = params.get('destination') || null;
