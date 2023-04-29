@@ -6,11 +6,16 @@ $third-text-color: #74767a;
 $lite-blue: rgb(96, 179, 248);
 $grey: rgb(87, 87, 87);
 $lite-grey: rgb(193 193 193);
+
+// box-shadow
+$box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
 $inactive-text-color: #d0d9df;
 $seat-text-color: #454A53;
 $select-btn-text-color: #ffffff;
 
 //colors background
+$white: #ffffff;
+$black: black;
 $form-background-color: rgba(255, 255, 255, 0.85);
 $main-background: #f5f5f5;
 $second-background: #ffffff;
@@ -28,25 +33,12 @@ $second-active-border-color: #b3261e;
 $select-btn-border: #11397E;
 
 $header-bg: rgba(116, 118, 122, 0.2);
-$header-color: white;
 $header-button-bg: rgba(241, 243, 246, 0.15);
 $header-button-border: #cecece;
-$header-button-color: #ffffff;
-$header-option: black;
 
 $footer-border: #d0d9df;
-$footer-text: #11397e;
 
-$singIn-bg: #ffffff;
-$singIn-closeBtn: #74767a;
-$singIn-fastLoginBtn-color: black;
-$singIn-fastLoginBtn-border: #cecece;
-$singIn-fastLoginBtn-bg: #f4f6f9;
 $singIn-line: #e1e5eb;
-$singIn-submitBtn-link: #11397e;
-$singIn-disabledBtn-link: rgba(38, 77, 215, 0.5);
-$singIn-disabledSubmit-color: rgba(103, 103, 103, 0.5);
-$singIn-submit-color: white;
 $singIn-disabledBtn-link: rgba(38, 77, 215, 0.5);
 $singIn-disabledSubmit-color: rgba(103, 103, 103, 0.5);
 $singIn-submit-color: white;

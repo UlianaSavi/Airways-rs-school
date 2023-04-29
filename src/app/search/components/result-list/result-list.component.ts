@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./result-list.component.scss'],
 })
 export class ResultListComponent {
+  canEditBlock = false;
+
+  editBlockChanged(editBlock: boolean) {
+    this.canEditBlock = editBlock;
+  }
+
   hasBack = true;
 }

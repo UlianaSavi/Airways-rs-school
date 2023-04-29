@@ -8,7 +8,7 @@
   z-index: 10;
 
   background: $header-bg;
-  color: $header-color;
+  color: $white;
 }
 
 .header-logo {
@@ -16,6 +16,7 @@
 }
 
 .header-booking {
+  width: 45%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,6 +55,7 @@
   display: flex;
   align-items: center;
   column-gap: 40px;
+  justify-content: space-evenly;
 }
 
 .header-button {
@@ -65,12 +67,12 @@
   background: $header-button-bg;
   border: 0.5px solid $header-button-border;
   border-radius: 4px;
-  color: $header-button-color;
+  color: $white;
   cursor: pointer;
 }
 
 .header-option {
-  color: $header-option;
+  color: $black;
 }
 
 .header-date-format {
