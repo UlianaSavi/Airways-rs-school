@@ -7,6 +7,7 @@ import { City, mockCities } from '../../mock-data';
 import { IQueryParams } from 'src/app/core/models/query-params.model';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
 import { ApiService } from 'src/app/core/services/api.service';
 import { ApiOneWayTicketsType, ApiTicketsType } from 'src/app/redux/actions/tickets.actions';
 
@@ -17,11 +18,13 @@ import { ApiOneWayTicketsType, ApiTicketsType } from 'src/app/redux/actions/tick
 })
 export class SearchFormComponent implements OnInit {
   constructor(
-    private fb: FormBuilder,
     private router: Router,
+    private fb: FormBuilder,
     private store: Store,
     private apiService: ApiService
   ) {}
+
+  $dateFormat = this.store.select(CurrencyDateSelectors.selectDateFormat);
 
   private cities: City[] = mockCities;
 
@@ -48,7 +51,16 @@ export class SearchFormComponent implements OnInit {
 
   hiddenAddition = false;
 
+  dateFrom: Date | undefined;
+
+  dateDest: Date | undefined;
+
   ngOnInit() {
+    this.$dateFormat.subscribe(() => {
+      this.dateFrom = new Date(this.searchForm.value.dateFrom!.toString());
+      this.dateDest = new Date(this.searchForm.value.dateDestination!.toString());
+    });
+
     this.searchForm.controls.typeOfFlight.setValue('round');
 
     this.filteredFromCities$ = this.searchForm.valueChanges.pipe(

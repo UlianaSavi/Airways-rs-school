@@ -5,6 +5,8 @@ import { PassengersType } from '../../models/passengers.model';
 import { City, mockCities } from '../../mock-data';
 import { Observable, map, startWith } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
 
 @Component({
   selector: 'app-search-criteria-edit-block',
@@ -12,7 +14,12 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./search-criteria-edit-block.component.scss'],
 })
 export class SearchCriteriaEditBlockComponent implements OnInit {
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store
+  ) {}
 
   private cities: City[] = mockCities;
 
@@ -68,7 +75,14 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
     }),
   });
 
+  formatDate$ = this.store.select(CurrencyDateSelectors.selectDateFormat);
+
   ngOnInit() {
+    this.formatDate$.subscribe(() => {
+      this.dateFrom = new Date(this.searchEditForm.value.dateFrom!.toString());
+      this.dateTo = new Date(this.searchEditForm.value.dateDestination!.toString());
+    });
+
     this.route.queryParamMap.subscribe((params) => {
       this.from = params.get('from') || null;
       this.to = params.get('destination') || null;
@@ -122,6 +136,6 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
 
   onSubmit = (e: SubmitEvent) => {
     e.preventDefault();
-    // TO DO: UrlServise.setUrlParams(params)
+    // TODO: UrlServise.setUrlParams(params)
   };
 }

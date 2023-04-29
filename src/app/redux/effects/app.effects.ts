@@ -5,7 +5,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import * as TicketsActions from '../actions/tickets.actions';
 
 @Injectable()
-export class TicketsEffects {
+export class AppEffects {
   loadAllTickets$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(TicketsActions.ApiTicketsType),
