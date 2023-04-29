@@ -1,0 +1,47 @@
+@import "variables";
+
+.container {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.contact {
+  &__title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .h3 {
+      margin: 0;
+
+      color: $primary-text-color;
+      white-space: nowrap;
+      font-weight: 600;
+      font-size: 19px;
+    }
+
+    &__icon {
+      width: 100%;
+      max-width: 20px;
+      margin-right: 16px;
+    }
+  }
+
+  &__subtext {
+    color: $third-text-color;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 32px 44px;
+    gap: 40px;
+
+    width: 100%;
+    max-width: 1128px;
+    height: 120px;
+
+    background: $white;
+  }
+}
