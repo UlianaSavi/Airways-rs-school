@@ -10,6 +10,7 @@ import { IQueryParams } from 'src/app/core/models/query-params.model';
 import { ApiOneWayTicketsType, ApiTicketsType } from 'src/app/redux/actions/tickets.actions';
 import { Store } from '@ngrx/store';
 import { ApiService } from 'src/app/core/services/api.service';
+import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
 
 @Component({
   selector: 'app-search-criteria-edit-block',
@@ -82,10 +83,17 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
     }),
   });
 
+  formatDate$ = this.store.select(CurrencyDateSelectors.selectDateFormat);
+
   ngOnInit() {
     this.citiesService.getCities().subscribe((cities) => {
       this.cities = cities;
     });
+    this.formatDate$.subscribe(() => {
+      this.dateFrom = new Date(this.searchEditForm.value.dateFrom!.toString());
+      this.dateTo = new Date(this.searchEditForm.value.dateDestination!.toString());
+    });
+
     this.route.queryParamMap.subscribe((params) => {
       this.from = params.get('from') || null;
       this.to = params.get('destination') || null;

@@ -7,6 +7,7 @@ import { City } from '../../models/cities.model';
 import { IQueryParams } from 'src/app/core/models/query-params.model';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
 import { ApiService } from 'src/app/core/services/api.service';
 import { ApiOneWayTicketsType, ApiTicketsType } from 'src/app/redux/actions/tickets.actions';
 import { CitiesService } from 'src/app/core/services/cities.service';
@@ -18,14 +19,16 @@ import { CitiesService } from 'src/app/core/services/cities.service';
 })
 export class SearchFormComponent implements OnInit {
   constructor(
-    private fb: FormBuilder,
     private router: Router,
+    private fb: FormBuilder,
     private store: Store,
     private apiService: ApiService,
     private citiesService: CitiesService
   ) {}
 
   cities: City[] | [] = [];
+
+  $dateFormat = this.store.select(CurrencyDateSelectors.selectDateFormat);
 
   filteredFromCities$!: Observable<City[]>;
 
@@ -52,6 +55,10 @@ export class SearchFormComponent implements OnInit {
 
   hiddenAddition = false;
 
+  dateFrom: Date | undefined;
+
+  dateDest: Date | undefined;
+
   ngOnInit() {
     this.citiesService.getCities().subscribe((cities) => {
       this.cities = cities;
@@ -70,6 +77,11 @@ export class SearchFormComponent implements OnInit {
         })
       );
     });
+    this.$dateFormat.subscribe(() => {
+      this.dateFrom = new Date(this.searchForm.value.dateFrom!.toString());
+      this.dateDest = new Date(this.searchForm.value.dateDestination!.toString());
+    });
+
     this.searchForm.controls.typeOfFlight.setValue('round');
 
     this.minDate = new Date('05.08.2023').toISOString().slice(0, 10);
