@@ -26,10 +26,10 @@ export class PassengersInfoComponent {
     gender: ['', Validators.required],
     dateOfBird: ['', Validators.required],
     baggage: [false],
-    baggageCount: [0],
+    baggageCount: [1],
   });
 
-  baggageCount = 0;
+  baggageCount = 1;
 
   maxMinDate = new Date(new Date().getFullYear() - 18, 11, 31);
 
@@ -41,14 +41,14 @@ export class PassengersInfoComponent {
   }
 
   decrease() {
-    if (this.baggageCount > 0) this.baggageCount -= 1;
+    if (this.baggageCount > 1) this.baggageCount -= 1;
     this.passengersInfoForm.patchValue({
       baggageCount: this.baggageCount,
     });
   }
 
   onToggleChange() {
-    this.baggageCount = 0;
+    this.baggageCount = 1;
   }
 
   onSubmit() {
