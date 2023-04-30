@@ -1,0 +1,63 @@
+<div class="passengers-info-container">
+  <h3 class="card-head">{{cardHead}}</h3>
+  <form [formGroup]="passengersInfoForm" class="passengers-info-form" novalidate (ngSubmit)="onSubmit()">
+    <div class="passengers-info-block">
+      <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
+        <mat-label>First name</mat-label>
+        <input matInput type="text" name="firstName" formControlName="firstName"/>
+        <mat-error *ngIf="passengersInfoForm.get('firstName')?.hasError('required')">First name is required</mat-error>
+        <mat-error *ngIf="passengersInfoForm.get('firstName')?.hasError('pattern')">First name is incorrect</mat-error>
+        <mat-error *ngIf="passengersInfoForm.get('firstName')?.hasError('minlength')">First name is too short</mat-error>
+      </mat-form-field>
+      <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
+        <mat-label>Last name</mat-label>
+        <input matInput type="text" name="lastName" formControlName="lastName" />
+        <mat-error *ngIf="passengersInfoForm.get('lastName')?.hasError('required')">Last name is required</mat-error>
+        <mat-error *ngIf="passengersInfoForm.get('lastName')?.hasError('pattern')">Last name is incorrect</mat-error>
+        <mat-error *ngIf="passengersInfoForm.get('lastName')?.hasError('minlength')">Last name is too short</mat-error>
+      </mat-form-field>
+      <mat-button-toggle-group
+        name="fontStyle"
+        aria-label="Font Style"
+        #group="matButtonToggleGroup"
+        formControlName="gender"
+        style="min-width: 215px"
+      >
+        <mat-button-toggle value="male" style="width: 50%">
+          <mat-icon *ngIf="group.value === 'male'">check</mat-icon>
+          <span style="text-align: center">Male</span>
+        </mat-button-toggle>
+        <mat-button-toggle value="female" style="width: 50%">
+          <mat-icon *ngIf="group.value === 'female'">check</mat-icon>
+          <span style="text-align: center">Female</span>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+
+      <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
+        <mat-label>Date of bird</mat-label>
+        <input
+          matInput
+          [matDatepicker]="dp"
+          type="text"
+          name="dateOfBird"
+          formControlName="dateOfBird"
+          [max]="ageStatus === 'Adult' ? maxMinDate : false"
+          [min]="(ageStatus === 'Children') || (ageStatus === 'Infant') ? maxMinDate : false"
+        />
+        <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+        <mat-datepicker #dp></mat-datepicker>
+        <mat-error *ngIf="passengersInfoForm.get('dateOfBird')?.hasError('required')">Date of bird is required</mat-error>
+        <mat-error *ngIf="passengersInfoForm.get('dateOfBird')?.hasError('matDatepickerMax') && ageStatus === 'Adult'">You must be over 18 years old</mat-error>
+        <mat-error *ngIf="passengersInfoForm.get('dateOfBird')?.hasError('matDatepickerMin') && ageStatus !== 'Adult'">Must be under 18 years old</mat-error>
+      </mat-form-field>
+    </div>
+    <div *ngIf="ageStatus !== 'Infant'" class="baggage-container">
+      <mat-slide-toggle class="baggage-toggle" name="baggage" color="primary" formControlName="baggage" (change)="onToggleChange()" #baggage>Baggage</mat-slide-toggle>
+      <div *ngIf="baggage.checked" class="baggage-counter">
+        <mat-icon style="cursor: pointer" (click)="decrease()">remove</mat-icon>
+        {{baggageCount}}
+        <mat-icon style="cursor: pointer" (click)="increase()">add</mat-icon>
+      </div>
+    </div>
+  </form>
+</div>

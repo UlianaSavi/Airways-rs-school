@@ -11,6 +11,7 @@ import {
 } from '@angular/material/core';
 
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 export const MY_FORMATS = {
   parse: {
@@ -34,6 +35,7 @@ export const MY_FORMATS = {
     NgOptimizedImage,
     ReactiveFormsModule,
     MatNativeDateModule,
+    MatSlideToggleModule,
   ],
   providers: [
     {

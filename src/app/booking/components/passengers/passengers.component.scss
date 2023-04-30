@@ -1,0 +1,29 @@
+@import "variables";
+
+h2 {
+  margin: 0;
+}
+
+.passengers-container {
+  justify-content: flex-start;
+}
+
+.passengers-information {
+  width: 100%;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.passengers-head {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: $primary-text-color;
+}
+
+.passengers-text {
+  font-size: 16px;
+  color: $passengers-text;
+}
