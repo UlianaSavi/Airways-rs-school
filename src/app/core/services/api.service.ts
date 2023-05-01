@@ -14,7 +14,7 @@ export class ApiService {
   };
 
   getOneWayTickets = (from: string) => {
-    const url = `/tickets?counrty.from=${from}`;
+    const url = `/tickets?country.from=${from}`;
     return this.http.get<ITicket[]>(url);
   };
 }

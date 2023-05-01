@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
+import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
 
 @Component({
   selector: 'app-calendar-item',
@@ -14,5 +16,7 @@ export class CalendarItemComponent {
 
   dateFormat = 'dd LLL';
 
-  currentCurrency = 'EUR';
+  currentCurrency$ = this.store.select(CurrencyDateSelectors.selectCurrencyFormat);
+
+  constructor(private store: Store) {}
 }

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ITicket } from '../../models/tickets.model';
 
 @Component({
   selector: 'app-calendar',
@@ -8,7 +9,9 @@ import { ActivatedRoute } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CalendarComponent implements OnInit {
-  @Input() isFrom = true;
+  @Input() isBack = false;
+
+  @Input() tickets: ITicket[] = [];
 
   selectedDate!: Date;
 
@@ -22,12 +25,11 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((params) => {
-      const dateFromTemp = this.isFrom ? params.get('dateFrom') : params.get('dateTo');
+      const dateFromTemp = this.isBack ? params.get('dateDestination') : params.get('dateFrom');
       if (dateFromTemp !== null) {
         this.initDates(dateFromTemp);
       }
     });
-    this.disabledBtn = this.isFrom && this.isChangedDateMoreToday(this.centerDateForCalendar);
   }
 
   private initDates(dateFromTemp: string) {
@@ -41,7 +43,7 @@ export class CalendarComponent implements OnInit {
     return [day(-2), day(-1), day(0), day(1), day(2)];
   }
 
-  public trackByFn(index: number, date: Date) {
+  public trackByFn(_index: number, date: Date) {
     return date;
   }
 
@@ -65,8 +67,11 @@ export class CalendarComponent implements OnInit {
     this.disabledBtn = false;
   }
 
-  public getPrice(date: Date) {
-    if (this.isChangedDateMoreToday(date)) return 55.66;
-    return 0;
+  public getPrice(date: Date): number {
+    console.log('date get price', date, date.getTime());
+    console.log(new Date(this.tickets[3].date), new Date(this.tickets[3].date).getTime());
+    return (
+      this.tickets.find((ticket) => new Date(ticket.date).getTime() === date.getTime())?.price || 0
+    );
   }
 }
