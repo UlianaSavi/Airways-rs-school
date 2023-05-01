@@ -3,11 +3,10 @@
 .container {
   flex-direction: column;
   align-items: flex-start;
+  padding: 20px;
 }
 
 .contact {
-  box-shadow: $box-shadow;
-
   &__title {
     display: flex;
     align-items: center;
@@ -45,5 +44,6 @@
     height: 120px;
 
     background: $white;
+    box-shadow: $box-shadow;
   }
 }
