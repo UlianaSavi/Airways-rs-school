@@ -2,14 +2,14 @@
   <h3 class="card-head">{{cardHead}}</h3>
   <form [formGroup]="passengersInfoForm" class="passengers-info-form" novalidate (ngSubmit)="onSubmit()">
     <div class="passengers-info-block">
-      <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
+      <mat-form-field color="primary" appearance="fill">
         <mat-label>First name</mat-label>
         <input matInput type="text" name="firstName" formControlName="firstName"/>
         <mat-error *ngIf="passengersInfoForm.get('firstName')?.hasError('required')">First name is required</mat-error>
         <mat-error *ngIf="passengersInfoForm.get('firstName')?.hasError('pattern')">First name is incorrect</mat-error>
         <mat-error *ngIf="passengersInfoForm.get('firstName')?.hasError('minlength')">First name is too short</mat-error>
       </mat-form-field>
-      <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
+      <mat-form-field color="primary" appearance="fill">
         <mat-label>Last name</mat-label>
         <input matInput type="text" name="lastName" formControlName="lastName" />
         <mat-error *ngIf="passengersInfoForm.get('lastName')?.hasError('required')">Last name is required</mat-error>
@@ -21,19 +21,19 @@
         aria-label="Font Style"
         #group="matButtonToggleGroup"
         formControlName="gender"
-        style="min-width: 215px"
+        style="min-width: 215px; margin-bottom: 22px"
       >
-        <mat-button-toggle value="male" style="width: 50%">
+        <mat-button-toggle value="male" style="width: 50%" [style.color]="group.value === 'male' ? '#11397E' : 'black'">
           <mat-icon *ngIf="group.value === 'male'">check</mat-icon>
           <span style="text-align: center">Male</span>
         </mat-button-toggle>
-        <mat-button-toggle value="female" style="width: 50%">
+        <mat-button-toggle value="female" style="width: 50%" [style.color]="group.value === 'female' ? '#11397E' : 'black'">
           <mat-icon *ngIf="group.value === 'female'">check</mat-icon>
           <span style="text-align: center">Female</span>
         </mat-button-toggle>
       </mat-button-toggle-group>
 
-      <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
+      <mat-form-field color="primary" appearance="fill">
         <mat-label>Date of bird</mat-label>
         <input
           matInput
@@ -43,6 +43,7 @@
           formControlName="dateOfBird"
           [max]="ageStatus === 'Adult' ? maxMinDate : false"
           [min]="(ageStatus === 'Children') || (ageStatus === 'Infant') ? maxMinDate : false"
+          [(ngModel)]="dateOfBird"
         />
         <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
         <mat-datepicker #dp></mat-datepicker>

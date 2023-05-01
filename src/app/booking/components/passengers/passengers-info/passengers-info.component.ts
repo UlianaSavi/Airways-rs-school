@@ -1,17 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import * as CurrencyDateSelectors from '../../../../redux/selectors/currency-date.selectors';
 
 @Component({
   selector: 'app-passengers-info',
   templateUrl: './passengers-info.component.html',
   styleUrls: ['./passengers-info.component.scss'],
 })
-export class PassengersInfoComponent {
+export class PassengersInfoComponent implements OnInit {
   @Input() cardHead = 'Card-head not set';
 
   @Input() ageStatus: 'Adult' | 'Children' | 'Infant' = 'Adult';
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private store: Store) {}
 
   passengersInfoForm = this.fb.group({
     firstName: [
@@ -33,6 +35,10 @@ export class PassengersInfoComponent {
 
   maxMinDate = new Date(new Date().getFullYear() - 18, 11, 31);
 
+  formatDate$ = this.store.select(CurrencyDateSelectors.selectDateFormat);
+
+  dateOfBird: Date | undefined;
+
   increase() {
     this.baggageCount += 1;
     this.passengersInfoForm.patchValue({
@@ -53,5 +59,11 @@ export class PassengersInfoComponent {
 
   onSubmit() {
     console.log(this.passengersInfoForm.value);
+  }
+
+  ngOnInit(): void {
+    this.formatDate$.subscribe(() => {
+      this.dateOfBird = new Date(this.passengersInfoForm.value.dateOfBird!.toString());
+    });
   }
 }
