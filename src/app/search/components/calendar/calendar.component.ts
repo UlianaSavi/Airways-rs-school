@@ -68,8 +68,6 @@ export class CalendarComponent implements OnInit {
   }
 
   public getPrice(date: Date): number {
-    console.log('date get price', date, date.getTime());
-    console.log(new Date(this.tickets[3].date), new Date(this.tickets[3].date).getTime());
     return (
       this.tickets.find((ticket) => new Date(ticket.date).getTime() === date.getTime())?.price || 0
     );
