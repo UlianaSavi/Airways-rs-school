@@ -5,9 +5,10 @@ import { BookingRoutingModule } from './booking-routing.module';
 import { PassengersComponent } from './components/passengers/passengers.component';
 import { SummaryComponent } from './components/summary/summary.component';
 import { ContactDetailsBlockComponent } from './components/contact-details-block/contact-details-block.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [PassengersComponent, SummaryComponent, ContactDetailsBlockComponent],
-  imports: [CommonModule, BookingRoutingModule],
+  imports: [CommonModule, BookingRoutingModule, SharedModule],
 })
 export class BookingModule {}

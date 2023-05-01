@@ -6,6 +6,8 @@
 }
 
 .contact {
+  box-shadow: $box-shadow;
+
   &__title {
     display: flex;
     align-items: center;
@@ -17,7 +19,7 @@
       color: $primary-text-color;
       white-space: nowrap;
       font-weight: 600;
-      font-size: 19px;
+      font-size: 24px;
     }
 
     &__icon {
