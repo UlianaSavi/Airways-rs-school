@@ -93,8 +93,8 @@
   cursor: pointer;
 
   &:disabled {
-    background: $singIn-disabledBtn-link;
-    color: $singIn-disabledSubmit-color;
+    background: $btn-disabledBtn-link;
+    color: $btn-disabledSubmit-color;
   }
 }
 
