@@ -1,0 +1,20 @@
+@import "variables";
+
+.container {
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.booking-info {
+  &__buttons {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+}
+
+.btn {
+  padding: 20px 45px;
+  border-radius: 5px;
+}
