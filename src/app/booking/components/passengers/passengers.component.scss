@@ -23,3 +23,34 @@
     color: $btn-disabledSubmit-color;
   }
 }
+
+.passengers-container {
+  justify-content: flex-start;
+}
+
+.passengers-information {
+  width: 100%;
+  padding: 0 10px;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.passengers-head {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 40px;
+
+  color: $primary-text-color;
+
+  &__icon {
+    margin-right: 16px;
+  }
+}
+
+.passengers-text {
+  font-size: 16px;
+  color: $passengers-text;
+}
