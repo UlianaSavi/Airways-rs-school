@@ -11,17 +11,24 @@ import {
   selectTicketFeatureKey,
   selectTicketReducer,
 } from './reducers/select-ticket.reducer';
+import {
+  PassengersState,
+  passengersFeatureKey,
+  passengersReducer,
+} from './reducers/passengers.reducer';
 
 export interface State {
   [currencyDateFeatureKey]: CurrencyDateState;
   [ticketsFeatureKey]: CatalogState;
   [selectTicketFeatureKey]: SelectTicketsState;
+  [passengersFeatureKey]: PassengersState;
 }
 
 export const reducers: ActionReducerMap<State> = {
   [currencyDateFeatureKey]: currencyDateReducer,
   [ticketsFeatureKey]: ticketsReducer,
   [selectTicketFeatureKey]: selectTicketReducer,
+  [passengersFeatureKey]: passengersReducer,
 };
 
 export const metaReducers: MetaReducer<State>[] = isDevMode() ? [] : [];

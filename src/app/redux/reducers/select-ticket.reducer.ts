@@ -20,14 +20,14 @@ export const selectTicketReducer = createReducer(
     SelectTicketActions.SelectTicket,
     (state, { ticket }): SelectTicketsState => ({
       ...state,
-      ticket: ticket,
+      ticket,
     })
   ),
   on(
     SelectTicketActions.SelectBackTicket,
     (state, { backTicket }): SelectTicketsState => ({
       ...state,
-      backTicket: backTicket,
+      backTicket,
     })
   )
 );
