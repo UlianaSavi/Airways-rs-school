@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { ApiOneWayTicketsType, ApiTicketsType } from 'src/app/redux/actions/tickets.actions';
+import * as TicketsACtions from 'src/app/redux/actions/tickets.actions';
+import * as PassengersActions from 'src/app/redux/actions/passengers.actions';
 
 @Component({
   selector: 'app-result-list',
@@ -19,13 +20,16 @@ export class ResultListComponent implements OnInit {
 
   dateBack: string | null = null;
 
-  // typeOfFlight!: 'round' | 'oneWay';
+  adult = 1;
 
-  constructor(private route: ActivatedRoute, private store: Store) {}
+  child = 0;
+
+  infant = 0;
+
+  constructor(private route: ActivatedRoute, private store: Store, private router: Router) {}
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((params) => {
-      // this.typeOfFlight = <'round' | 'oneWay'>params.get('typeOfFlight') || 'round';
       this.from = params.get('from') || null;
       this.to = params.get('destination') || null;
       this.dateFrom = new Date(params.get('dateFrom') || '').toLocaleString('ru', {
@@ -40,12 +44,26 @@ export class ResultListComponent implements OnInit {
             year: 'numeric',
           })
         : null;
+      this.adult = +(params.get('adult') || 1);
+      this.child = +(params.get('child') || 0);
+      this.infant = +(params.get('infant') || 0);
     });
-    if (this.dateBack) this.store.dispatch(ApiTicketsType());
-    else this.store.dispatch(ApiOneWayTicketsType({ query: this.from || '' }));
+    if (this.dateBack) this.store.dispatch(TicketsACtions.ApiTicketsType());
+    else this.store.dispatch(TicketsACtions.ApiOneWayTicketsType({ query: this.from || '' }));
   }
 
-  editBlockChanged(editBlock: boolean) {
+  public editBlockChanged(editBlock: boolean) {
     this.canEditBlock = editBlock;
+  }
+
+  public onContinue() {
+    this.store.dispatch(
+      PassengersActions.SetPassengers({
+        adult: this.adult,
+        child: this.child,
+        infant: this.child,
+      })
+    );
+    this.router.navigateByUrl('/booking');
   }
 }
