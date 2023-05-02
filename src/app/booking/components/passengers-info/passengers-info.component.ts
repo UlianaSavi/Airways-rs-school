@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
 import { PassengersForm } from '../../models/passengers-form.model';
+import { AgeStatus } from '../../models/forms.model';
 
 @Component({
   selector: 'app-passengers-info',
@@ -12,11 +13,15 @@ import { PassengersForm } from '../../models/passengers-form.model';
 export class PassengersInfoComponent implements OnInit {
   constructor(private fb: FormBuilder, private store: Store) {}
 
+  @Input() id = '';
+
   @Input() cardHead = 'Card-head not set';
 
-  @Input() ageStatus: 'Adult' | 'Children' | 'Infant' = 'Adult';
+  @Input() ageStatus: AgeStatus = 'Adult';
 
   @Output() newValidPassengers = new EventEmitter<PassengersForm>();
+
+  @Output() fullField = new EventEmitter<{ id: string; value: boolean }>();
 
   passengersInfoForm = this.fb.group({
     firstName: [
@@ -42,9 +47,8 @@ export class PassengersInfoComponent implements OnInit {
   dateOfBird: Date | undefined;
 
   haErr = () => {
-    if (!this.passengersInfoForm.invalid) {
-      this.newValidPassengers.emit(this.passengersInfoForm.value as PassengersForm);
-    }
+    this.newValidPassengers.emit(this.passengersInfoForm.value as PassengersForm);
+    this.fullField.emit({ id: this.id, value: !this.passengersInfoForm.invalid });
   };
 
   increase() {
