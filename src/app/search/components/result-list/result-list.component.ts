@@ -59,9 +59,18 @@ export class ResultListComponent implements OnInit {
   public onContinue() {
     this.store.dispatch(
       PassengersActions.SetPassengers({
-        adult: this.adult,
-        child: this.child,
-        infant: this.child,
+        adult: {
+          count: this.adult,
+          data: [],
+        },
+        child: {
+          count: this.child,
+          data: [],
+        },
+        infant: {
+          count: this.infant,
+          data: [],
+        },
       })
     );
     this.router.navigateByUrl('/booking');

@@ -1,15 +1,24 @@
 import { createReducer, on } from '@ngrx/store';
 import * as PassengersActions from '../actions/passengers.actions';
-import { PassengersType } from 'src/app/search/models/passengers.model';
+import { PassengerInfo, PassengersType } from 'src/app/search/models/passengers.model';
 
 export const passengersFeatureKey = 'passengers';
 
-export type PassengersState = Record<PassengersType, number>;
+export type PassengersState = Record<PassengersType, PassengerInfo>;
 
-export const initialState: PassengersState = {
-  adult: 1,
-  child: 0,
-  infant: 0,
+const initialState: PassengersState = {
+  adult: {
+    count: 1,
+    data: [],
+  },
+  child: {
+    count: 0,
+    data: [],
+  },
+  infant: {
+    count: 0,
+    data: [],
+  },
 };
 
 export const passengersReducer = createReducer(
