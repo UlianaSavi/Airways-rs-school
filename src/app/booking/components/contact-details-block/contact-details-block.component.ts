@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContactForm } from '../../models/contact-form.model';
+import { CONTACT_FROM_ID } from 'src/app/shared/constants/contact-form';
 
 @Component({
   selector: 'app-contact-details-block',
@@ -9,6 +10,8 @@ import { ContactForm } from '../../models/contact-form.model';
 })
 export class ContactDetailsBlockComponent {
   @Output() newValidContacts = new EventEmitter<ContactForm>();
+
+  @Output() fullField = new EventEmitter<{ id: string; value: boolean }>();
 
   emailPattern = /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/;
 
@@ -19,8 +22,7 @@ export class ContactDetailsBlockComponent {
   });
 
   haErr = () => {
-    if (!this.contactDetailsForm.invalid) {
-      this.newValidContacts.emit(this.contactDetailsForm.value as ContactForm);
-    }
+    this.newValidContacts.emit(this.contactDetailsForm.value as ContactForm);
+    this.fullField.emit({ id: CONTACT_FROM_ID, value: !this.contactDetailsForm.invalid });
   };
 }

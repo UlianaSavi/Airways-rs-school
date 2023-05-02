@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { ContactForm } from '../../models/contact-form.model';
 import { PassengersForm } from '../../models/passengers-form.model';
 import { PassengersFormData } from '../../models/forms.model';
+import { CONTACT_FROM_ID } from 'src/app/shared/constants/contact-form';
 
 @Component({
   selector: 'app-passengers',
@@ -40,8 +41,16 @@ export class PassengersComponent {
 
   contactForm: ContactForm | [] = [];
 
+  canContinue = false;
+
   constructor(private location: Location) {
-    this.formsStatus = this.passangersFormsData.map(({ id }) => ({ id, value: false }));
+    this.formsStatus = [
+      ...this.passangersFormsData.map(({ id }) => ({ id, value: false })),
+      {
+        id: CONTACT_FROM_ID,
+        value: false,
+      },
+    ];
   }
 
   back(): void {
@@ -51,6 +60,12 @@ export class PassengersComponent {
 
   addPassengersForm(passengersForm: PassengersForm) {
     this.passengersForm = passengersForm;
+    console.log('passengers form', this.passengersForm);
+  }
+
+  addContactForm(contactForm: ContactForm) {
+    this.contactForm = contactForm;
+    console.log('contact form', this.contactForm);
   }
 
   setFormFullField(props: { id: string; value: boolean }) {
@@ -62,10 +77,12 @@ export class PassengersComponent {
     }
 
     this.formsStatus = updatedStatus;
-    console.log(this.formsStatus.map((form) => form.value).every((is) => is));
-  }
-
-  addContactForm(contactForm: ContactForm) {
-    this.contactForm = contactForm;
+    console.log(
+      'All forms is valid: ',
+      this.formsStatus.map((form) => form.value).every((is) => is)
+    );
+    if (this.formsStatus.map((form) => form.value).every((is) => is)) {
+      this.canContinue = true;
+    }
   }
 }

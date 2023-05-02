@@ -18,11 +18,12 @@
       />
     </div>
     <app-contact-details-block
+      (fullField)="setFormFullField($event)"
       (newValidContacts)="addContactForm($event)"
     ></app-contact-details-block>
   </div>
   <div class="booking-info__buttons">
     <a class="btn btn-transparent" (click)="back()">Back</a>
-    <button class="btn btn-blue" [disabled]="true">Continue</button>
+    <button class="btn btn-blue" [disabled]="!canContinue">Continue</button>
   </div>
 </div>
