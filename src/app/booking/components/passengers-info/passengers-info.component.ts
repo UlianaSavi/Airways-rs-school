@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import * as CurrencyDateSelectors from '../../../../redux/selectors/currency-date.selectors';
+import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
 
 @Component({
   selector: 'app-passengers-info',
@@ -55,10 +55,6 @@ export class PassengersInfoComponent implements OnInit {
 
   onToggleChange() {
     this.baggageCount = 1;
-  }
-
-  onSubmit() {
-    console.log(this.passengersInfoForm.value);
   }
 
   ngOnInit(): void {

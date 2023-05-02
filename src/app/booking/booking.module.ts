@@ -6,7 +6,7 @@ import { PassengersComponent } from './components/passengers/passengers.componen
 import { SummaryComponent } from './components/summary/summary.component';
 import { ContactDetailsBlockComponent } from './components/contact-details-block/contact-details-block.component';
 import { SharedModule } from '../shared/shared.module';
-import { PassengersInfoComponent } from './components/passengers/passengers-info/passengers-info.component';
+import { PassengersInfoComponent } from './components/passengers-info/passengers-info.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
