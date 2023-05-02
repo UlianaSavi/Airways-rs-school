@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
+import { PassengersForm } from '../../models/passengers-form.model';
 
 @Component({
   selector: 'app-passengers-info',
@@ -9,11 +10,13 @@ import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.s
   styleUrls: ['./passengers-info.component.scss'],
 })
 export class PassengersInfoComponent implements OnInit {
+  constructor(private fb: FormBuilder, private store: Store) {}
+
   @Input() cardHead = 'Card-head not set';
 
   @Input() ageStatus: 'Adult' | 'Children' | 'Infant' = 'Adult';
 
-  constructor(private fb: FormBuilder, private store: Store) {}
+  @Output() newValidPassengers = new EventEmitter<PassengersForm>();
 
   passengersInfoForm = this.fb.group({
     firstName: [
@@ -22,7 +25,6 @@ export class PassengersInfoComponent implements OnInit {
     ],
     lastName: [
       '',
-      Validators.required,
       [Validators.required, Validators.pattern(/^[a-zA-Zа-яА-Я ]+$/), Validators.minLength(2)],
     ],
     gender: ['', Validators.required],
@@ -38,6 +40,12 @@ export class PassengersInfoComponent implements OnInit {
   formatDate$ = this.store.select(CurrencyDateSelectors.selectDateFormat);
 
   dateOfBird: Date | undefined;
+
+  haErr = () => {
+    if (!this.passengersInfoForm.invalid) {
+      this.newValidPassengers.emit(this.passengersInfoForm.value as PassengersForm);
+    }
+  };
 
   increase() {
     this.baggageCount += 1;

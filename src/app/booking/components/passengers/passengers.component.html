@@ -8,11 +8,25 @@
       <p class="passengers-text">
         Enter the passenger's names as they appear on document (passport or ID).
       </p>
-      <app-passengers-info cardHead="1. Adult" ageStatus="Adult"></app-passengers-info>
-      <app-passengers-info cardHead="2. Child" ageStatus="Children"></app-passengers-info>
-      <app-passengers-info cardHead="3. Infant" ageStatus="Infant"></app-passengers-info>
+      <app-passengers-info
+        (newValidPassengers)="addPassengersForm($event)"
+        cardHead="1. Adult"
+        ageStatus="Adult"
+      ></app-passengers-info>
+      <app-passengers-info
+        (newValidPassengers)="addPassengersForm($event)"
+        cardHead="2. Child"
+        ageStatus="Children"
+      ></app-passengers-info>
+      <app-passengers-info
+        (newValidPassengers)="addPassengersForm($event)"
+        cardHead="3. Infant"
+        ageStatus="Infant"
+      ></app-passengers-info>
     </div>
-    <app-contact-details-block></app-contact-details-block>
+    <app-contact-details-block
+      (newValidContacts)="addContactForm($event)"
+    ></app-contact-details-block>
   </div>
   <div class="booking-info__buttons">
     <a class="btn btn-transparent" (click)="back()">Back</a>
