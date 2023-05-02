@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { ContactForm } from '../../models/contact-form.model';
 import { PassengersForm } from '../../models/passengers-form.model';
+import { FormsData } from '../../models/forms.model';
 
 @Component({
   selector: 'app-passengers',
@@ -9,7 +10,11 @@ import { PassengersForm } from '../../models/passengers-form.model';
   styleUrls: ['./passengers.component.scss'],
 })
 export class PassengersComponent {
-  formsData: ContactForm | PassengersForm | [] = [];
+  formsData: FormsData | [] = []; // TODO объеденить значения с форм в одну
+
+  passengersForm: PassengersForm | [] = [];
+
+  contactForm: ContactForm | [] = [];
 
   constructor(private location: Location) {}
 
@@ -18,12 +23,11 @@ export class PassengersComponent {
     this.location.back();
   }
 
-  addContactForm(contactForm: ContactForm) {
-    console.log('contactForm', contactForm);
+  addPassengersForm(passengersForm: PassengersForm) {
+    this.passengersForm = passengersForm;
   }
 
-  addPassengersForm(passengersForm: PassengersForm) {
-    // TODO нужно как-то объеденить эти формы в один компонент и делать проверку, что валидны ВСЕ три формы
-    console.log('passengersForm', passengersForm);
+  addContactForm(contactForm: ContactForm) {
+    this.contactForm = contactForm;
   }
 }
