@@ -8,19 +8,16 @@ $grey: rgb(87, 87, 87);
 $lite-grey: rgb(193 193 193);
 $passengers-text: #49454F;
 $passengers-info-text: #10264C;
+$seat-text-color: #454a53;
 
 // box-shadow
 $box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
-$inactive-text-color: #d0d9df;
-$seat-text-color: #454a53;
-$select-btn-text-color: #ffffff;
 
 //colors background
 $white: #ffffff;
 $black: black;
 $form-background-color: rgba(255, 255, 255, 0.85);
 $main-background: #f5f5f5;
-$second-background: #ffffff;
 $btn-transparent: #f4f6f9;
 $lite-grey-background: #fafafa;
 $lite-blue-background: #0090bd;
@@ -29,10 +26,8 @@ $select-btn-color: linear-gradient(108.75deg, #0090bd 59.91%, #073590 95.36%);
 
 //colors border
 $form-border-color: rgba(116, 118, 122, 0.6);
-$main-border-color: #cecece;
 $first-active-border-color: #f1c933;
 $second-active-border-color: #b3261e;
-$select-btn-border: #11397e;
 
 $header-bg: rgba(116, 118, 122, 0.2);
 $header-button-bg: rgba(241, 243, 246, 0.15);
@@ -43,4 +38,3 @@ $footer-border: #d0d9df;
 $singIn-line: #e1e5eb;
 $singIn-disabledBtn-link: rgba(38, 77, 215, 0.5);
 $singIn-disabledSubmit-color: rgba(103, 103, 103, 0.5);
-$singIn-submit-color: white;
