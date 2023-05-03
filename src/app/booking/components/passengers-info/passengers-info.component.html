@@ -9,7 +9,7 @@
           type="text"
           name="firstName"
           formControlName="firstName"
-          (input)="haErr()"
+          (input)="hasErr()"
         />
         <mat-error *ngIf="passengersInfoForm.get('firstName')?.hasError('required')">
           First name is required
@@ -23,7 +23,7 @@
       </mat-form-field>
       <mat-form-field color="primary" appearance="fill">
         <mat-label>Last name</mat-label>
-        <input matInput type="text" name="lastName" formControlName="lastName" (input)="haErr()" />
+        <input matInput type="text" name="lastName" formControlName="lastName" (input)="hasErr()" />
         <mat-error *ngIf="passengersInfoForm.get('lastName')?.hasError('required')">
           Last name is required
         </mat-error>
@@ -35,7 +35,7 @@
         </mat-error>
       </mat-form-field>
       <mat-button-toggle-group
-        (change)="haErr()"
+        (change)="hasErr()"
         name="fontStyle"
         aria-label="Font Style"
         #group="matButtonToggleGroup"
@@ -71,7 +71,7 @@
           [max]="ageStatus === 'Adult' ? maxMinDate : false"
           [min]="ageStatus === 'Children' || ageStatus === 'Infant' ? maxMinDate : false"
           [(ngModel)]="dateOfBird"
-          (dateChange)="haErr()"
+          (dateChange)="hasErr()"
         />
         <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
         <mat-datepicker #dp></mat-datepicker>

@@ -46,7 +46,7 @@ export class PassengersInfoComponent implements OnInit {
 
   dateOfBird: Date | undefined;
 
-  haErr = () => {
+  hasErr = () => {
     this.newValidPassengers.emit(this.passengersInfoForm.value as PassengersForm);
     this.fullField.emit({ id: this.id, value: !this.passengersInfoForm.invalid });
   };

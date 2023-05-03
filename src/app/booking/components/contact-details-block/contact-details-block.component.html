@@ -1,7 +1,7 @@
 <div class="contact container">
   <div class="contact__title">
     <div class="contact__title__icon">
-      <img src="/assets/icons/contact.svg" alt="Contct icon" />
+      <img src="/assets/icons/contact.svg" alt="Contact icon" />
     </div>
     <h3 class="h3-blue">Contact details</h3>
   </div>
@@ -11,7 +11,7 @@
   <form class="contact__card" [formGroup]="contactDetailsForm">
     <mat-form-field subscriptSizing="dynamic" appearance="fill" style="width: 50%">
       <mat-label>Country code</mat-label>
-      <mat-select value="+93" formControlName="countryCode" (openedChange)="haErr()">
+      <mat-select value="+93" formControlName="countryCode" (openedChange)="hasErr()">
         <mat-option [value]="'+93'">Ireland (+353)</mat-option>
         <mat-option [value]="'+7'">Spain (+34)</mat-option>
       </mat-select>
@@ -27,7 +27,7 @@
         placeholder="e.g. 111111111"
         formControlName="phone"
         min="0"
-        (input)="haErr()"
+        (input)="hasErr()"
       />
       <mat-error *ngIf="contactDetailsForm.get('phone')?.hasError('required')">
         Phone is required
@@ -38,7 +38,7 @@
     </mat-form-field>
     <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
       <mat-label>E-mail</mat-label>
-      <input matInput type="text" name="e-mail" formControlName="email" (input)="haErr()" />
+      <input matInput type="text" name="e-mail" formControlName="email" (input)="hasErr()" />
       <mat-error *ngIf="contactDetailsForm.get('email')?.hasError('required')">
         E-mail is required
       </mat-error>

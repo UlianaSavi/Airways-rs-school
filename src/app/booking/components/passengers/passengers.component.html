@@ -9,12 +9,12 @@
         Enter the passenger's names as they appear on document (passport or ID).
       </p>
       <app-passengers-info
-        *ngFor="let passangersForm of passangersFormsData"
-        (newValidPassengers)="passangersForm.addPassengersForm($event)"
-        (fullField)="passangersForm.setFormFullField($event)"
-        [id]="passangersForm.id"
-        [cardHead]="passangersForm.cardHead"
-        [ageStatus]="passangersForm.ageStatus"
+        *ngFor="let passengersForm of passengersFormsData"
+        (newValidPassengers)="passengersForm.addPassengersForm($event)"
+        (fullField)="passengersForm.setFormFullField($event)"
+        [id]="passengersForm.id"
+        [cardHead]="passengersForm.cardHead"
+        [ageStatus]="passengersForm.ageStatus"
       />
     </div>
     <app-contact-details-block

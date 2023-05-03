@@ -11,7 +11,7 @@ import { CONTACT_FROM_ID } from 'src/app/shared/constants/contact-form';
   styleUrls: ['./passengers.component.scss'],
 })
 export class PassengersComponent {
-  passangersFormsData: PassengersFormData[] = [
+  passengersFormsData: PassengersFormData[] = [
     {
       id: '1',
       cardHead: '1. Adult',
@@ -45,7 +45,7 @@ export class PassengersComponent {
 
   constructor(private location: Location) {
     this.formsStatus = [
-      ...this.passangersFormsData.map(({ id }) => ({ id, value: false })),
+      ...this.passengersFormsData.map(({ id }) => ({ id, value: false })),
       {
         id: CONTACT_FROM_ID,
         value: false,

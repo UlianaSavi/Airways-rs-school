@@ -21,7 +21,7 @@ export class ContactDetailsBlockComponent {
     email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
   });
 
-  haErr = () => {
+  hasErr = () => {
     this.newValidContacts.emit(this.contactDetailsForm.value as ContactForm);
     this.fullField.emit({ id: CONTACT_FROM_ID, value: !this.contactDetailsForm.invalid });
   };
