@@ -58,18 +58,15 @@ export class ResultListComponent implements OnInit {
 
   public onContinue() {
     this.store.dispatch(
-      PassengersActions.SetPassengers({
+      PassengersActions.SetCountPassengers({
         adult: {
           count: this.adult,
-          data: [],
         },
         child: {
           count: this.child,
-          data: [],
         },
         infant: {
           count: this.infant,
-          data: [],
         },
       })
     );

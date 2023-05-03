@@ -24,7 +24,7 @@ const initialState: PassengersState = {
 export const passengersReducer = createReducer(
   initialState,
   on(
-    PassengersActions.SetPassengers,
+    PassengersActions.SetAllInfoPassengers,
     (state, { adult, child, infant }): PassengersState => ({
       ...state,
       adult,
