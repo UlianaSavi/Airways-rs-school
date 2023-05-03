@@ -24,6 +24,8 @@
   </div>
   <div class="booking-info__buttons">
     <a class="btn btn-transparent" (click)="back()">Back</a>
-    <button class="btn btn-blue" [disabled]="!canContinue">Continue</button>
+    <button class="btn btn-blue" [disabled]="!canContinue" routerLink="/booking/summary">
+      Continue
+    </button>
   </div>
 </div>

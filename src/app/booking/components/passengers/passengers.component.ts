@@ -54,7 +54,6 @@ export class PassengersComponent {
   }
 
   back(): void {
-    // TODO когда будет закончена выдача и выбор билетов, сюда будет поступать инфо о критериях поиска и какие билеты выбраны
     this.location.back();
   }
 
