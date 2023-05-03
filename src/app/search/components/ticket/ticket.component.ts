@@ -24,6 +24,9 @@ export class TicketComponent implements OnInit {
       this.dateTo = new Date(params.get('dateDestination') || '');
       const timeTo = Number(this.currTicket?.times.end.slice(0, 2)) || 2;
       const timeFrom = Number(this.currTicket?.times.start.slice(0, 2)) || 1;
+      console.log(this.currTicket?.times);
+      console.log(timeTo);
+      console.log(timeFrom);
       this.duration = `${timeTo - timeFrom}h`;
     });
   }

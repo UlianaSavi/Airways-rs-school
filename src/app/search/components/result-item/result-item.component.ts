@@ -24,7 +24,7 @@ export class ResultItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.tickets$.subscribe((tickets) => {
-      this.currTicket = tickets.at(0) || null; // TODO selection ticket
+      this.currTicket = tickets.at(0) || null; // TODO selection ticket: this.currTicket = tickets.find((ticket) => ticket.date === selectedDate)
     });
   }
 }

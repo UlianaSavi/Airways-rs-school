@@ -30,6 +30,8 @@ export class CalendarComponent implements OnInit {
         this.initDates(dateFromTemp);
       }
     });
+    // TODO календарь активными сетит те даты, которые есть в массиве билетов tickets (остальные убрать или сделать не доступными для взаимодействия)
+    // TODO при клике на дату в календаре, она записывается как selectedDate (пригодится в todo в ResultItemComponent)
   }
 
   private initDates(dateFromTemp: string) {
