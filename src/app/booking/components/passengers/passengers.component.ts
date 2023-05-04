@@ -61,12 +61,10 @@ export class PassengersComponent implements OnInit {
 
   addPassengersForm(passengersForm: PassengerData) {
     this.passengersForm = passengersForm;
-    console.log('passengers form', this.passengersForm);
   }
 
   addContactForm(contactForm: ContactForm) {
     this.contactForm = contactForm;
-    console.log('contact form', this.contactForm);
   }
 
   setFormFullField(props: { id: string; value: boolean }) {
@@ -78,10 +76,7 @@ export class PassengersComponent implements OnInit {
     }
 
     this.formsStatus = updatedStatus;
-    console.log(
-      'All forms is valid: ',
-      this.formsStatus.map((form) => form.value).every((is) => is)
-    );
+
     if (this.formsStatus.map((form) => form.value).every((is) => is)) {
       this.canContinue = true;
     }
