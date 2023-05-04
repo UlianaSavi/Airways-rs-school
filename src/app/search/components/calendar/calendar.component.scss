@@ -1,0 +1,52 @@
+@import "variables";
+
+.calendar {
+  position: relative;
+  height: 83px;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 10px;
+
+  &__item {
+    height: 70px;
+    background-color: $white;
+    flex: 1 0 20%;
+    border-left: 1px solid $header-button-border;
+    cursor: pointer;
+    color: $lite-blue-background;
+
+    &-selected {
+      height: 83px;
+      border-bottom: 4px solid;
+      color: $primary-text-color;
+      font-weight: 700;
+      font-size: 30px;
+      line-height: 100%;
+    }
+
+    &-inactive {
+      color: $footer-border;
+      cursor: auto;
+    }
+  }
+
+  &__btn {
+    position: absolute;
+    bottom: 20px;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $calendar-btn-color;
+
+    &-left {
+      left: 0;
+    }
+
+    &-right {
+      right: 0;
+    }
+  }
+}

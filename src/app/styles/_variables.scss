@@ -8,6 +8,7 @@ $grey: rgb(87, 87, 87);
 $lite-grey: rgb(193 193 193);
 $passengers-text: #49454F;
 $passengers-info-text: #10264C;
+$seat-text-color: #454a53;
 
 // box-shadow
 $box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
@@ -16,12 +17,18 @@ $box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
 $white: #ffffff;
 $black: black;
 $form-background-color: rgba(255, 255, 255, 0.85);
-$btn-transparent: #F4F6F9;
-$lite-grey-background: #FAFAFA;
+$main-background: #f5f5f5;
+$btn-transparent: #f4f6f9;
+$lite-grey-background: #fafafa;
 $lite-blue-background: #0090bd;
+$calendar-btn-color: #e9edf1;
+$select-btn-color: linear-gradient(108.75deg, #0090bd 59.91%, #073590 95.36%);
 
 //colors border
 $form-border-color: rgba(116, 118, 122, 0.6);
+$first-active-border-color: #f1c933;
+$second-active-border-color: #b3261e;
+
 $header-bg: rgba(116, 118, 122, 0.2);
 $header-button-bg: rgba(241, 243, 246, 0.15);
 $header-button-border: #cecece;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable, map, startWith, take } from 'rxjs';
 import { PassengersType } from '../../models/passengers.model';
 import { dateDestinationValidator } from '../../validators/validators';
 import { City } from '../../models/cities.model';
@@ -34,9 +34,9 @@ export class SearchFormComponent implements OnInit {
 
   filteredDestinationCities$!: Observable<City[]>;
 
-  minDate = '';
+  minDate = new Date('05.07.2023');
 
-  maxDate = '';
+  maxDate = new Date('05.16.2023');
 
   typeOfPassengers: PassengersType[] = ['adult', 'child', 'infant'];
 
@@ -77,15 +77,12 @@ export class SearchFormComponent implements OnInit {
         })
       );
     });
-    this.$dateFormat.subscribe(() => {
+    this.$dateFormat.pipe(take(1)).subscribe(() => {
       this.dateFrom = new Date(this.searchForm.value.dateFrom!.toString());
       this.dateDest = new Date(this.searchForm.value.dateDestination!.toString());
     });
 
     this.searchForm.controls.typeOfFlight.setValue('round');
-
-    this.minDate = new Date('05.08.2023').toISOString().slice(0, 10);
-    this.maxDate = new Date('05.17.2023').toISOString().slice(0, 10);
   }
 
   displayFn(city: string): string {
