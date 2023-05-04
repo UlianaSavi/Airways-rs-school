@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { ITicket } from '../../models/tickets.model';
@@ -10,12 +10,10 @@ import { Store } from '@ngrx/store';
   templateUrl: './result-item.component.html',
   styleUrls: ['./result-item.component.scss'],
 })
-export class ResultItemComponent {
+export class ResultItemComponent implements OnChanges {
   @Input() isBack = false;
 
   @Input() cityFrom: string | null = null;
-
-  @Input() cityTo: string | null = null;
 
   tickets$: Observable<ITicket[]> = this.store.select(selectTickets);
 
@@ -24,6 +22,12 @@ export class ResultItemComponent {
   currTicket: ITicket | null = null;
 
   constructor(private store: Store) {}
+
+  ngOnChanges(): void {
+    if (this.cityFrom) {
+      this.setCurrentTicket(this.selectedDate);
+    }
+  }
 
   public setSelectDate(date: Date) {
     this.selectedDate = date;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as TicketsACtions from 'src/app/redux/actions/tickets.actions';
@@ -10,6 +10,7 @@ import { FlightTypes, SearchFormState } from '../../../redux/reducers/search-for
   selector: 'app-result-list',
   templateUrl: './result-list.component.html',
   styleUrls: ['./result-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResultListComponent implements OnInit {
   canEditBlock = false;
