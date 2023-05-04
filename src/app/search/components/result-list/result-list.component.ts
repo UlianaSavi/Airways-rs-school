@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as TicketsACtions from 'src/app/redux/actions/tickets.actions';
 import * as PassengersActions from 'src/app/redux/actions/passengers.actions';
+import { setSearchForms } from '../../../redux/actions/search-form.actions';
+import { FlightTypes, SearchFormState } from '../../../redux/reducers/search-form.reducer';
 
 @Component({
   selector: 'app-result-list',
@@ -12,11 +14,13 @@ import * as PassengersActions from 'src/app/redux/actions/passengers.actions';
 export class ResultListComponent implements OnInit {
   canEditBlock = false;
 
-  from: string | null = null;
+  typeOfFlight: FlightTypes = 'one';
 
-  to: string | null = null;
+  from = '';
 
-  dateFrom: string | null = null;
+  to = '';
+
+  dateFrom = '';
 
   dateBack: string | null = null;
 
@@ -30,13 +34,14 @@ export class ResultListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((params) => {
-      this.from = params.get('from') || null;
-      this.to = params.get('destination') || null;
+      this.typeOfFlight = params.get('typeOfFlight') as FlightTypes;
+      this.from = params.get('from') as string;
+      this.to = params.get('destination') as string;
       this.dateFrom = new Date(params.get('dateFrom') || '').toLocaleString('ru', {
         day: 'numeric',
         month: 'numeric',
         year: 'numeric',
-      });
+      }) as string;
       this.dateBack = params.get('dateDestination')
         ? new Date(params.get('dateDestination') || '').toLocaleString('ru', {
             day: 'numeric',
@@ -48,8 +53,24 @@ export class ResultListComponent implements OnInit {
       this.child = +(params.get('child') || 0);
       this.infant = +(params.get('infant') || 0);
     });
-    if (this.dateBack) this.store.dispatch(TicketsACtions.ApiTicketsType());
-    else this.store.dispatch(TicketsACtions.ApiOneWayTicketsType({ query: this.from || '' }));
+    if (this.dateBack) {
+      this.store.dispatch(TicketsACtions.ApiTicketsType());
+    } else this.store.dispatch(TicketsACtions.ApiOneWayTicketsType({ query: this.from || '' }));
+
+    const searchForm: SearchFormState = {
+      typeOfFlight: this.typeOfFlight,
+      from: this.from,
+      destination: this.to,
+      dateFrom: this.dateFrom,
+      dateDestination: this.dateBack,
+      passengersCount: {
+        adult: this.adult,
+        child: this.child,
+        infant: this.infant,
+      },
+    };
+
+    this.store.dispatch(setSearchForms({ searchForm }));
   }
 
   public editBlockChanged(editBlock: boolean) {
