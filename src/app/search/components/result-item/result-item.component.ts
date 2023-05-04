@@ -24,5 +24,11 @@ export class ResultItemComponent {
 
   addSelectedTicket(selected: boolean) {
     this.selected = selected;
+    // TODO set current ticket
+    // if (this.currTicket.type !== 'back') {
+    //   this.store.dispatch(SelectBackTicket({ backTicket: currTicket }));
+    // } else {
+    //   this.store.dispatch(SelectTicket({ ticket: currTicket }));
+    // }
   }
 }

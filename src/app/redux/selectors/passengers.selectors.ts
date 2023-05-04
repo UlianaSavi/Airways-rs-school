@@ -1,10 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { PassengersState, passengersFeatureKey } from '../reducers/passengers.reducer';
-import {
-  PassengerData,
-  PassengerInfo,
-  PassengersType,
-} from 'src/app/core/models/passengers.model';
+import { PassengerData, PassengerInfo, PassengersType } from 'src/app/core/models/passengers.model';
 
 const selectPassengersFeature = createFeatureSelector<PassengersState>(passengersFeatureKey);
 

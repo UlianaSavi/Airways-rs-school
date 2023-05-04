@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as TicketsACtions from 'src/app/redux/actions/tickets.actions';
 import * as PassengersActions from 'src/app/redux/actions/passengers.actions';
+import * as SelectedTicketSelectors from 'src/app/redux/selectors/select-ticket.selector';
 
 @Component({
   selector: 'app-result-list',
@@ -26,9 +27,21 @@ export class ResultListComponent implements OnInit {
 
   infant = 0;
 
+  selectedTicket$ = this.store.select(SelectedTicketSelectors.selectTicket);
+
+  selectedBackTicket$ = this.store.select(SelectedTicketSelectors.selectBackTicket);
+
+  ticketSelected = false;
+
   constructor(private route: ActivatedRoute, private store: Store, private router: Router) {}
 
   ngOnInit(): void {
+    this.selectedTicket$.subscribe((currTicket) => {
+      console.log(currTicket);
+    });
+    this.selectedBackTicket$.subscribe((currBackTicket) => {
+      console.log(currBackTicket);
+    });
     this.route.queryParamMap.subscribe((params) => {
       this.from = params.get('from') || null;
       this.to = params.get('destination') || null;
