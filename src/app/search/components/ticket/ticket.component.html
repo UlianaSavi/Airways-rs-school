@@ -1,16 +1,16 @@
-<div class="details">
+<div class="details" *ngIf="currTicket">
   <div class="details__flight">
     <div class="details__flight-info details__flight-departure">
       <div class="info__date">{{ dateFrom | date : "EEE, MMM d yyyy" }}</div>
       <div class="info__time">
-        <span>{{ currTicket[1].times.start }}</span>
+        <span>{{ currTicket.times.start }}</span>
         UTC +0
       </div>
-      <div class="info__city">{{ currTicket[1].country.from }}</div>
+      <div class="info__city">{{ currTicket.country.from }}</div>
     </div>
     <div class="details__flight-center">
       <div class="details__flight-center-container">
-        <div class="flight-center__time">{{ duration }}</div>
+        <div class="flight-center__time">{{ getDuration() }}</div>
         <img class="flight-center__img" src="/assets/icons/flight.svg" alt="Flight icon" />
         <div class="flight-center__direct">Direct</div>
       </div>
@@ -19,22 +19,22 @@
       <div class="info__date">{{ dateTo | date : "EEE, MMM d yyyy" }}</div>
       <div class="info__time">
         UTC +1
-        <span>{{ currTicket[1].times.end }}</span>
+        <span>{{ currTicket.times.end }}</span>
       </div>
-      <div class="info__city">{{ currTicket[1].country.to }}</div>
+      <div class="info__city">{{ currTicket.country.to }}</div>
     </div>
     <div class="details__flight-number">
       Flight no.
-      <span>{{ currTicket[1].flightNum }}</span>
+      <span>{{ currTicket.flightNum }}</span>
     </div>
   </div>
   <div class="details__select">
     <div class="seat-price">
-      <div class="seat" appSeatBackground [availableSeats]="10">
-        {{ currTicket[1].seats }} seats available
+      <div class="seat" appSeatBackground [availableSeats]="currTicket.seats">
+        {{ currTicket.seats }} seats available
       </div>
       <div class="price-title">Price</div>
-      <div class="price">{{ currTicket[1].price | currency : "EUR" }}</div>
+      <div class="price">{{ currTicket.price | currency : "EUR" }}</div>
     </div>
     <div class="details__select-btn-container">
       <button class="details__select-btn btn">Select</button>

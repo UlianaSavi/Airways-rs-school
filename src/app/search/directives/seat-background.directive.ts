@@ -1,15 +1,15 @@
-import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Input, OnChanges, Renderer2 } from '@angular/core';
 import { BackgroundColorAvailableSeats } from '../enums/seatsIndicators';
 
 @Directive({
   selector: '[appSeatBackground]',
 })
-export class SeatBackgroundDirective implements OnInit {
+export class SeatBackgroundDirective implements OnChanges {
   @Input() availableSeats = 0;
 
   constructor(private el: ElementRef, private rend2: Renderer2) {}
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
     this.rend2.setStyle(this.el.nativeElement, 'backgroundColor', this.color(this.availableSeats));
   }
 

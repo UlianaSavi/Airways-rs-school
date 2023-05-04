@@ -6,13 +6,14 @@
         src="/assets/icons/airplane.svg"
         [ngClass]="{ back: isBack }"
       />
-      <span>{{ tickets[1].country.from }} to {{ tickets[1].country.to }}</span>
+      <span>{{ currTicket?.country?.from }} to {{ currTicket?.country?.to }}</span>
     </div>
     <app-calendar
       class="result-item__calendar"
       [isBack]="isBack"
-      [tickets]="tickets"
+      [tickets]="filterTickets(tickets)"
+      (selectDate)="setSelectDate($event)"
     ></app-calendar>
-    <app-ticket class="result-item__details" [currTicket]="tickets"></app-ticket>
+    <app-ticket class="result-item__details" [currTicket]="currTicket"></app-ticket>
   </div>
 </div>

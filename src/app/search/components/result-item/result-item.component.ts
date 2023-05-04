@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { ITicket } from '../../models/tickets.model';
 import { selectTickets } from 'src/app/redux/selectors/tickets.selector';
 import { Store } from '@ngrx/store';
@@ -10,8 +11,6 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./result-item.component.scss'],
 })
 export class ResultItemComponent {
-  constructor(private store: Store) {}
-
   @Input() isBack = false;
 
   @Input() cityFrom: string | null = null;
@@ -20,11 +19,31 @@ export class ResultItemComponent {
 
   tickets$: Observable<ITicket[]> = this.store.select(selectTickets);
 
-  // currTicket: ITicket | null = null;
+  selectedDate!: Date;
 
-  // ngOnInit(): void {
-  //   // this.tickets$.subscribe((tickets) => {
-  //   //   this.currTicket = tickets.at(0) || null; // TODO selection ticket: this.currTicket = tickets.find((ticket) => ticket.date === selectedDate)
-  //   // });
-  // }
+  currTicket: ITicket | null = null;
+
+  constructor(private store: Store) {}
+
+  public setSelectDate(date: Date) {
+    this.selectedDate = date;
+    this.setCurrentTicket(date);
+  }
+
+  public filterTickets(tickets: ITicket[]): ITicket[] {
+    return tickets.filter(
+      (ticket) =>
+        ticket.type === (this.isBack ? 'back' : 'from') && ticket.country.from === this.cityFrom
+    );
+  }
+
+  private setCurrentTicket(date: Date) {
+    this.tickets$
+      .pipe(take(1))
+      .subscribe(
+        (tickets) =>
+          (this.currTicket =
+            tickets.find((ticket) => new Date(ticket.date).getTime() === date.getTime()) || null)
+      );
+  }
 }

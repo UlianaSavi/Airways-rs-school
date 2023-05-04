@@ -14,20 +14,16 @@ export class TicketComponent implements OnInit {
 
   dateTo: Date | string = '';
 
-  duration = '';
-
-  @Input() currTicket: ITicket[] = [];
+  @Input() currTicket: ITicket | null = null;
 
   ngOnInit() {
     this.route.queryParamMap.subscribe((params) => {
       this.dateFrom = new Date(params.get('dateFrom') || '');
       this.dateTo = new Date(params.get('dateDestination') || '');
-      const timeTo = Number(this.currTicket[1].times.end.slice(0, 2)) || 2;
-      const timeFrom = Number(this.currTicket[1].times.start.slice(0, 2)) || 1;
-      console.log(this.currTicket[1].times);
-      console.log(timeTo);
-      console.log(timeFrom);
-      this.duration = `${timeTo - timeFrom}h`;
     });
+  }
+
+  public getDuration(): string {
+    return '1h 30min';
   }
 }

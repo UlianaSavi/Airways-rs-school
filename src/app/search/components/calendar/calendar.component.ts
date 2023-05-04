@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ITicket } from '../../models/tickets.model';
 
@@ -12,6 +19,8 @@ export class CalendarComponent implements OnInit {
   @Input() isBack = false;
 
   @Input() tickets: ITicket[] = [];
+
+  @Output() selectDate = new EventEmitter<Date>();
 
   selectedDate!: Date;
 
@@ -30,12 +39,11 @@ export class CalendarComponent implements OnInit {
         this.initDates(dateFromTemp);
       }
     });
-    // TODO календарь активными сетит те даты, которые есть в массиве билетов tickets (остальные убрать или сделать не доступными для взаимодействия)
-    // TODO при клике на дату в календаре, она записывается как selectedDate (пригодится в todo в ResultItemComponent)
   }
 
   private initDates(dateFromTemp: string) {
     this.selectedDate = new Date(dateFromTemp);
+    this.selectDate.emit(new Date(dateFromTemp));
     this.centerDateForCalendar = this.selectedDate;
     this.dates = this.getDatesForCalendar(this.selectedDate);
   }
@@ -76,7 +84,13 @@ export class CalendarComponent implements OnInit {
     const ticket: ITicket | undefined = this.tickets.find(
       (_ticket) => new Date(_ticket.date).getTime() === date.getTime()
     );
-    if (ticket) return ticket.seats;
-    return 0;
+    return ticket ? ticket.seats : 0;
   };
+
+  public setSelectDate(date: Date) {
+    if (this.isChangedDateMoreToday(date) && this.getSeat(date)) {
+      this.selectedDate = date;
+      this.selectDate.emit(date);
+    }
+  }
 }
