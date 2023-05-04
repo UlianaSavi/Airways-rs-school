@@ -12,30 +12,8 @@ import { selectCountPassengers } from '../../../redux/selectors/passengers.selec
   templateUrl: './passengers.component.html',
   styleUrls: ['./passengers.component.scss'],
 })
-export class PassengersComponent implements OnInit {
-  passengersFormsData: PassengersFormData[] = [
-    {
-      id: '1',
-      cardHead: '1. Adult',
-      ageStatus: 'Adult',
-      addPassengersForm: this.addPassengersForm.bind(this),
-      setFormFullField: this.setFormFullField.bind(this),
-    },
-    {
-      id: '2',
-      cardHead: '2. Child',
-      ageStatus: 'Children',
-      addPassengersForm: this.addPassengersForm.bind(this),
-      setFormFullField: this.setFormFullField.bind(this),
-    },
-    {
-      id: '3',
-      cardHead: '3. Infant',
-      ageStatus: 'Infant',
-      addPassengersForm: this.addPassengersForm.bind(this),
-      setFormFullField: this.setFormFullField.bind(this),
-    },
-  ];
+export class PassengersComponent {
+  passengersFormsData: PassengersFormData[] = [];
 
   formsStatus: { id: string; value: boolean }[] = [];
 
@@ -46,6 +24,9 @@ export class PassengersComponent implements OnInit {
   canContinue = false;
 
   constructor(private location: Location, private store: Store) {
+    this.peopleCount$.subscribe((count) => {
+      this.passengersFormsData = this.setPeopleArray(count.adult, count.child, count.infant);
+    });
     this.formsStatus = [
       ...this.passengersFormsData.map(({ id }) => ({ id, value: false })),
       {
@@ -61,12 +42,10 @@ export class PassengersComponent implements OnInit {
 
   addPassengersForm(passengersForm: PassengerData) {
     this.passengersForm = passengersForm;
-    console.log('passengers form', this.passengersForm);
   }
 
   addContactForm(contactForm: ContactForm) {
     this.contactForm = contactForm;
-    console.log('contact form', this.contactForm);
   }
 
   setFormFullField(props: { id: string; value: boolean }) {
@@ -78,22 +57,12 @@ export class PassengersComponent implements OnInit {
     }
 
     this.formsStatus = updatedStatus;
-    console.log(
-      'All forms is valid: ',
-      this.formsStatus.map((form) => form.value).every((is) => is)
-    );
     if (this.formsStatus.map((form) => form.value).every((is) => is)) {
       this.canContinue = true;
     }
   }
 
   peopleCount$ = this.store.select(selectCountPassengers);
-
-  ngOnInit(): void {
-    this.peopleCount$.subscribe((count) => {
-      this.passengersFormsData = this.setPeopleArray(count.adult, count.child, count.infant);
-    });
-  }
 
   private setPeopleArray(
     adultCount: number,
