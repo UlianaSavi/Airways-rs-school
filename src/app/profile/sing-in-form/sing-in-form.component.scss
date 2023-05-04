@@ -80,6 +80,7 @@
 .singIn-link {
   color: $primary-text-color;
   cursor: pointer;
+
   &:hover {
     text-decoration: underline;
   }
@@ -93,8 +94,8 @@
   cursor: pointer;
 
   &:disabled {
-    background: $singIn-disabledBtn-link;
-    color: $singIn-disabledSubmit-color;
+    background: $btn-disabledBtn-link;
+    color: $btn-disabledSubmit-color;
   }
 }
 
@@ -103,14 +104,4 @@
   justify-content: center;
   align-items: center;
   column-gap: 8px;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type="number"] {
-  -moz-appearance: textfield;
 }

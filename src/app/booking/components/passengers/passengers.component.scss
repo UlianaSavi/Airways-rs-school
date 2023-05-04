@@ -1,0 +1,55 @@
+@import "variables";
+
+.container {
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.booking-info {
+  &__buttons {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+}
+
+.btn {
+  padding: 20px 45px;
+  border-radius: 5px;
+
+  &:disabled {
+    background: $btn-disabledBtn-link;
+    color: $btn-disabledSubmit-color;
+  }
+}
+
+.passengers-container {
+  justify-content: flex-start;
+}
+
+.passengers-information {
+  width: 100%;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.passengers-head {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 40px;
+
+  color: $primary-text-color;
+
+  &__icon {
+    margin-right: 16px;
+  }
+}
+
+.passengers-text {
+  font-size: 16px;
+  color: $passengers-text;
+}

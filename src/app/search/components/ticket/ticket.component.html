@@ -3,10 +3,10 @@
     <div class="details__flight-info details__flight-departure">
       <div class="info__date">{{ dateFrom | date : "EEE, MMM d yyyy" }}</div>
       <div class="info__time">
-        <span>{{ currTicket?.times?.start }}</span>
+        <span>{{ currTicket[1].times.start }}</span>
         UTC +0
       </div>
-      <div class="info__city">{{ currTicket?.country?.from }}</div>
+      <div class="info__city">{{ currTicket[1].country.from }}</div>
     </div>
     <div class="details__flight-center">
       <div class="details__flight-center-container">
@@ -19,22 +19,22 @@
       <div class="info__date">{{ dateTo | date : "EEE, MMM d yyyy" }}</div>
       <div class="info__time">
         UTC +1
-        <span>{{ currTicket?.times?.end }}</span>
+        <span>{{ currTicket[1].times.end }}</span>
       </div>
-      <div class="info__city">{{ currTicket?.country?.to }}</div>
+      <div class="info__city">{{ currTicket[1].country.to }}</div>
     </div>
     <div class="details__flight-number">
       Flight no.
-      <span>{{ currTicket?.flightNum }}</span>
+      <span>{{ currTicket[1].flightNum }}</span>
     </div>
   </div>
   <div class="details__select">
     <div class="seat-price">
       <div class="seat" appSeatBackground [availableSeats]="10">
-        {{ currTicket?.seats }} seats available
+        {{ currTicket[1].seats }} seats available
       </div>
       <div class="price-title">Price</div>
-      <div class="price">{{ currTicket?.price | currency : "EUR" }}</div>
+      <div class="price">{{ currTicket[1].price | currency : "EUR" }}</div>
     </div>
     <div class="details__select-btn-container">
       <button class="details__select-btn btn">Select</button>

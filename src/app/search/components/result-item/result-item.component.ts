@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ITicket } from '../../models/tickets.model';
 import { selectTickets } from 'src/app/redux/selectors/tickets.selector';
@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
   templateUrl: './result-item.component.html',
   styleUrls: ['./result-item.component.scss'],
 })
-export class ResultItemComponent implements OnInit {
+export class ResultItemComponent {
   constructor(private store: Store) {}
 
   @Input() isBack = false;
@@ -20,11 +20,11 @@ export class ResultItemComponent implements OnInit {
 
   tickets$: Observable<ITicket[]> = this.store.select(selectTickets);
 
-  currTicket: ITicket | null = null;
+  // currTicket: ITicket | null = null;
 
-  ngOnInit(): void {
-    this.tickets$.subscribe((tickets) => {
-      this.currTicket = tickets.at(0) || null; // TODO selection ticket: this.currTicket = tickets.find((ticket) => ticket.date === selectedDate)
-    });
-  }
+  // ngOnInit(): void {
+  //   // this.tickets$.subscribe((tickets) => {
+  //   //   this.currTicket = tickets.at(0) || null; // TODO selection ticket: this.currTicket = tickets.find((ticket) => ticket.date === selectedDate)
+  //   // });
+  // }
 }

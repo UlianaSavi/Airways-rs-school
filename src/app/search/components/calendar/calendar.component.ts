@@ -69,9 +69,14 @@ export class CalendarComponent implements OnInit {
     this.disabledBtn = false;
   }
 
-  public getPrice(date: Date): number {
-    return (
-      this.tickets.find((ticket) => new Date(ticket.date).getTime() === date.getTime())?.price || 0
+  public getPrice = (date: Date): number =>
+    this.tickets.find((ticket) => new Date(ticket.date).getTime() === date.getTime())?.price || 0;
+
+  public getSeat = (date: Date): number => {
+    const ticket: ITicket | undefined = this.tickets.find(
+      (_ticket) => new Date(_ticket.date).getTime() === date.getTime()
     );
-  }
+    if (ticket) return ticket.seats;
+    return 0;
+  };
 }

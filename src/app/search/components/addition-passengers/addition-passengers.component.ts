@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PassengersAgeText, PassengersTypeText } from '../../enums/passengers';
-import { PassengersType } from '../../models/passengers.model';
+import { PassengersType } from '../../../core/models/passengers.model';
 
 @Component({
   selector: 'app-addition-passengers',

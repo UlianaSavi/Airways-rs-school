@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable, map, startWith, take } from 'rxjs';
-import { PassengersType } from '../../models/passengers.model';
+import { PassengersType } from '../../../core/models/passengers.model';
 import { dateDestinationValidator } from '../../validators/validators';
 import { City } from '../../models/cities.model';
 import { IQueryParams } from 'src/app/core/models/query-params.model';
@@ -34,9 +34,9 @@ export class SearchFormComponent implements OnInit {
 
   filteredDestinationCities$!: Observable<City[]>;
 
-  minDate = new Date('05.08.2023');
+  minDate = new Date('05.07.2023');
 
-  maxDate = new Date('05.17.2023');
+  maxDate = new Date('05.16.2023');
 
   typeOfPassengers: PassengersType[] = ['adult', 'child', 'infant'];
 

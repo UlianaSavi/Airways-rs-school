@@ -1,0 +1,61 @@
+<div class="contact container">
+  <div class="contact__title">
+    <div class="contact__title__icon">
+      <img ngSrc="/assets/icons/contact.svg" height="20" width="16" alt="Contact icon" />
+    </div>
+    <h3 class="h3-blue">Contact details</h3>
+  </div>
+  <p class="contact__subtext">
+    We need contact details to be able to deliver the latest information regarding your flight.
+  </p>
+  <form class="contact__card" [formGroup]="contactDetailsForm">
+    <mat-form-field class="contact__card__item" subscriptSizing="dynamic" appearance="fill">
+      <mat-label>Country code</mat-label>
+      <mat-select value="+93" formControlName="countryCode" (openedChange)="hasErr()">
+        <mat-option [value]="'+93'">Ireland (+353)</mat-option>
+        <mat-option [value]="'+7'">Spain (+34)</mat-option>
+      </mat-select>
+      <mat-error *ngIf="contactDetailsForm.get('countryCode')?.hasError('required')">
+        Country code is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="contact__card__item" subscriptSizing="dynamic">
+      <mat-label>Mobile phone number</mat-label>
+      <input
+        type="tel"
+        matInput
+        placeholder="e.g. 111111111"
+        formControlName="phone"
+        [minlength]="10"
+        [maxLength]="12"
+        (input)="hasErr()"
+      />
+      <mat-error *ngIf="contactDetailsForm.get('phone')?.hasError('required')">
+        Phone is required
+      </mat-error>
+      <mat-error *ngIf="contactDetailsForm.get('phone')?.hasError('minlength')">
+        Min length 10 symbols
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field
+      class="contact__card__item"
+      color="primary"
+      subscriptSizing="dynamic"
+      appearance="fill"
+    >
+      <mat-label>E-mail</mat-label>
+      <input matInput type="text" name="e-mail" formControlName="email" (input)="hasErr()" />
+      <mat-error *ngIf="contactDetailsForm.get('email')?.hasError('required')">
+        E-mail is required
+      </mat-error>
+      <mat-error
+        *ngIf="
+          contactDetailsForm.controls['email']?.value?.length &&
+          contactDetailsForm.controls['email'].invalid
+        "
+      >
+        Please enter a valid email
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>
