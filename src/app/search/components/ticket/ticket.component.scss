@@ -67,10 +67,26 @@
   }
 
   &__select {
+    border-left: 2px dashed $footer-border;
+
+    .price {
+      color: $primary-text-color;
+    }
+  }
+
+  &__selected {
+    border: none;
+
+    .price {
+      color: $black;
+    }
+  }
+
+  &__select,
+  &__selected {
     display: flex;
     align-items: center;
     padding: 15px 0 15px 28px;
-    border-left: 2px dashed $footer-border;
 
     .seat-price {
       max-width: 135px;
@@ -90,7 +106,6 @@
         font-weight: 700;
         font-size: 30px;
         line-height: 36px;
-        color: $primary-text-color;
 
         &-title {
           font-weight: 700;
@@ -100,18 +115,25 @@
       }
     }
 
-    &-btn {
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 20px;
-      padding: 8px 16px;
-      border: 1px solid $primary-text-color;
-      border-radius: 4px;
-      background: $select-btn-color;
-      color: $white;
+    &__buttons {
+      padding: 0 40px 0 32px;
 
-      &-container {
-        padding: 0 40px 0 32px;
+      .select-btn {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        padding: 8px 16px;
+        border: 1px solid $primary-text-color;
+        border-radius: 4px;
+        background: $select-btn-color;
+        color: $white;
+        cursor: pointer;
+      }
+
+      .edit-btn {
+        padding: 6px 10px;
+        border-radius: 5px;
+        cursor: pointer;
       }
     }
   }

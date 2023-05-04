@@ -18,5 +18,11 @@ export class ResultItemComponent {
 
   tickets$: Observable<ITicket[]> = this.store.select(selectTickets);
 
+  selected = false;
+
   constructor(private store: Store) {}
+
+  addSelectedTicket(selected: boolean) {
+    this.selected = selected;
+  }
 }

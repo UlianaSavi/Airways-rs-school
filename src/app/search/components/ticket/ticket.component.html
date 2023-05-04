@@ -28,14 +28,19 @@
       <span>FR 1925</span>
     </div>
   </div>
-  <div class="details__select">
+  <div [ngClass]="{ details__select: !selected, details__selected: selected }">
     <div class="seat-price">
-      <div class="seat" appSeatBackground [availableSeats]="10">100 seats available</div>
-      <div class="price-title">Price</div>
+      <div *ngIf="!selected" class="seat" appSeatBackground [availableSeats]="10">
+        100 seats available
+      </div>
+      <div *ngIf="!selected" class="price-title">Price</div>
       <div class="price">{{ 140.5 | currency : "EUR" }}</div>
     </div>
-    <div class="details__select-btn-container">
-      <button class="details__select-btn btn">Select</button>
+    <div class="details__select__buttons">
+      <button *ngIf="!selected" class="select-btn btn" (click)="ticketClicked()">Select</button>
+      <button *ngIf="selected" class="edit-btn btn-transparent btn" (click)="ticketClicked()">
+        Edit
+      </button>
     </div>
   </div>
 </div>

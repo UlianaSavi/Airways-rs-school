@@ -9,10 +9,14 @@
       <span>{{ cityFrom }} to {{ cityTo }}</span>
     </div>
     <app-calendar
+      *ngIf="!selected"
       class="result-item__calendar"
       [isBack]="isBack"
       [tickets]="tickets"
     ></app-calendar>
-    <app-ticket class="result-item__details"></app-ticket>
+    <app-ticket
+      class="result-item__details"
+      (newSelectedTicket)="addSelectedTicket($event)"
+    ></app-ticket>
   </div>
 </div>
