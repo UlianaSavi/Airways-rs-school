@@ -1,7 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import * as CurrencyDateSelectors from '../../../../redux/selectors/currency-date.selectors';
+import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
+import { AgeStatus } from 'src/app/core/models/age-status.model';
+import { PassengerData } from 'src/app/core/models/passengers.model';
 
 @Component({
   selector: 'app-passengers-info',
@@ -9,11 +11,17 @@ import * as CurrencyDateSelectors from '../../../../redux/selectors/currency-dat
   styleUrls: ['./passengers-info.component.scss'],
 })
 export class PassengersInfoComponent implements OnInit {
+  constructor(private fb: FormBuilder, private store: Store) {}
+
+  @Input() id = '';
+
   @Input() cardHead = 'Card-head not set';
 
-  @Input() ageStatus: 'Adult' | 'Children' | 'Infant' = 'Adult';
+  @Input() ageStatus: AgeStatus = 'Adult';
 
-  constructor(private fb: FormBuilder, private store: Store) {}
+  @Output() newValidPassengers = new EventEmitter<PassengerData>();
+
+  @Output() fullField = new EventEmitter<{ id: string; value: boolean }>();
 
   passengersInfoForm = this.fb.group({
     firstName: [
@@ -22,7 +30,6 @@ export class PassengersInfoComponent implements OnInit {
     ],
     lastName: [
       '',
-      Validators.required,
       [Validators.required, Validators.pattern(/^[a-zA-Zа-яА-Я ]+$/), Validators.minLength(2)],
     ],
     gender: ['', Validators.required],
@@ -38,6 +45,13 @@ export class PassengersInfoComponent implements OnInit {
   formatDate$ = this.store.select(CurrencyDateSelectors.selectDateFormat);
 
   dateOfBird: Date | undefined;
+
+  hasErr = () => {
+    if (!this.passengersInfoForm.invalid) {
+      this.newValidPassengers.emit(this.passengersInfoForm.value as PassengerData);
+    }
+    this.fullField.emit({ id: this.id, value: !this.passengersInfoForm.invalid });
+  };
 
   increase() {
     this.baggageCount += 1;
@@ -55,10 +69,6 @@ export class PassengersInfoComponent implements OnInit {
 
   onToggleChange() {
     this.baggageCount = 1;
-  }
-
-  onSubmit() {
-    console.log(this.passengersInfoForm.value);
   }
 
   ngOnInit(): void {

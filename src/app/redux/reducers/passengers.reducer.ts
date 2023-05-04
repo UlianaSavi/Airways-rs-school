@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as PassengersActions from '../actions/passengers.actions';
-import { PassengerInfo, PassengersType } from 'src/app/search/models/passengers.model';
+import { PassengerInfo, PassengersType } from 'src/app/core/models/passengers.model';
 
 export const passengersFeatureKey = 'passengers';
 

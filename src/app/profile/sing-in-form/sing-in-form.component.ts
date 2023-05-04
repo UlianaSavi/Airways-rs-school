@@ -37,7 +37,11 @@ export class SingInFormComponent implements OnInit, OnDestroy {
     dateOfBird: new FormControl('', [Validators.required, this.dateOfBirdValidator()]),
     gender: new FormControl('', [Validators.required]),
     countryCode: new FormControl('', [Validators.required]),
-    phone: new FormControl('', [Validators.required, Validators.minLength(10)]),
+    phone: new FormControl('', [
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(12),
+    ]),
     citizenship: new FormControl('', [Validators.required]),
     agree: new FormControl('', [Validators.required, Validators.requiredTrue]),
   });

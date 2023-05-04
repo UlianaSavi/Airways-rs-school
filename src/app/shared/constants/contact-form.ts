@@ -1,0 +1,1 @@
+export const CONTACT_FROM_ID = 'CONTACT_FROM_ID';

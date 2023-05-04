@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { PassengerInfo } from 'src/app/search/models/passengers.model';
+import { PassengerInfo } from 'src/app/core/models/passengers.model';
 
 export const SetAllInfoPassengers = createAction(
   '[Passengers] Passengers Set',

@@ -1,11 +1,12 @@
-import { Component, OnDestroy, OnInit, DoCheck } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SingInStatusService } from '../../services/sing-in-status.service';
-import { Subscription } from 'rxjs';
+import { Subscription, filter } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { CurrentStep } from '../../models/current-step.model';
 import { Store } from '@ngrx/store';
 import * as CurrencyDateActions from '../../../redux/actions/currency-date.actions';
 import { MY_FORMATS } from '../../../shared/shared.module';
+import { NavigationEnd, Router } from '@angular/router';
 
 enum EuroCoefficient {
   EUR = 1,
@@ -19,12 +20,17 @@ enum EuroCoefficient {
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
+export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private singInStatusService: SingInStatusService,
     public authService: AuthService,
-    private store: Store
-  ) {}
+    private store: Store,
+    private router: Router
+  ) {
+    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
+      this.getCurrStep();
+    });
+  }
 
   dateFormat = 'MM/DD/YYYY';
 
@@ -81,20 +87,19 @@ export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
     );
   }
 
-  ngDoCheck() {
-    this.getCurrStep();
-  }
-
   getCurrStep() {
     switch (location.pathname) {
       case CurrentStep.activeSearchStep:
         this.stepsActivate = true;
         this.activeSearchStep = true;
+        this.activeBookingStep = false;
+        this.activeLastStep = false;
         break;
       case CurrentStep.activeBookingStep:
         this.stepsActivate = true;
         this.activeSearchStep = true;
         this.activeBookingStep = true;
+        this.activeLastStep = false;
         break;
       case CurrentStep.activeLastStep:
         this.stepsActivate = true;

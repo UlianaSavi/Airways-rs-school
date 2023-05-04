@@ -46,3 +46,28 @@ body {
   color: $primary-text-color;
   font-weight: 500;
 }
+
+.btn-blue {
+  color: $white;
+  background: $primary-text-color;
+}
+
+.h3-blue {
+  margin: 0 !important;
+
+  color: $primary-text-color;
+  white-space: nowrap !important;
+  font-weight: 600 !important;
+  font-size: 24px !important;
+}
+
+// inputs
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type='number'] {
+  appearance: textfield;
+}

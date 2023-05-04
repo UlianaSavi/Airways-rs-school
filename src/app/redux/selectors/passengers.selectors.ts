@@ -4,7 +4,7 @@ import {
   PassengerData,
   PassengerInfo,
   PassengersType,
-} from 'src/app/search/models/passengers.model';
+} from 'src/app/core/models/passengers.model';
 
 const selectPassengersFeature = createFeatureSelector<PassengersState>(passengersFeatureKey);
 
