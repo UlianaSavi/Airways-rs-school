@@ -40,23 +40,23 @@
         aria-label="Font Style"
         #group="matButtonToggleGroup"
         formControlName="gender"
-        style="min-width: 215px; margin-bottom: 22px"
+        class="gender-toggle"
       >
         <mat-button-toggle
           value="male"
-          style="width: 50%"
-          [style.color]="group.value === 'male' ? '#11397E' : 'black'"
+          class="half-width"
+          [ngClass]="group.value === 'male' ? 'gender-active' : 'gender-inactive'"
         >
           <mat-icon *ngIf="group.value === 'male'">check</mat-icon>
-          <span style="text-align: center">Male</span>
+          <span class="gender-toggle-text">Male</span>
         </mat-button-toggle>
         <mat-button-toggle
           value="female"
-          style="width: 50%"
-          [style.color]="group.value === 'female' ? '#11397E' : 'black'"
+          class="half-width"
+          [ngClass]="group.value === 'female' ? 'gender-active' : 'gender-inactive'"
         >
           <mat-icon *ngIf="group.value === 'female'">check</mat-icon>
-          <span style="text-align: center">Female</span>
+          <span class="gender-toggle-text">Female</span>
         </mat-button-toggle>
       </mat-button-toggle-group>
 
@@ -68,7 +68,7 @@
           type="text"
           name="dateOfBird"
           formControlName="dateOfBird"
-          [max]="ageStatus === 'Adult' ? maxMinDate : false"
+          [max]="ageStatus === 'Adult' ? maxMinDate : currentDate"
           [min]="ageStatus === 'Children' || ageStatus === 'Infant' ? maxMinDate : false"
           [(ngModel)]="dateOfBird"
           (dateChange)="hasErr()"
@@ -108,9 +108,9 @@
         Baggage
       </mat-slide-toggle>
       <div *ngIf="baggage.checked" class="baggage-counter">
-        <mat-icon style="cursor: pointer" (click)="decrease()">remove</mat-icon>
+        <mat-icon class="baggage-counter-icon" (click)="decrease()">remove</mat-icon>
         {{ baggageCount }}
-        <mat-icon style="cursor: pointer" (click)="increase()">add</mat-icon>
+        <mat-icon class="baggage-counter-icon" (click)="increase()">add</mat-icon>
       </div>
     </div>
   </form>
