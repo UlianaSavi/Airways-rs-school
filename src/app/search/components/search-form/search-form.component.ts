@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
 import { ApiService } from 'src/app/core/services/api.service';
-import { ApiOneWayTicketsType, ApiTicketsType } from 'src/app/redux/actions/tickets.actions';
 import { CitiesService } from 'src/app/core/services/cities.service';
 
 @Component({
@@ -124,14 +123,6 @@ export class SearchFormComponent implements OnInit {
       child: formVal.amountOfPass?.child || 0,
       infant: formVal.amountOfPass?.infant || 0,
     };
-    if (formVal.typeOfFlight === 'round') {
-      this.apiService.getAllTickets();
-      this.store.dispatch(ApiTicketsType());
-    }
-    if (formVal.typeOfFlight === 'one') {
-      this.apiService.getOneWayTickets(query.from || '');
-      this.store.dispatch(ApiOneWayTicketsType({ query: query.from || '' }));
-    }
     this.router.navigate(['search', 'results'], {
       queryParams: { ...query },
     });

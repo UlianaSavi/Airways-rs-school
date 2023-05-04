@@ -47,3 +47,28 @@ h3 {
   justify-content: center;
   column-gap: 10px;
 }
+
+.gender-toggle {
+  min-width: 215px;
+  margin-bottom: 22px;
+}
+
+.gender-toggle-text {
+  text-align: center
+}
+
+.gender-active {
+  color: $primary-text-color;
+}
+
+.gender-inactive {
+  color: $black;
+}
+
+.half-width {
+  width: 50%;
+}
+
+.baggage-counter-icon {
+  cursor: pointer;
+}
