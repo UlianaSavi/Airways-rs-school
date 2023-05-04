@@ -11,12 +11,17 @@
     <div class="details__flight-center">
       <div class="details__flight-center-container">
         <div class="flight-center__time">{{ getDuration() }}</div>
-        <img class="flight-center__img" src="/assets/icons/flight.svg" alt="Flight icon" />
+        <img
+          class="flight-center__img"
+          [ngClass]="{ mirrorY: currTicket.type === 'back' }"
+          src="/assets/icons/flight.svg"
+          alt="Flight icon"
+        />
         <div class="flight-center__direct">Direct</div>
       </div>
     </div>
     <div class="details__flight-info details__flight-arrival">
-      <div class="info__date">{{ dateTo | date : "EEE, MMM d yyyy" }}</div>
+      <div class="info__date">{{ dateFrom | date : "EEE, MMM d yyyy" }}</div>
       <div class="info__time">
         UTC +1
         <span>{{ currTicket.times.end }}</span>

@@ -1,12 +1,17 @@
 <div *ngIf="tickets$ | async as tickets">
-  <div class="result-item" *ngIf="tickets.length">
+  <div class="result-item" *ngIf="tickets.length && cityFrom">
     <div class="result-item__title">
       <img
         class="result-item__title-img"
         src="/assets/icons/airplane.svg"
-        [ngClass]="{ back: isBack }"
+        [ngClass]="{ mirrorY: isBack }"
       />
-      <span>{{ currTicket?.country?.from }} to {{ currTicket?.country?.to }}</span>
+      <span *ngIf="!isBack; else elseTemplate">
+        {{ currTicket?.country?.from }} to {{ currTicket?.country?.to }}
+      </span>
+      <ng-template #elseTemplate>
+        {{ currTicket?.country?.to }} to {{ currTicket?.country?.from }}
+      </ng-template>
     </div>
     <app-calendar
       class="result-item__calendar"

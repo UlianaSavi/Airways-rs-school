@@ -33,7 +33,8 @@ export class ResultItemComponent {
   public filterTickets(tickets: ITicket[]): ITicket[] {
     return tickets.filter(
       (ticket) =>
-        ticket.type === (this.isBack ? 'back' : 'from') && ticket.country.from === this.cityFrom
+        ticket.type === (this.isBack ? 'back' : 'from') &&
+        this.cityFrom?.includes(ticket.country.from)
     );
   }
 
@@ -43,7 +44,9 @@ export class ResultItemComponent {
       .subscribe(
         (tickets) =>
           (this.currTicket =
-            tickets.find((ticket) => new Date(ticket.date).getTime() === date.getTime()) || null)
+            this.filterTickets(tickets).find(
+              (ticket) => new Date(ticket.date).getTime() === date.getTime()
+            ) || null)
       );
   }
 }
