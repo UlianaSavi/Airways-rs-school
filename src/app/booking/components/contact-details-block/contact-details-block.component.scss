@@ -39,5 +39,9 @@
     background: $white;
     box-shadow: $box-shadow;
     border-radius: 8px;
+
+    &__item {
+      width: 30%;
+    }
   }
 }

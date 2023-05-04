@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
 import { PassengersForm } from '../../models/passengers-form.model';
-import { AgeStatus } from '../../models/forms.model';
+import { AgeStatus } from 'src/app/core/models/age-status.model';
 
 @Component({
   selector: 'app-passengers-info',

@@ -17,7 +17,11 @@ export class ContactDetailsBlockComponent {
 
   contactDetailsForm = new FormGroup({
     countryCode: new FormControl('', [Validators.required]),
-    phone: new FormControl('', [Validators.required, Validators.minLength(10)]),
+    phone: new FormControl(null, [
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(12),
+    ]),
     email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
   });
 

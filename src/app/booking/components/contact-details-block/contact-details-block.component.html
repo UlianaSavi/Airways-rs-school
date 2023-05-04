@@ -9,7 +9,7 @@
     We need contact details to be able to deliver the latest information regarding your flight.
   </p>
   <form class="contact__card" [formGroup]="contactDetailsForm">
-    <mat-form-field subscriptSizing="dynamic" appearance="fill" style="width: 50%">
+    <mat-form-field class="contact__card__item" subscriptSizing="dynamic" appearance="fill">
       <mat-label>Country code</mat-label>
       <mat-select value="+93" formControlName="countryCode" (openedChange)="hasErr()">
         <mat-option [value]="'+93'">Ireland (+353)</mat-option>
@@ -19,14 +19,15 @@
         Country code is required
       </mat-error>
     </mat-form-field>
-    <mat-form-field subscriptSizing="dynamic" style="width: 50%">
+    <mat-form-field class="contact__card__item" subscriptSizing="dynamic">
       <mat-label>Mobile phone number</mat-label>
       <input
-        type="number"
+        type="tel"
         matInput
         placeholder="e.g. 111111111"
         formControlName="phone"
-        min="0"
+        [minlength]="10"
+        [maxLength]="12"
         (input)="hasErr()"
       />
       <mat-error *ngIf="contactDetailsForm.get('phone')?.hasError('required')">
@@ -36,7 +37,12 @@
         Min length 10 symbols
       </mat-error>
     </mat-form-field>
-    <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
+    <mat-form-field
+      class="contact__card__item"
+      color="primary"
+      subscriptSizing="dynamic"
+      appearance="fill"
+    >
       <mat-label>E-mail</mat-label>
       <input matInput type="text" name="e-mail" formControlName="email" (input)="hasErr()" />
       <mat-error *ngIf="contactDetailsForm.get('email')?.hasError('required')">
