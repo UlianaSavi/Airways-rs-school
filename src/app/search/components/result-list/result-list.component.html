@@ -1,2 +1,19 @@
 <app-search-info-block (editBlockChanged)="editBlockChanged($event)"></app-search-info-block>
 <app-search-criteria-edit-block *ngIf="canEditBlock"></app-search-criteria-edit-block>
+<div class="container">
+  <div class="result-list">
+    <app-result-item [cityFrom]="from" [cityTo]="to"></app-result-item>
+    <app-result-item
+      *ngIf="dateBack"
+      [cityFrom]="to"
+      [cityTo]="from"
+      [isBack]="true"
+    ></app-result-item>
+  </div>
+  <div class="result-bottom">
+    <a mat-flat-button color="basic" class="result-bottom__link" [routerLink]="['/search']">Back</a>
+    <button mat-flat-button color="primary" class="result-bottom__link" (click)="onContinue()">
+      Continue
+    </button>
+  </div>
+</div>

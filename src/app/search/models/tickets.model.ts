@@ -1,7 +1,7 @@
 export interface ITicket {
   type: string;
-  date: string | Date;
-  price: string;
+  date: Date;
+  price: number;
   times: {
     start: string;
     end: string;

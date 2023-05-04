@@ -10,9 +10,9 @@ import { NavigationEnd, Router } from '@angular/router';
 
 enum EuroCoefficient {
   EUR = 1,
-  USA = 0.9,
+  USD = 0.9,
   RUB = 90,
-  PLN = 0.22,
+  PLN = 4.6,
 }
 
 @Component({
@@ -54,8 +54,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     switch (currency) {
       case 'EUR':
         return EuroCoefficient.EUR;
-      case 'USA':
-        return EuroCoefficient.USA;
+      case 'USD':
+        return EuroCoefficient.USD;
       case 'RUB':
         return EuroCoefficient.RUB;
       case 'PLN':

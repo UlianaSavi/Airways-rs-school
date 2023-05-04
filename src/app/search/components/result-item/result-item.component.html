@@ -1,0 +1,18 @@
+<div *ngIf="tickets$ | async as tickets">
+  <div class="result-item" *ngIf="tickets.length">
+    <div class="result-item__title">
+      <img
+        class="result-item__title-img"
+        src="/assets/icons/airplane.svg"
+        [ngClass]="{ back: isBack }"
+      />
+      <span>{{ cityFrom }} to {{ cityTo }}</span>
+    </div>
+    <app-calendar
+      class="result-item__calendar"
+      [isBack]="isBack"
+      [tickets]="tickets"
+    ></app-calendar>
+    <app-ticket class="result-item__details"></app-ticket>
+  </div>
+</div>
