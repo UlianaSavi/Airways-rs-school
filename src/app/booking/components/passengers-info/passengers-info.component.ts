@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
-import { PassengersForm } from '../../models/passengers-form.model';
 import { AgeStatus } from 'src/app/core/models/age-status.model';
+import { PassengerData } from 'src/app/core/models/passengers.model';
 
 @Component({
   selector: 'app-passengers-info',
@@ -19,7 +19,7 @@ export class PassengersInfoComponent implements OnInit {
 
   @Input() ageStatus: AgeStatus = 'Adult';
 
-  @Output() newValidPassengers = new EventEmitter<PassengersForm>();
+  @Output() newValidPassengers = new EventEmitter<PassengerData>();
 
   @Output() fullField = new EventEmitter<{ id: string; value: boolean }>();
 
@@ -47,7 +47,9 @@ export class PassengersInfoComponent implements OnInit {
   dateOfBird: Date | undefined;
 
   hasErr = () => {
-    this.newValidPassengers.emit(this.passengersInfoForm.value as PassengersForm);
+    if (!this.passengersInfoForm.invalid) {
+      this.newValidPassengers.emit(this.passengersInfoForm.value as PassengerData);
+    }
     this.fullField.emit({ id: this.id, value: !this.passengersInfoForm.invalid });
   };
 

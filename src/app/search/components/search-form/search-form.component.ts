@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable, map, startWith, take } from 'rxjs';
-import { PassengersType } from '../../models/passengers.model';
+import { PassengersType } from '../../../core/models/passengers.model';
 import { dateDestinationValidator } from '../../validators/validators';
 import { City } from '../../models/cities.model';
 import { IQueryParams } from 'src/app/core/models/query-params.model';

@@ -26,7 +26,9 @@ export class ContactDetailsBlockComponent {
   });
 
   hasErr = () => {
-    this.newValidContacts.emit(this.contactDetailsForm.value as ContactForm);
+    if (!this.contactDetailsForm.invalid) {
+      this.newValidContacts.emit(this.contactDetailsForm.value as ContactForm);
+    }
     this.fullField.emit({ id: CONTACT_FROM_ID, value: !this.contactDetailsForm.invalid });
   };
 }

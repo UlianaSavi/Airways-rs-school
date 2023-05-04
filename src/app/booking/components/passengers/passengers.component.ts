@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { ContactForm } from '../../models/contact-form.model';
-import { PassengersForm } from '../../models/passengers-form.model';
 import { PassengersFormData } from '../../models/forms.model';
 import { CONTACT_FROM_ID } from 'src/app/shared/constants/contact-form';
+import { PassengerData } from 'src/app/core/models/passengers.model';
 
 @Component({
   selector: 'app-passengers',
@@ -37,7 +37,7 @@ export class PassengersComponent {
 
   formsStatus: { id: string; value: boolean }[] = [];
 
-  passengersForm: PassengersForm | [] = [];
+  passengersForm: PassengerData | [] = [];
 
   contactForm: ContactForm | [] = [];
 
@@ -57,7 +57,7 @@ export class PassengersComponent {
     this.location.back();
   }
 
-  addPassengersForm(passengersForm: PassengersForm) {
+  addPassengersForm(passengersForm: PassengerData) {
     this.passengersForm = passengersForm;
     console.log('passengers form', this.passengersForm);
   }
