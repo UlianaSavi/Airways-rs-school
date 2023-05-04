@@ -42,6 +42,8 @@ export class PassengersInfoComponent implements OnInit {
 
   maxMinDate = new Date(new Date().getFullYear() - 18, 11, 31);
 
+  currentDate = new Date();
+
   formatDate$ = this.store.select(CurrencyDateSelectors.selectDateFormat);
 
   dateOfBird: Date | undefined;

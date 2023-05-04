@@ -20,7 +20,7 @@
           </div>
           <div class="alternative-login">
             <div class="singIn-line"></div>
-            <span style="font-size: 12px; color: black">or log in with your email</span>
+            <span class="singUp-alt-text">or log in with your email</span>
             <div class="singIn-line"></div>
           </div>
 
@@ -55,7 +55,7 @@
                 [attr.aria-label]="'Hide password'"
                 [attr.aria-pressed]="hide"
               >
-                <mat-icon style="color: #cecece">
+                <mat-icon class="password-visibility">
                   {{ hide ? "visibility_off" : "visibility" }}
                 </mat-icon>
               </button>
@@ -63,7 +63,7 @@
                 Password is required
               </mat-error>
             </mat-form-field>
-            <div style="text-align: right">
+            <div class="singIn-link-div">
               <span class="singIn-link">Forgot password?</span>
             </div>
             <button class="login-submit" type="submit" [disabled]="logInForm.invalid">
@@ -91,7 +91,7 @@
           </div>
           <div class="alternative-login">
             <div class="singUp-line"></div>
-            <span style="font-size: 12px; color: black">or sign up with your email</span>
+            <span class="singUp-alt-text">or sign up with your email</span>
             <div class="singUp-line"></div>
           </div>
 
@@ -176,18 +176,18 @@
               #group="matButtonToggleGroup"
               formControlName="gender"
             >
-              <mat-button-toggle value="male" style="width: 50%">
+              <mat-button-toggle value="male" class="half-width">
                 <mat-icon *ngIf="group.value === 'male'">check</mat-icon>
-                <span style="padding-left: 8px">Male</span>
+                <span class="gender-toggle-text">Male</span>
               </mat-button-toggle>
-              <mat-button-toggle value="female" style="width: 50%">
+              <mat-button-toggle value="female" class="half-width">
                 <mat-icon *ngIf="group.value === 'female'">check</mat-icon>
-                <span style="padding-left: 8px">Female</span>
+                <span class="gender-toggle-text">Female</span>
               </mat-button-toggle>
             </mat-button-toggle-group>
 
             <div class="signUp-phone">
-              <mat-form-field subscriptSizing="dynamic" appearance="fill" style="width: 50%">
+              <mat-form-field subscriptSizing="dynamic" appearance="fill" class="half-width">
                 <mat-label>Country code</mat-label>
                 <mat-select value="+93" formControlName="countryCode">
                   <mat-option [value]="'+93'">Ireland (+353)</mat-option>
@@ -197,7 +197,7 @@
                   Country code is required
                 </mat-error>
               </mat-form-field>
-              <mat-form-field subscriptSizing="dynamic" style="width: 50%">
+              <mat-form-field subscriptSizing="dynamic" class="half-width">
                 <mat-label>Mobile phone number</mat-label>
                 <input
                   type="tel"
