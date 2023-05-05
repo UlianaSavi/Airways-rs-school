@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-  Output,
-  EventEmitter,
-} from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ITicket } from '../../models/tickets.model';
 
@@ -13,7 +6,6 @@ import { ITicket } from '../../models/tickets.model';
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CalendarComponent implements OnInit {
   @Input() isBack = false;
@@ -84,8 +76,7 @@ export class CalendarComponent implements OnInit {
     const ticket = this.tickets.find(
       (_ticket) => new Date(_ticket.date).getTime() === date.getTime()
     );
-    if (ticket) return ticket.seats;
-    return 0;
+    return ticket ? ticket.seats : 0;
   };
 
   public setSelectDate(date: Date) {

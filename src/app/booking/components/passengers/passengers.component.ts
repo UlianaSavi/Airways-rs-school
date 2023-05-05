@@ -57,6 +57,7 @@ export class PassengersComponent {
     }
 
     this.formsStatus = updatedStatus;
+
     if (this.formsStatus.map((form) => form.value).every((is) => is)) {
       this.canContinue = true;
     }

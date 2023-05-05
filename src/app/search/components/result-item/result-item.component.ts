@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
 import { ITicket } from '../../models/tickets.model';
@@ -10,22 +10,26 @@ import { SelectTicket, SelectBackTicket } from 'src/app/redux/actions/select-tic
   templateUrl: './result-item.component.html',
   styleUrls: ['./result-item.component.scss'],
 })
-export class ResultItemComponent {
+export class ResultItemComponent implements OnChanges {
   @Input() isBack = false;
 
   @Input() cityFrom: string | null = null;
 
-  @Input() cityTo: string | null = null;
-
   tickets$: Observable<ITicket[]> = this.store.select(selectTickets);
 
-  currTicket: ITicket | null = null;
-
   selectedDate!: Date;
+
+  currTicket: ITicket | null = null;
 
   selected = false;
 
   constructor(private store: Store) {}
+
+  ngOnChanges(): void {
+    if (this.cityFrom) {
+      this.setCurrentTicket(this.selectedDate);
+    }
+  }
 
   public setSelectDate(date: Date) {
     this.selectedDate = date;

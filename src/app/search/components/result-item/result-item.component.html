@@ -4,7 +4,7 @@
       <img
         class="result-item__title-img"
         src="/assets/icons/airplane.svg"
-        [ngClass]="{ back: isBack }"
+        [ngClass]="{ mirrorY: isBack }"
       />
       <span *ngIf="!isBack; else elseTemplate">
         {{ currTicket?.country?.from }} to {{ currTicket?.country?.to }}

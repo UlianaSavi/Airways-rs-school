@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -13,6 +13,7 @@ import { selectBackTicket, selectTicket } from 'src/app/redux/selectors/select-t
   selector: 'app-result-list',
   templateUrl: './result-list.component.html',
   styleUrls: ['./result-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResultListComponent implements OnInit {
   canEditBlock = false;
