@@ -1,15 +1,17 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
 import { ITicket } from '../../models/tickets.model';
 import { selectTickets } from 'src/app/redux/selectors/tickets.selector';
+import { SelectTicket } from 'src/app/redux/actions/select-ticket.actions';
+import { SelectBackTicket } from 'src/app/redux/actions/select-ticket.actions';
 
 @Component({
   selector: 'app-result-item',
   templateUrl: './result-item.component.html',
   styleUrls: ['./result-item.component.scss'],
 })
-export class ResultItemComponent implements OnChanges {
+export class ResultItemComponent {
   @Input() isBack = false;
 
   @Input() cityFrom: string | null = null;
@@ -25,12 +27,6 @@ export class ResultItemComponent implements OnChanges {
   selected = false;
 
   constructor(private store: Store) {}
-
-  ngOnChanges(): void {
-    if (this.cityFrom) {
-      this.setCurrentTicket(this.selectedDate);
-    }
-  }
 
   public setSelectDate(date: Date) {
     this.selectedDate = date;
@@ -59,5 +55,11 @@ export class ResultItemComponent implements OnChanges {
 
   addSelectedTicket(selected: boolean) {
     this.selected = selected;
+    if (this.currTicket && this.currTicket.type === 'from') {
+      this.store.dispatch(SelectTicket({ ticket: this.currTicket }));
+    }
+    if (this.currTicket && this.currTicket.type === 'back') {
+      this.store.dispatch(SelectBackTicket({ backTicket: this.currTicket }));
+    }
   }
 }
