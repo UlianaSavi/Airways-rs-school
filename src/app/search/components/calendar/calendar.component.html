@@ -3,7 +3,9 @@
     class="calendar__btn calendar__btn-left btn"
     (click)="datePrev()"
     [disabled]="disabledBtn"
-  ></button>
+  >
+    &#706;
+  </button>
   <app-calendar-item
     class="calendar__item"
     [ngClass]="{
@@ -17,5 +19,5 @@
     (click)="setSelectDate(date)"
     *ngFor="let date of dates; trackBy: trackByFn"
   ></app-calendar-item>
-  <button class="calendar__btn calendar__btn-right btn" (click)="dateNext()">></button>
+  <button class="calendar__btn calendar__btn-right btn" (click)="dateNext()">&#707;</button>
 </div>
