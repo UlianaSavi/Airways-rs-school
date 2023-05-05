@@ -7,11 +7,13 @@ export const selectTicketFeatureKey = 'selectTicket';
 export interface SelectTicketsState {
   ticket: ITicket | null;
   backTicket: ITicket | null;
+  selected: boolean;
 }
 
 export const initialState: SelectTicketsState = {
   ticket: null,
   backTicket: null,
+  selected: false,
 };
 
 export const selectTicketReducer = createReducer(
@@ -28,6 +30,13 @@ export const selectTicketReducer = createReducer(
     (state, { backTicket }): SelectTicketsState => ({
       ...state,
       backTicket,
+    })
+  ),
+  on(
+    SelectTicketActions.SelectTickets,
+    (state, { selected }): SelectTicketsState => ({
+      ...state,
+      selected,
     })
   )
 );

@@ -13,3 +13,8 @@ export const selectBackTicket = createSelector(
   selectTicketFeature,
   (state: SelectTicketsState): ITicket | null => state.backTicket
 );
+
+export const selectSelectedTickets = createSelector(
+  selectTicketFeature,
+  (state: SelectTicketsState): boolean | null => state.selected
+);

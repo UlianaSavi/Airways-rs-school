@@ -10,3 +10,8 @@ export const SelectBackTicket = createAction(
   '[SelectTicket] SelectBackTicket',
   props<{ backTicket: ITicket | null }>()
 );
+
+export const SelectTickets = createAction(
+  '[SelectTicket] SelectTickets',
+  props<{ selected: boolean }>()
+);

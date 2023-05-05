@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ITicket } from '../../models/tickets.model';
 import { Store } from '@ngrx/store';
 import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
+import { selectSelectedTickets } from 'src/app/redux/selectors/select-ticket.selector';
 
 @Component({
   selector: 'app-ticket',
@@ -15,6 +16,8 @@ export class TicketComponent implements OnInit {
   dateFrom: Date | string = '';
 
   dateTo: Date | string = '';
+
+  selected$ = this.store.select(selectSelectedTickets);
 
   selected = false;
 
@@ -29,6 +32,10 @@ export class TicketComponent implements OnInit {
       this.dateFrom = new Date(params.get('dateFrom') || '');
       this.dateTo = new Date(params.get('dateDestination') || '');
     });
+    this.selected$.subscribe((selected) => {
+      this.selected = selected || false;
+    });
+    this.newSelectedTicket.emit(this.selected);
   }
 
   ticketClicked = () => {
