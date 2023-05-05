@@ -1,4 +1,4 @@
-@import 'variables';
+@import "variables";
 
 :host {
   max-width: 50%;
@@ -11,7 +11,7 @@
   border-top: 3px solid $primary-text-color;
   border-radius: 8px;
 
-  &>div {
+  & > div {
     padding: 20px 24px;
   }
 
@@ -32,13 +32,13 @@
   }
 
   &__date {
-    span+span {
+    span + span {
       margin-left: 36px;
     }
   }
 
   &__passenger {
-    &+& {
+    & + & {
       border-top: 1px solid $main-background;
     }
 

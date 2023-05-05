@@ -1,20 +1,24 @@
 <div class="summary-order">
-  <div class="summary-order__header">
+  <div class="summary-order__header" *ngIf="ticket$ | async as ticket">
     <div class="summary-order__flight">
-      <span class="summary-order__flight-number">FR-123</span>
-      <span class="summary-order__flight-titl">Dublin — Warsaw Modlin</span>
+      <span class="summary-order__flight-number">{{ ticket.flightNum }}</span>
+      <span class="summary-order__flight-titl">
+        {{ ticket.country.from }} — {{ ticket.country.to }}
+      </span>
     </div>
     <div class="summary-order__date">
-      <span>Wednesday, 1 March, 2023</span>
-      <span>8:40 — 12:00</span>
+      <span>{{ ticket.date | date : "fullDate" }}</span>
+      <span>{{ ticket.times.start }} — {{ ticket.times.end }}</span>
     </div>
   </div>
-  <div class="summary-order__passenger" *ngFor="let i of [1, 2, 3]">
-    <div class="summary-order__passenger-name">Harry Potter</div>
+  <div class="summary-order__passenger" *ngFor="let passenger of getAllPassengerInArray()">
+    <div class="summary-order__passenger-name">
+      {{ passenger.firstName }} {{ passenger.lastName }}
+    </div>
     <div class="summary-order__passenger-included">
-      <div *ngIf="true">1checked bag (total 23 kg) included</div>
+      <div>1 checked bag (total 23 kg) included</div>
       <div>1 cabin bag + 1 personal item (max. 8 kg) included</div>
-      <div *ngIf="i !== 3">Seat 20E</div>
+      <div *ngIf="passenger.passType !== 'infant'">Seat 20E</div>
     </div>
   </div>
 </div>
