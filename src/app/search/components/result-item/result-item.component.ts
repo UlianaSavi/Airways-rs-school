@@ -3,8 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
 import { ITicket } from '../../models/tickets.model';
 import { selectTickets } from 'src/app/redux/selectors/tickets.selector';
-import { SelectTicket } from 'src/app/redux/actions/select-ticket.actions';
-import { SelectBackTicket } from 'src/app/redux/actions/select-ticket.actions';
+import { SelectTicket, SelectBackTicket } from 'src/app/redux/actions/select-ticket.actions';
 
 @Component({
   selector: 'app-result-item',
@@ -55,10 +54,18 @@ export class ResultItemComponent {
 
   addSelectedTicket(selected: boolean) {
     this.selected = selected;
-    if (this.currTicket && this.currTicket.type === 'from') {
+
+    if (!this.selected && this.currTicket?.type === 'from') {
+      this.store.dispatch(SelectTicket({ ticket: null }));
+    }
+    if (!this.selected && this.currTicket?.type === 'back') {
+      this.store.dispatch(SelectBackTicket({ backTicket: null }));
+    }
+
+    if (this.selected && this.currTicket && this.currTicket.type === 'from') {
       this.store.dispatch(SelectTicket({ ticket: this.currTicket }));
     }
-    if (this.currTicket && this.currTicket.type === 'back') {
+    if (this.selected && this.currTicket && this.currTicket.type === 'back') {
       this.store.dispatch(SelectBackTicket({ backTicket: this.currTicket }));
     }
   }

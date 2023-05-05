@@ -15,7 +15,7 @@
     <button
       mat-flat-button
       color="primary"
-      [disabled]="!ticketSelected"
+      [disabled]="!canContinue()"
       class="result-bottom__link"
       (click)="onContinue()"
     >

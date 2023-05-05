@@ -10,7 +10,9 @@ export class AuthGuard {
 
   canActivate(): boolean {
     if (!this.authService.isLoggedIn) {
-      this.router.navigate(['/search']);
+      alert(
+        "You, stranger, don't have enough access to pass to the next location. Pass the <registration and login> challenge and get enough access to pass on!"
+      );
       return false;
     }
     return true;
