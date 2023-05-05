@@ -17,13 +17,15 @@ export class ResultItemComponent implements OnChanges {
 
   tickets$: Observable<ITicket[]> = this.store.select(selectTickets);
 
-  selectedDate!: Date;
+  selectedDate: Date = new Date('05.07.2023');
 
   currTicket: ITicket | null = null;
 
   selected = false;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) {
+    console.log(this.currTicket);
+  }
 
   ngOnChanges(): void {
     if (this.cityFrom) {

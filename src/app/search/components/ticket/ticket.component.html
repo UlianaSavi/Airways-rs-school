@@ -35,10 +35,10 @@
   </div>
   <div [ngClass]="{ details__select: !selected, details__selected: selected }">
     <div class="seat-price">
-      <div class="seat" appSeatBackground [availableSeats]="currTicket.seats">
+      <div *ngIf="!selected" class="seat" appSeatBackground [availableSeats]="currTicket.seats">
         {{ currTicket.seats }} seats available
       </div>
-      <div class="price-title">Price</div>
+      <div *ngIf="!selected" class="price-title">Price</div>
       <div class="price">{{ currTicket.price | currency : "EUR" }}</div>
     </div>
     <div class="details__select__buttons">
