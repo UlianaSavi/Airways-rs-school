@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { ContactForm } from '../../models/contact-form.model';
 import { PassengersFormData } from '../../models/forms.model';
@@ -12,30 +12,8 @@ import { selectCountPassengers } from '../../../redux/selectors/passengers.selec
   templateUrl: './passengers.component.html',
   styleUrls: ['./passengers.component.scss'],
 })
-export class PassengersComponent implements OnInit {
-  passengersFormsData: PassengersFormData[] = [
-    {
-      id: '1',
-      cardHead: '1. Adult',
-      ageStatus: 'Adult',
-      addPassengersForm: this.addPassengersForm.bind(this),
-      setFormFullField: this.setFormFullField.bind(this),
-    },
-    {
-      id: '2',
-      cardHead: '2. Child',
-      ageStatus: 'Children',
-      addPassengersForm: this.addPassengersForm.bind(this),
-      setFormFullField: this.setFormFullField.bind(this),
-    },
-    {
-      id: '3',
-      cardHead: '3. Infant',
-      ageStatus: 'Infant',
-      addPassengersForm: this.addPassengersForm.bind(this),
-      setFormFullField: this.setFormFullField.bind(this),
-    },
-  ];
+export class PassengersComponent {
+  passengersFormsData: PassengersFormData[] = [];
 
   formsStatus: { id: string; value: boolean }[] = [];
 
@@ -46,6 +24,9 @@ export class PassengersComponent implements OnInit {
   canContinue = false;
 
   constructor(private location: Location, private store: Store) {
+    this.peopleCount$.subscribe((count) => {
+      this.passengersFormsData = this.setPeopleArray(count.adult, count.child, count.infant);
+    });
     this.formsStatus = [
       ...this.passengersFormsData.map(({ id }) => ({ id, value: false })),
       {
@@ -83,12 +64,6 @@ export class PassengersComponent implements OnInit {
   }
 
   peopleCount$ = this.store.select(selectCountPassengers);
-
-  ngOnInit(): void {
-    this.peopleCount$.subscribe((count) => {
-      this.passengersFormsData = this.setPeopleArray(count.adult, count.child, count.infant);
-    });
-  }
 
   private setPeopleArray(
     adultCount: number,
