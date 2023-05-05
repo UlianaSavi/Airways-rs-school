@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ITicket } from '../../models/tickets.model';
 import { ActivatedRoute } from '@angular/router';
 
@@ -7,21 +7,10 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './ticket.component.html',
   styleUrls: ['./ticket.component.scss'],
 })
-export class TicketComponent implements OnInit {
-  constructor(private route: ActivatedRoute) {}
-
-  dateFrom: Date | string = '';
-
-  dateTo: Date | string = '';
-
+export class TicketComponent {
   @Input() currTicket: ITicket | null = null;
 
-  ngOnInit() {
-    this.route.queryParamMap.subscribe((params) => {
-      this.dateFrom = new Date(params.get('dateFrom') || '');
-      this.dateTo = new Date(params.get('dateDestination') || '');
-    });
-  }
+  constructor(private route: ActivatedRoute) {}
 
   public getDuration(): string {
     if (!this.currTicket) return '00h 00min';

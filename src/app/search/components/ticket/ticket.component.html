@@ -1,7 +1,7 @@
 <div class="details" *ngIf="currTicket">
   <div class="details__flight">
     <div class="details__flight-info details__flight-departure">
-      <div class="info__date">{{ dateFrom | date : "EEE, MMM d yyyy" }}</div>
+      <div class="info__date">{{ currTicket.date | date : "EEE, MMM d yyyy" }}</div>
       <div class="info__time">
         <span>{{ currTicket.times.start }}</span>
         UTC +1
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="details__flight-info details__flight-arrival">
-      <div class="info__date">{{ dateFrom | date : "EEE, MMM d yyyy" }}</div>
+      <div class="info__date">{{ currTicket.date | date : "EEE, MMM d yyyy" }}</div>
       <div class="info__time">
         UTC +1
         <span>{{ currTicket.times.end }}</span>
