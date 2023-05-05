@@ -18,6 +18,10 @@
 
     &-arrival {
       text-align: end;
+
+      .info__time {
+        justify-content: flex-end;
+      }
     }
 
     &-center {
@@ -78,6 +82,7 @@
 
       .seat {
         height: 40px;
+        width: 120px;
         padding: 4px 8px 4px 32px;
         margin-bottom: 4px;
         font-weight: 700;

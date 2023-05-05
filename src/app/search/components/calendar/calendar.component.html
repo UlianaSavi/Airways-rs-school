@@ -16,7 +16,7 @@
     [price]="getPrice(date)"
     appCalendarSeatIndicator
     [availableSeats]="getSeat(date)"
-    (click)="isChangedDateMoreToday(date) && getSeat(date) && (selectedDate = date)"
+    (click)="setSelectDate(date)"
     *ngFor="let date of dates; trackBy: trackByFn"
   ></app-calendar-item>
   <button class="calendar__btn calendar__btn-right btn" (click)="dateNext()">></button>
