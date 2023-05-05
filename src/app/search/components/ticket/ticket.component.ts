@@ -1,6 +1,8 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ITicket } from '../../models/tickets.model';
+import { Store } from '@ngrx/store';
+import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
 
 @Component({
   selector: 'app-ticket',
@@ -8,13 +10,15 @@ import { ITicket } from '../../models/tickets.model';
   styleUrls: ['./ticket.component.scss'],
 })
 export class TicketComponent implements OnInit {
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private store: Store) {}
 
   dateFrom: Date | string = '';
 
   dateTo: Date | string = '';
 
   selected = false;
+
+  currentCurrency$ = this.store.select(CurrencyDateSelectors.selectCurrencyFormat);
 
   @Output() newSelectedTicket = new EventEmitter<boolean>();
 
