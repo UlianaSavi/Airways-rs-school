@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ITicket } from '../../models/tickets.model';
 
@@ -12,6 +19,8 @@ export class CalendarComponent implements OnInit {
   @Input() isBack = false;
 
   @Input() tickets: ITicket[] = [];
+
+  @Output() selectDate = new EventEmitter<Date>();
 
   selectedDate!: Date;
 
@@ -34,6 +43,7 @@ export class CalendarComponent implements OnInit {
 
   private initDates(dateFromTemp: string) {
     this.selectedDate = new Date(dateFromTemp);
+    this.selectDate.emit(new Date(dateFromTemp));
     this.centerDateForCalendar = this.selectedDate;
     this.dates = this.getDatesForCalendar(this.selectedDate);
   }
@@ -71,10 +81,17 @@ export class CalendarComponent implements OnInit {
     this.tickets.find((ticket) => new Date(ticket.date).getTime() === date.getTime())?.price || 0;
 
   public getSeat = (date: Date): number => {
-    const ticket: ITicket | undefined = this.tickets.find(
+    const ticket = this.tickets.find(
       (_ticket) => new Date(_ticket.date).getTime() === date.getTime()
     );
     if (ticket) return ticket.seats;
     return 0;
   };
+
+  public setSelectDate(date: Date) {
+    if (this.isChangedDateMoreToday(date) && this.getSeat(date)) {
+      this.selectedDate = date;
+      this.selectDate.emit(date);
+    }
+  }
 }

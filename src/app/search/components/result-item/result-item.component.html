@@ -6,17 +6,24 @@
         src="/assets/icons/airplane.svg"
         [ngClass]="{ back: isBack }"
       />
-      <span>{{ cityFrom }} to {{ cityTo }}</span>
+      <span *ngIf="!isBack; else elseTemplate">
+        {{ currTicket?.country?.from }} to {{ currTicket?.country?.to }}
+      </span>
+      <ng-template #elseTemplate>
+        {{ currTicket?.country?.to }} to {{ currTicket?.country?.from }}
+      </ng-template>
     </div>
     <app-calendar
       *ngIf="!selected"
       class="result-item__calendar"
       [isBack]="isBack"
-      [tickets]="tickets"
+      [tickets]="filterTickets(tickets)"
+      (selectDate)="setSelectDate($event)"
     ></app-calendar>
     <app-ticket
       class="result-item__details"
       (newSelectedTicket)="addSelectedTicket($event)"
+      [currTicket]="currTicket"
     ></app-ticket>
   </div>
 </div>
