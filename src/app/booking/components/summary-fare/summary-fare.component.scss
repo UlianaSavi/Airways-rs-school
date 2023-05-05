@@ -1,0 +1,49 @@
+@import 'variables';
+
+:host {
+  width: calc(50% - 12px);
+}
+
+.summary-fare {
+  max-width: 552px;
+  border: 1px solid $singIn-line;
+  box-shadow: $box-shadow;
+  border-radius: 8px;
+
+  &__wrapper {
+    padding: 24px 72px 0px 40px;
+  }
+
+  &__passenger {
+    margin-bottom: 16px;
+
+    .title {
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    &-fare {
+      padding-left: 40px;
+    }
+  }
+
+  &__total {
+    height: 64px;
+    padding: 0 72px 0 40px;
+    font-size: 20px;
+    font-weight: 700;
+    border-width: 1px 0px;
+    border-style: solid;
+    border-color: #E1E5EB;
+
+    &-quantity {
+      color: $primary-text-color
+    }
+  }
+}
+
+.df {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

@@ -1,0 +1,24 @@
+<div class="summary-fare">
+  <div class="summary-fare__wrapper">
+    <div class="summary-fare__passenger" *ngFor="let item of ['adult', 'child', 'infant']">
+      <div class="df title">
+        <div>{{ 1 }} x {{ item }} Fare</div>
+        <div>{{ 257.31 }}</div>
+      </div>
+      <div class="summary-fare__passenger-fare">
+        <div class="df">
+          <div>Fare</div>
+          <div>{{ 257.31 }}</div>
+        </div>
+        <div class="df">
+          <div>Tax & Service Charge</div>
+          <div>{{ 257.31 }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="summary-fare__total df">
+    <div>Total</div>
+    <div class="summary-fare__total-quantity">{{ 551.38 }}</div>
+  </div>
+</div>

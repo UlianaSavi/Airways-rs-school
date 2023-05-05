@@ -8,5 +8,17 @@
       <app-summary-order></app-summary-order>
       <app-summary-order *ngIf="true"></app-summary-order>
     </div>
+    <div class="summary__fare">
+      <app-summary-fare></app-summary-fare>
+    </div>
+    <div class="summary__bottom">
+      <a mat-flat-button color="basic" class="summary__bottom-btn" [routerLink]="['/search']">
+        Back
+      </a>
+      <button mat-stroked-button color="primary" class="summary__bottom-btn">
+        Add to order cart
+      </button>
+      <button mat-flat-button color="primary" class="summary__bottom-btn">Buy now</button>
+    </div>
   </div>
 </div>
