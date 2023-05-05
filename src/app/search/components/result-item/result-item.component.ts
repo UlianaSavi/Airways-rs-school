@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, take } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ITicket } from '../../models/tickets.model';
 import { selectTickets } from 'src/app/redux/selectors/tickets.selector';
 import { SelectTicket, SelectBackTicket } from 'src/app/redux/actions/select-ticket.actions';
@@ -23,9 +23,7 @@ export class ResultItemComponent implements OnChanges {
 
   selected = false;
 
-  constructor(private store: Store) {
-    console.log(this.currTicket);
-  }
+  constructor(private store: Store) {}
 
   ngOnChanges(): void {
     if (this.cityFrom) {
@@ -47,15 +45,12 @@ export class ResultItemComponent implements OnChanges {
   }
 
   private setCurrentTicket(date: Date) {
-    this.tickets$
-      .pipe(take(1))
-      .subscribe(
-        (tickets) =>
-          (this.currTicket =
-            this.filterTickets(tickets).find(
-              (ticket) => new Date(ticket.date).getTime() === date.getTime()
-            ) || null)
-      );
+    this.tickets$.subscribe((tickets) => {
+      this.currTicket =
+        this.filterTickets(tickets).find(
+          (ticket) => new Date(ticket.date).getTime() === date.getTime()
+        ) || null;
+    });
   }
 
   addSelectedTicket(selected: boolean) {
