@@ -89,7 +89,7 @@ export class ResultListComponent implements OnInit {
     this.canEditBlock = editBlock;
   }
 
-  canContinue(): boolean {
+  public canContinue(): boolean {
     this.ticketFrom$.subscribe((ticket) => {
       return ticket ? (this.ticketFromSelected = true) : (this.ticketFromSelected = false);
     });
