@@ -42,9 +42,7 @@ export class ResultListComponent implements OnInit {
 
   ticketBackSelected = false;
 
-  constructor(private route: ActivatedRoute, private store: Store, private router: Router) {
-    this.canContinue();
-  }
+  constructor(private route: ActivatedRoute, private store: Store, private router: Router) {}
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((params) => {
