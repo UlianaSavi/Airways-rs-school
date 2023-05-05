@@ -1,1 +1,12 @@
-<p>summary works!</p>
+<div class="container summary">
+  <div class="summary__wrapper">
+    <div class="summary__title">
+      <mat-icon class="summary__title-icon">preview</mat-icon>
+      <h3 class="h3-blue">Summary</h3>
+    </div>
+    <div class="summary__order">
+      <app-summary-order></app-summary-order>
+      <app-summary-order *ngIf="true"></app-summary-order>
+    </div>
+  </div>
+</div>

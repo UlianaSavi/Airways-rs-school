@@ -1,0 +1,53 @@
+@import 'variables';
+
+:host {
+  max-width: 50%;
+  flex: 1 0 auto;
+}
+
+.summary-order {
+  background-color: $white;
+  box-shadow: $box-shadow;
+  border-top: 3px solid $primary-text-color;
+  border-radius: 8px;
+
+  &>div {
+    padding: 20px 24px;
+  }
+
+  &__header {
+    height: 100px;
+    background-color: $secondary-background-color;
+  }
+
+  &__flight {
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 20px;
+
+    &-number {
+      margin-right: 20px;
+      color: $primary-text-color;
+    }
+  }
+
+  &__date {
+    span+span {
+      margin-left: 36px;
+    }
+  }
+
+  &__passenger {
+    &+& {
+      border-top: 1px solid $main-background;
+    }
+
+    &-name {
+      margin-bottom: 12px;
+    }
+
+    &-included {
+      padding: 0 28px;
+    }
+  }
+}

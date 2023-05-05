@@ -8,6 +8,7 @@ import { ContactDetailsBlockComponent } from './components/contact-details-block
 import { SharedModule } from '../shared/shared.module';
 import { PassengersInfoComponent } from './components/passengers-info/passengers-info.component';
 import { FormsModule } from '@angular/forms';
+import { SummaryOrderComponent } from './components/summary-order/summary-order.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { FormsModule } from '@angular/forms';
     SummaryComponent,
     PassengersInfoComponent,
     ContactDetailsBlockComponent,
+    SummaryOrderComponent,
   ],
   imports: [CommonModule, BookingRoutingModule, SharedModule, FormsModule],
 })
