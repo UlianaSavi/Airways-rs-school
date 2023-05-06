@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { Observable, map, startWith, take } from 'rxjs';
 import { PassengersType } from '../../../core/models/passengers.model';
 import { dateDestinationValidator } from '../../validators/validators';
@@ -41,8 +48,8 @@ export class SearchFormComponent implements OnInit {
 
   searchForm = this.fb.group({
     typeOfFlight: ['', Validators.required],
-    from: ['', Validators.required],
-    destination: ['', Validators.required],
+    from: ['', [Validators.required, this.validCityValidator(), this.validSameCities()]],
+    destination: ['', [Validators.required, this.validCityValidator(), this.validSameCities()]],
     dateFrom: ['', Validators.required],
     dateDestination: ['', dateDestinationValidator()],
     amountOfPass: this.fb.group<Record<PassengersType, number>>({
@@ -57,6 +64,27 @@ export class SearchFormComponent implements OnInit {
   dateFrom: Date | undefined;
 
   dateDest: Date | undefined;
+
+  validCityValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const citiesArray = this.cities.map((e) => e.name + ' ' + e.code);
+      const checkInput = !citiesArray.includes(control.value);
+      return checkInput ? { validCountry: { value: control.value } } : null;
+    };
+  }
+
+  validSameCities(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const formGroup = control.parent as FormGroup;
+      if (!formGroup) {
+        return null;
+      }
+      const from = formGroup.get('from')?.value;
+      const destination = formGroup.get('destination')?.value;
+      const checkSame = from === destination;
+      return checkSame ? { checkSame: { value: control.value } } : null;
+    };
+  }
 
   ngOnInit() {
     this.citiesService.getCities().subscribe((cities) => {
