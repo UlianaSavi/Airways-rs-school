@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { PassengerInfo, PassengersType } from 'src/app/core/models/passengers.model';
@@ -21,7 +22,7 @@ export class SummaryComponent implements OnInit {
   passengersData$: Observable<Record<PassengersType, PassengerInfo>> =
     this.store.select(selectPassengers);
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private router: Router) {}
 
   ngOnInit(): void {
     // eslint-disable-next-line @ngrx/avoid-dispatching-multiple-actions-sequentially
@@ -77,16 +78,16 @@ export class SummaryComponent implements OnInit {
           ],
         },
         child: {
-          count: 0,
+          count: 1,
           data: [
-            // {
-            //   firstName: 'Charlie',
-            //   lastName: 'Potter',
-            //   gender: 'male',
-            //   dateOfBird: '02-02-2018',
-            //   baggage: true,
-            //   baggageCount: 1,
-            // },
+            {
+              firstName: 'Charlie',
+              lastName: 'Potter',
+              gender: 'male',
+              dateOfBird: '02-02-2018',
+              baggage: true,
+              baggageCount: 1,
+            },
           ],
         },
         infant: {
@@ -104,5 +105,11 @@ export class SummaryComponent implements OnInit {
         },
       })
     );
+  }
+
+  public addToCart() {}
+
+  public buyNow() {
+    this.router.navigateByUrl('/cart');
   }
 }

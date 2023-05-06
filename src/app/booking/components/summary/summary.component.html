@@ -15,10 +15,12 @@
       <a mat-flat-button color="basic" class="summary__bottom-btn" [routerLink]="['/search']">
         Back
       </a>
-      <button mat-stroked-button color="primary" class="summary__bottom-btn">
+      <button mat-stroked-button color="primary" class="summary__bottom-btn" (click)="addToCart()">
         Add to order cart
       </button>
-      <button mat-flat-button color="primary" class="summary__bottom-btn">Buy now</button>
+      <button mat-flat-button color="primary" class="summary__bottom-btn" (click)="buyNow()">
+        Buy now
+      </button>
     </div>
   </div>
 </div>

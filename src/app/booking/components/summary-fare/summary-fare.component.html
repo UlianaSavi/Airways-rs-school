@@ -3,7 +3,7 @@
     <div class="summary-fare__passenger" *ngFor="let passenger of passengerTypeArr">
       <div *ngIf="passengersCount[passenger]">
         <div class="df title">
-          <div>{{ passengersCount[passenger] }} x {{ passenger }} Fare</div>
+          <div>{{ passengersCount[passenger] }} x {{ passenger | titlecase }} Fare</div>
           <div>{{ getFare(passenger) | currency : currentCurrency.name : "symbol" }}</div>
         </div>
         <div class="summary-fare__passenger-fare">
