@@ -6,7 +6,7 @@
     </div>
     <div class="summary__order">
       <app-summary-order></app-summary-order>
-      <app-summary-order *ngIf="true" [isBack]="true"></app-summary-order>
+      <app-summary-order *ngIf="backTicket$ | async" [isBack]="true"></app-summary-order>
     </div>
     <div class="summary__fare">
       <app-summary-fare></app-summary-fare>

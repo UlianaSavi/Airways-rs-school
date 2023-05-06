@@ -29,7 +29,7 @@ export class SummaryComponent implements OnInit {
       SelectTicket({
         ticket: {
           type: 'from',
-          date: new Date('05.10.2023'),
+          date: new Date('05.07.2023'),
           price: 120,
           times: { start: '7:00', end: '9:00' },
           country: { from: 'Dublin', to: 'Madrid' },
@@ -43,7 +43,7 @@ export class SummaryComponent implements OnInit {
       SelectBackTicket({
         backTicket: {
           type: 'from',
-          date: new Date('05.08.2023'),
+          date: new Date('05.10.2023'),
           price: 120,
           times: { start: '17:00', end: '19:00' },
           country: { from: 'Madrid', to: 'Dublin' },
@@ -77,21 +77,30 @@ export class SummaryComponent implements OnInit {
           ],
         },
         child: {
-          count: 1,
+          count: 0,
           data: [
-            {
-              firstName: 'Chris',
-              lastName: 'Potter',
-              gender: 'male',
-              dateOfBird: '02-02-2018',
-              baggage: true,
-              baggageCount: 1,
-            },
+            // {
+            //   firstName: 'Charlie',
+            //   lastName: 'Potter',
+            //   gender: 'male',
+            //   dateOfBird: '02-02-2018',
+            //   baggage: true,
+            //   baggageCount: 1,
+            // },
           ],
         },
         infant: {
-          count: 0,
-          data: [],
+          count: 1,
+          data: [
+            {
+              firstName: 'Emy',
+              lastName: 'Potter',
+              gender: 'female',
+              dateOfBird: '02-02-2023',
+              baggage: false,
+              baggageCount: 0,
+            },
+          ],
         },
       })
     );
