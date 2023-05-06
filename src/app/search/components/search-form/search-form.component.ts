@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Observable, map, startWith, take } from 'rxjs';
+import { Observable, map, startWith } from 'rxjs';
 import { PassengersType } from '../../../core/models/passengers.model';
 import { dateDestinationValidator } from '../../validators/validators';
 import { City } from '../../models/cities.model';
@@ -76,7 +76,7 @@ export class SearchFormComponent implements OnInit {
         })
       );
     });
-    this.$dateFormat.pipe(take(1)).subscribe(() => {
+    this.$dateFormat.subscribe(() => {
       this.dateFrom = new Date(this.searchForm.value.dateFrom!.toString());
       this.dateDest = new Date(this.searchForm.value.dateDestination!.toString());
     });
