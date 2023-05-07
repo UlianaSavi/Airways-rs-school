@@ -103,6 +103,10 @@
           line-height: 16px;
         }
       }
+
+      .price-black {
+        color: $black;
+      }
     }
 
     &-btn {
@@ -117,8 +121,18 @@
 
       &-container {
         padding: 0 40px 0 32px;
+
+        .edit-btn {
+          padding: 6px 10px;
+          border-radius: 5px;
+          cursor: pointer;
+        }
       }
     }
+  }
+
+  &__selected {
+    border: none;
   }
 }
 

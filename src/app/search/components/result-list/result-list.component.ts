@@ -5,6 +5,7 @@ import * as TicketsACtions from 'src/app/redux/actions/tickets.actions';
 import * as PassengersActions from 'src/app/redux/actions/passengers.actions';
 import { setSearchForms } from '../../../redux/actions/search-form.actions';
 import { FlightTypes, SearchFormState } from '../../../redux/reducers/search-form.reducer';
+import { selectBackTicket, selectTicket } from 'src/app/redux/selectors/select-ticket.selector';
 
 @Component({
   selector: 'app-result-list',
@@ -30,6 +31,10 @@ export class ResultListComponent implements OnInit {
   child = 0;
 
   infant = 0;
+
+  selectTicket$ = this.store.select(selectTicket);
+
+  selectBackTicket$ = this.store.select(selectBackTicket);
 
   constructor(private route: ActivatedRoute, private store: Store, private router: Router) {}
 
