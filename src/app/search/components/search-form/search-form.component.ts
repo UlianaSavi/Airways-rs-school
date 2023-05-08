@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { PassengersType } from '../../../core/models/passengers.model';
-import { dateDestinationValidator } from '../../validators/validators';
+import {
+  dateDestinationValidator,
+  validCityValidator,
+  validSameCities,
+} from '../../validators/validators';
 import { City } from '../../models/cities.model';
 import { IQueryParams } from 'src/app/core/models/query-params.model';
 import { Router } from '@angular/router';
@@ -42,8 +46,8 @@ export class SearchFormComponent implements OnInit {
 
   searchForm = this.fb.group({
     typeOfFlight: ['', Validators.required],
-    from: ['', Validators.required],
-    destination: ['', Validators.required],
+    from: ['', []],
+    destination: ['', []],
     dateFrom: ['', Validators.required],
     dateDestination: ['', dateDestinationValidator()],
     amountOfPass: this.fb.group<Record<PassengersType, number>>({
@@ -62,6 +66,16 @@ export class SearchFormComponent implements OnInit {
   ngOnInit() {
     this.citiesService.getCities().subscribe((cities) => {
       this.cities = cities;
+      this.searchForm.controls.from.setValidators([
+        Validators.required,
+        validCityValidator(this.cities),
+        validSameCities('from'),
+      ]);
+      this.searchForm.controls.destination.setValidators([
+        Validators.required,
+        validCityValidator(this.cities),
+        validSameCities('destination'),
+      ]);
       this.filteredFromCities$ = this.searchForm.valueChanges.pipe(
         startWith(''),
         map((value) => {
@@ -83,6 +97,16 @@ export class SearchFormComponent implements OnInit {
     });
 
     this.searchForm.controls.typeOfFlight.setValue('round');
+
+    this.searchForm.get('from')?.valueChanges.subscribe(() => {
+      this.searchForm
+        .get('destination')
+        ?.setErrors(validSameCities('destination')(this.searchForm.get('destination')!));
+    });
+
+    this.searchForm.get('destination')?.valueChanges.subscribe(() => {
+      this.searchForm.get('from')?.setErrors(validSameCities('from')(this.searchForm.get('from')!));
+    });
 
     //reset selected tickets in store
     this.store.dispatch(resetSelectedTickets());
@@ -117,8 +141,8 @@ export class SearchFormComponent implements OnInit {
     const formVal = this.searchForm.value;
     const query: IQueryParams = {
       typeOfFlight: formVal.typeOfFlight || '',
-      from: formVal.from?.slice(0, -4) || '',
-      destination: formVal.destination?.slice(0, -4) || '',
+      from: formVal.from || '',
+      destination: formVal.destination || '',
       dateFrom: new Date(formVal.dateFrom || '').toString() || '',
       dateDestination: formVal.dateDestination
         ? new Date(formVal.dateDestination || '').toString() || ''

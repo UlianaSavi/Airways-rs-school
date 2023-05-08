@@ -43,17 +43,9 @@ export class ResultListComponent implements OnInit {
       this.typeOfFlight = params.get('typeOfFlight') as FlightTypes;
       this.from = params.get('from') as string;
       this.to = params.get('destination') as string;
-      this.dateFrom = new Date(params.get('dateFrom') || '').toLocaleString('ru', {
-        day: 'numeric',
-        month: 'numeric',
-        year: 'numeric',
-      }) as string;
+      this.dateFrom = new Date(params.get('dateFrom') || '').toString();
       this.dateBack = params.get('dateDestination')
-        ? new Date(params.get('dateDestination') || '').toLocaleString('ru', {
-            day: 'numeric',
-            month: 'numeric',
-            year: 'numeric',
-          })
+        ? new Date(params.get('dateDestination') || '').toString()
         : null;
       this.adult = +(params.get('adult') || 1);
       this.child = +(params.get('child') || 0);

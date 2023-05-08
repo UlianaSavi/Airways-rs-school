@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { ITicket } from '../../models/tickets.model';
 import { selectTickets } from 'src/app/redux/selectors/tickets.selector';
 import { Store } from '@ngrx/store';
+import { selectSearchFormFeature } from '../../../redux/selectors/search-form.selectors';
 import { selectBackTicket, selectTicket } from 'src/app/redux/selectors/select-ticket.selector';
 
 @Component({
@@ -17,15 +18,19 @@ export class ResultItemComponent implements OnChanges, OnInit {
 
   tickets$: Observable<ITicket[]> = this.store.select(selectTickets);
 
+  searchFormData$ = this.store.select(selectSearchFormFeature);
+
   selectedTicket$: Observable<ITicket | null> = of(null);
 
-  selectedDate: Date = new Date('05.07.2023');
+  selectedDate!: Date;
 
   currTicket: ITicket | null = null;
 
-  selected = false;
-
-  constructor(private store: Store) {}
+  constructor(private store: Store) {
+    this.searchFormData$.subscribe((form) => {
+      this.selectedDate = new Date(form.dateFrom);
+    });
+  }
 
   ngOnInit(): void {
     this.selectedTicket$ = this.isBack
@@ -53,12 +58,6 @@ export class ResultItemComponent implements OnChanges, OnInit {
   }
 
   private setCurrentTicket(date: Date) {
-    this.tickets$.subscribe((tickets) => {
-      this.currTicket =
-        this.filterTickets(tickets).find(
-          (ticket) => new Date(ticket.date).getTime() === date.getTime()
-        ) || null;
-    });
     this.tickets$.subscribe((tickets) => {
       this.currTicket =
         this.filterTickets(tickets).find(
