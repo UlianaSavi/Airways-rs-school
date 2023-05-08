@@ -31,12 +31,5 @@ export const selectTicketReducer = createReducer(
       ...state,
       backTicket,
     })
-  ),
-  on(
-    SelectTicketActions.SelectTickets,
-    (state, { selected }): SelectTicketsState => ({
-      ...state,
-      selected,
-    })
   )
 );

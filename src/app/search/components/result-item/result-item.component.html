@@ -20,10 +20,6 @@
       [tickets]="filterTickets(tickets)"
       (selectDate)="setSelectDate($event)"
     ></app-calendar>
-    <app-ticket
-      class="result-item__details"
-      (newSelectedTicket)="addSelectedTicket($event)"
-      [currTicket]="currTicket"
-    ></app-ticket>
+    <app-ticket class="result-item__details" [currTicket]="currTicket"></app-ticket>
   </div>
 </div>

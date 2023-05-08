@@ -89,20 +89,6 @@ export class ResultListComponent implements OnInit {
     this.canEditBlock = editBlock;
   }
 
-  public canContinue(): boolean {
-    this.ticketFrom$.subscribe((ticket) => {
-      return ticket ? (this.ticketFromSelected = true) : (this.ticketFromSelected = false);
-    });
-    this.ticketBack$.subscribe((ticket) => {
-      return ticket ? (this.ticketBackSelected = true) : (this.ticketBackSelected = false);
-    });
-    if (this.typeOfFlight === 'round') {
-      return this.ticketFromSelected && this.ticketBackSelected;
-    } else {
-      return this.ticketFromSelected;
-    }
-  }
-
   public onContinue() {
     this.store.dispatch(
       PassengersActions.SetCountPassengers({

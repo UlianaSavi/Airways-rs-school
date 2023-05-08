@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ITicket } from '../../models/tickets.model';
 import { selectTickets } from 'src/app/redux/selectors/tickets.selector';
-import { SelectTicket, SelectBackTicket } from 'src/app/redux/actions/select-ticket.actions';
 
 @Component({
   selector: 'app-result-item',
@@ -51,23 +50,5 @@ export class ResultItemComponent implements OnChanges {
           (ticket) => new Date(ticket.date).getTime() === date.getTime()
         ) || null;
     });
-  }
-
-  addSelectedTicket(selected: boolean) {
-    this.selected = selected;
-
-    if (!this.selected && this.currTicket?.type === 'from') {
-      this.store.dispatch(SelectTicket({ ticket: null }));
-    }
-    if (!this.selected && this.currTicket?.type === 'back') {
-      this.store.dispatch(SelectBackTicket({ backTicket: null }));
-    }
-
-    if (this.selected && this.currTicket && this.currTicket.type === 'from') {
-      this.store.dispatch(SelectTicket({ ticket: this.currTicket }));
-    }
-    if (this.selected && this.currTicket && this.currTicket.type === 'back') {
-      this.store.dispatch(SelectBackTicket({ backTicket: this.currTicket }));
-    }
   }
 }
