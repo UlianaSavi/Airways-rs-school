@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { dateDestinationValidator } from '../../validators/validators';
+import {
+  dateDestinationValidator,
+  validCityValidator,
+  validSameCities,
+} from '../../validators/validators';
 import { PassengersType } from '../../../core/models/passengers.model';
 import { Observable, map, startWith } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -88,6 +92,16 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
   ngOnInit() {
     this.citiesService.getCities().subscribe((cities) => {
       this.cities = cities;
+      this.searchEditForm.controls.from.setValidators([
+        Validators.required,
+        validCityValidator(this.cities),
+        validSameCities(),
+      ]);
+      this.searchEditForm.controls.destination.setValidators([
+        Validators.required,
+        validCityValidator(this.cities),
+        validSameCities(),
+      ]);
     });
     this.formatDate$.subscribe(() => {
       this.dateFrom = new Date(this.searchEditForm.value.dateFrom!.toString());

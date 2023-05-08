@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  ValidationErrors,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Observable, map, startWith, take } from 'rxjs';
 import { PassengersType } from '../../../core/models/passengers.model';
-import { dateDestinationValidator } from '../../validators/validators';
+import {
+  dateDestinationValidator,
+  validCityValidator,
+  validSameCities,
+} from '../../validators/validators';
 import { City } from '../../models/cities.model';
 import { IQueryParams } from 'src/app/core/models/query-params.model';
 import { Router } from '@angular/router';
@@ -48,8 +45,8 @@ export class SearchFormComponent implements OnInit {
 
   searchForm = this.fb.group({
     typeOfFlight: ['', Validators.required],
-    from: ['', [Validators.required, this.validCityValidator(), this.validSameCities()]],
-    destination: ['', [Validators.required, this.validCityValidator(), this.validSameCities()]],
+    from: ['', []],
+    destination: ['', []],
     dateFrom: ['', Validators.required],
     dateDestination: ['', dateDestinationValidator()],
     amountOfPass: this.fb.group<Record<PassengersType, number>>({
@@ -65,30 +62,19 @@ export class SearchFormComponent implements OnInit {
 
   dateDest: Date | undefined;
 
-  validCityValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const citiesArray = this.cities.map((e) => e.name + ' ' + e.code);
-      const checkInput = !citiesArray.includes(control.value);
-      return checkInput ? { validCountry: { value: control.value } } : null;
-    };
-  }
-
-  validSameCities(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const formGroup = control.parent as FormGroup;
-      if (!formGroup) {
-        return null;
-      }
-      const from = formGroup.get('from')?.value;
-      const destination = formGroup.get('destination')?.value;
-      const checkSame = from === destination;
-      return checkSame ? { checkSame: { value: control.value } } : null;
-    };
-  }
-
   ngOnInit() {
     this.citiesService.getCities().subscribe((cities) => {
       this.cities = cities;
+      this.searchForm.controls.from.setValidators([
+        Validators.required,
+        validCityValidator(this.cities),
+        validSameCities(),
+      ]);
+      this.searchForm.controls.destination.setValidators([
+        Validators.required,
+        validCityValidator(this.cities),
+        validSameCities(),
+      ]);
       this.filteredFromCities$ = this.searchForm.valueChanges.pipe(
         startWith(''),
         map((value) => {
@@ -141,8 +127,8 @@ export class SearchFormComponent implements OnInit {
     const formVal = this.searchForm.value;
     const query: IQueryParams = {
       typeOfFlight: formVal.typeOfFlight || '',
-      from: formVal.from?.slice(0, -4) || '',
-      destination: formVal.destination?.slice(0, -4) || '',
+      from: formVal.from || '',
+      destination: formVal.destination || '',
       dateFrom: new Date(formVal.dateFrom || '').toString() || '',
       dateDestination: formVal.dateDestination
         ? new Date(formVal.dateDestination || '').toString() || ''

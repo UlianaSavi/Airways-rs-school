@@ -1,9 +1,9 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
 import { ITicket } from '../../models/tickets.model';
 import { selectTickets } from 'src/app/redux/selectors/tickets.selector';
 import { Store } from '@ngrx/store';
+import { selectSearchFormFeature } from '../../../redux/selectors/search-form.selectors';
 
 @Component({
   selector: 'app-result-item',
@@ -17,11 +17,17 @@ export class ResultItemComponent implements OnChanges {
 
   tickets$: Observable<ITicket[]> = this.store.select(selectTickets);
 
+  searchFormData$ = this.store.select(selectSearchFormFeature);
+
   selectedDate!: Date;
 
   currTicket: ITicket | null = null;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) {
+    this.searchFormData$.subscribe((form) => {
+      this.selectedDate = new Date(form.dateFrom);
+    });
+  }
 
   ngOnChanges(): void {
     if (this.cityFrom) {
@@ -43,14 +49,12 @@ export class ResultItemComponent implements OnChanges {
   }
 
   private setCurrentTicket(date: Date) {
-    this.tickets$
-      .pipe(take(1))
-      .subscribe(
-        (tickets) =>
-          (this.currTicket =
-            this.filterTickets(tickets).find(
-              (ticket) => new Date(ticket.date).getTime() === date.getTime()
-            ) || null)
-      );
+    this.tickets$.subscribe(
+      (tickets) =>
+        (this.currTicket =
+          this.filterTickets(tickets).find(
+            (ticket) => new Date(ticket.date).getTime() === date.getTime()
+          ) || null)
+    );
   }
 }
