@@ -19,7 +19,7 @@ export function validCityValidator(cities: City[]): ValidatorFn {
   };
 }
 
-export function validSameCities(): ValidatorFn {
+export function validSameCities(fieldName: string): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const formGroup = control.parent as FormGroup;
     if (!formGroup) {
@@ -27,6 +27,26 @@ export function validSameCities(): ValidatorFn {
     }
     const from = formGroup.get('from')?.value;
     const destination = formGroup.get('destination')?.value;
+    const fromValid = formGroup.get('from')?.valid;
+    const destinationValid = formGroup.get('destination')?.valid;
+
+    if (fieldName === 'from' && !destinationValid) {
+      return null;
+    }
+
+    if (fieldName === 'destination' && !fromValid) {
+      return null;
+    }
+
+    if (
+      fromValid === null ||
+      fromValid === undefined ||
+      destinationValid === null ||
+      destinationValid === undefined
+    ) {
+      return null;
+    }
+
     const checkSame = from === destination;
     return checkSame ? { checkSame: { value: control.value } } : null;
   };

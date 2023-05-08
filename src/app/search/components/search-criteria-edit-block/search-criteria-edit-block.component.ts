@@ -95,12 +95,12 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
       this.searchEditForm.controls.from.setValidators([
         Validators.required,
         validCityValidator(this.cities),
-        validSameCities(),
+        validSameCities('from'),
       ]);
       this.searchEditForm.controls.destination.setValidators([
         Validators.required,
         validCityValidator(this.cities),
-        validSameCities(),
+        validSameCities('destination'),
       ]);
     });
     this.formatDate$.subscribe(() => {
@@ -148,6 +148,18 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
 
     this.minDate = new Date('05.08.2023').toISOString().slice(0, 10);
     this.maxDate = new Date('05.17.2023').toISOString().slice(0, 10);
+
+    this.searchEditForm.get('from')?.valueChanges.subscribe(() => {
+      this.searchEditForm
+        .get('destination')
+        ?.setErrors(validSameCities('destination')(this.searchEditForm.get('destination')!));
+    });
+
+    this.searchEditForm.get('destination')?.valueChanges.subscribe(() => {
+      this.searchEditForm
+        .get('from')
+        ?.setErrors(validSameCities('from')(this.searchEditForm.get('from')!));
+    });
   }
 
   private _filter(name: string): City[] {

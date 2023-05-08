@@ -68,12 +68,12 @@ export class SearchFormComponent implements OnInit {
       this.searchForm.controls.from.setValidators([
         Validators.required,
         validCityValidator(this.cities),
-        validSameCities(),
+        validSameCities('from'),
       ]);
       this.searchForm.controls.destination.setValidators([
         Validators.required,
         validCityValidator(this.cities),
-        validSameCities(),
+        validSameCities('destination'),
       ]);
       this.filteredFromCities$ = this.searchForm.valueChanges.pipe(
         startWith(''),
@@ -96,6 +96,16 @@ export class SearchFormComponent implements OnInit {
     });
 
     this.searchForm.controls.typeOfFlight.setValue('round');
+
+    this.searchForm.get('from')?.valueChanges.subscribe(() => {
+      this.searchForm
+        .get('destination')
+        ?.setErrors(validSameCities('destination')(this.searchForm.get('destination')!));
+    });
+
+    this.searchForm.get('destination')?.valueChanges.subscribe(() => {
+      this.searchForm.get('from')?.setErrors(validSameCities('from')(this.searchForm.get('from')!));
+    });
   }
 
   displayFn(city: string): string {
