@@ -10,3 +10,5 @@ export const setSelectedBackTicket = createAction(
   '[SelectTicket] SelectBackTicket',
   props<{ backTicket: ITicket | null }>()
 );
+
+export const resetSelectedTickets = createAction('[SelectTicket] Reset selected tickets');

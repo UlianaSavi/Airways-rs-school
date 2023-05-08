@@ -29,5 +29,13 @@ export const selectTicketReducer = createReducer(
       ...state,
       backTicket,
     })
+  ),
+  on(
+    SelectTicketActions.resetSelectedTickets,
+    (state): SelectTicketsState => ({
+      ...state,
+      ticket: null,
+      backTicket: null,
+    })
   )
 );
