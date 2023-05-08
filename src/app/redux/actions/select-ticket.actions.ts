@@ -3,10 +3,10 @@ import { ITicket } from 'src/app/search/models/tickets.model';
 
 export const SelectTicket = createAction(
   '[SelectTicket] SelectTicket',
-  props<{ ticket: ITicket }>()
+  props<{ ticket: ITicket | null }>()
 );
 
 export const SelectBackTicket = createAction(
   '[SelectTicket] SelectBackTicket',
-  props<{ backTicket: ITicket }>()
+  props<{ backTicket: ITicket | null }>()
 );

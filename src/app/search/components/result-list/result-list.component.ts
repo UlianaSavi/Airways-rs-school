@@ -1,10 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as TicketsACtions from 'src/app/redux/actions/tickets.actions';
 import * as PassengersActions from 'src/app/redux/actions/passengers.actions';
 import { setSearchForms } from '../../../redux/actions/search-form.actions';
 import { FlightTypes, SearchFormState } from '../../../redux/reducers/search-form.reducer';
+import { ITicket } from '../../models/tickets.model';
+import { selectBackTicket, selectTicket } from 'src/app/redux/selectors/select-ticket.selector';
 
 @Component({
   selector: 'app-result-list',
@@ -30,6 +33,14 @@ export class ResultListComponent implements OnInit {
   child = 0;
 
   infant = 0;
+
+  ticketFrom$: Observable<ITicket | null> = this.store.select(selectTicket);
+
+  ticketBack$: Observable<ITicket | null> = this.store.select(selectBackTicket);
+
+  ticketFromSelected = false;
+
+  ticketBackSelected = false;
 
   constructor(private route: ActivatedRoute, private store: Store, private router: Router) {}
 

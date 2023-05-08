@@ -39,7 +39,12 @@
         {{ currTicket.seats }} seats available
       </div>
       <div class="price-title">Price</div>
-      <div class="price">{{ currTicket.price | currency : "EUR" }}</div>
+      <div class="price" *ngIf="currentCurrency$ | async as currentCurrency">
+        {{
+          currTicket.price * currentCurrency.euroCoefficient
+            | currency : currentCurrency.name : "symbol"
+        }}
+      </div>
     </div>
     <div class="details__select-btn-container">
       <button class="details__select-btn btn">Select</button>

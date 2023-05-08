@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { ITicket } from '../../models/tickets.model';
 import { ActivatedRoute } from '@angular/router';
+import { ITicket } from '../../models/tickets.model';
+import { Store } from '@ngrx/store';
+import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
 
 @Component({
   selector: 'app-ticket',
@@ -8,9 +10,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./ticket.component.scss'],
 })
 export class TicketComponent {
-  @Input() currTicket: ITicket | null = null;
+  constructor(private route: ActivatedRoute, private store: Store) {}
 
-  constructor(private route: ActivatedRoute) {}
+  currentCurrency$ = this.store.select(CurrencyDateSelectors.selectCurrencyFormat);
+
+  @Input() currTicket: ITicket | null = null;
 
   public getDuration(): string {
     if (!this.currTicket) return '00h 00min';
