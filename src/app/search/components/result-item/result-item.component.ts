@@ -23,6 +23,8 @@ export class ResultItemComponent implements OnChanges, OnInit {
 
   currTicket: ITicket | null = null;
 
+  selected = false;
+
   constructor(private store: Store) {}
 
   ngOnInit(): void {
@@ -51,6 +53,12 @@ export class ResultItemComponent implements OnChanges, OnInit {
   }
 
   private setCurrentTicket(date: Date) {
+    this.tickets$.subscribe((tickets) => {
+      this.currTicket =
+        this.filterTickets(tickets).find(
+          (ticket) => new Date(ticket.date).getTime() === date.getTime()
+        ) || null;
+    });
     this.tickets$.subscribe((tickets) => {
       this.currTicket =
         this.filterTickets(tickets).find(
