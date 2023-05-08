@@ -10,8 +10,6 @@ import { catchError, throwError } from 'rxjs';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  API_URL = 'http://localhost:4000';
-
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -25,7 +23,7 @@ export class AuthService {
   login(email: string, password: string) {
     return this.http
       .post(
-        this.API_URL + '/login',
+        '/login',
         {
           email,
           password,
@@ -43,7 +41,7 @@ export class AuthService {
 
   register(userData: IUser) {
     this.http
-      .post(this.API_URL + '/register', userData, this.httpOptions)
+      .post('/register', userData, this.httpOptions)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           return throwError(() => err);

@@ -14,6 +14,7 @@
       </ng-template>
     </div>
     <app-calendar
+      *ngIf="!selected"
       class="result-item__calendar"
       [isBack]="isBack"
       [tickets]="filterTickets(tickets)"

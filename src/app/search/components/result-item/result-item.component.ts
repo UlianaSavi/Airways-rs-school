@@ -1,9 +1,8 @@
 import { Component, Input, OnChanges } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
 import { ITicket } from '../../models/tickets.model';
 import { selectTickets } from 'src/app/redux/selectors/tickets.selector';
-import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-result-item',
@@ -17,9 +16,11 @@ export class ResultItemComponent implements OnChanges {
 
   tickets$: Observable<ITicket[]> = this.store.select(selectTickets);
 
-  selectedDate!: Date;
+  selectedDate: Date = new Date('05.07.2023');
 
   currTicket: ITicket | null = null;
+
+  selected = false;
 
   constructor(private store: Store) {}
 
@@ -43,14 +44,11 @@ export class ResultItemComponent implements OnChanges {
   }
 
   private setCurrentTicket(date: Date) {
-    this.tickets$
-      .pipe(take(1))
-      .subscribe(
-        (tickets) =>
-          (this.currTicket =
-            this.filterTickets(tickets).find(
-              (ticket) => new Date(ticket.date).getTime() === date.getTime()
-            ) || null)
-      );
+    this.tickets$.subscribe((tickets) => {
+      this.currTicket =
+        this.filterTickets(tickets).find(
+          (ticket) => new Date(ticket.date).getTime() === date.getTime()
+        ) || null;
+    });
   }
 }
