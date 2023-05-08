@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { dateDestinationValidator } from '../../validators/validators';
+import {
+  dateDestinationValidator,
+  validCityValidator,
+  validSameCities,
+} from '../../validators/validators';
 import { PassengersType } from '../../../core/models/passengers.model';
 import { Observable, map, startWith } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -88,6 +92,16 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
   ngOnInit() {
     this.citiesService.getCities().subscribe((cities) => {
       this.cities = cities;
+      this.searchEditForm.controls.from.setValidators([
+        Validators.required,
+        validCityValidator(this.cities),
+        validSameCities('from'),
+      ]);
+      this.searchEditForm.controls.destination.setValidators([
+        Validators.required,
+        validCityValidator(this.cities),
+        validSameCities('destination'),
+      ]);
     });
     this.formatDate$.subscribe(() => {
       this.dateFrom = new Date(this.searchEditForm.value.dateFrom!.toString());
@@ -134,6 +148,18 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
 
     this.minDate = new Date('05.08.2023').toISOString().slice(0, 10);
     this.maxDate = new Date('05.17.2023').toISOString().slice(0, 10);
+
+    this.searchEditForm.get('from')?.valueChanges.subscribe(() => {
+      this.searchEditForm
+        .get('destination')
+        ?.setErrors(validSameCities('destination')(this.searchEditForm.get('destination')!));
+    });
+
+    this.searchEditForm.get('destination')?.valueChanges.subscribe(() => {
+      this.searchEditForm
+        .get('from')
+        ?.setErrors(validSameCities('from')(this.searchEditForm.get('from')!));
+    });
   }
 
   private _filter(name: string): City[] {

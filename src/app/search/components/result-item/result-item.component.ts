@@ -3,6 +3,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ITicket } from '../../models/tickets.model';
 import { selectTickets } from 'src/app/redux/selectors/tickets.selector';
+import { Store } from '@ngrx/store';
+import { selectSearchFormFeature } from '../../../redux/selectors/search-form.selectors';
 
 @Component({
   selector: 'app-result-item',
@@ -16,13 +18,19 @@ export class ResultItemComponent implements OnChanges {
 
   tickets$: Observable<ITicket[]> = this.store.select(selectTickets);
 
-  selectedDate: Date = new Date('05.07.2023');
+  searchFormData$ = this.store.select(selectSearchFormFeature);
+
+  selectedDate!: Date;
 
   currTicket: ITicket | null = null;
-
+  
   selected = false;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) {
+    this.searchFormData$.subscribe((form) => {
+      this.selectedDate = new Date(form.dateFrom);
+    });
+  }
 
   ngOnChanges(): void {
     if (this.cityFrom) {
