@@ -36,7 +36,7 @@
             [disabled]="inputDestination.value !== '' && city.name === inputDestination.value"
           >
             <div class="option__city-top">
-              <span>{{ city.name + ' ' + '(' + city.code + ')' }}</span>
+              <span>{{ city.name + " " + "(" + city.code + ")" }}</span>
             </div>
             <div class="option__city-bottom">
               <span *ngIf="city.main_airport_name">{{ city.main_airport_name }},&nbsp;</span>
@@ -69,7 +69,7 @@
             [disabled]="inputFrom.value !== '' && inputFrom.value === city.name"
           >
             <div class="option__city-top">
-              <span>{{ city.name + ' ' + '(' + city.code + ')' }}</span>
+              <span>{{ city.name + " " + "(" + city.code + ")" }}</span>
             </div>
             <div class="option__city-bottom">
               <span *ngIf="city.main_airport_name">{{ city.main_airport_name }},&nbsp;</span>

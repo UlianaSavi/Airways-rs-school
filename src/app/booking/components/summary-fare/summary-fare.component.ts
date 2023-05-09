@@ -47,8 +47,8 @@ export class SummaryFareComponent implements OnInit {
   }
 
   public getFare(passenger: PassengersType): number {
-    const priceTicket = this.ticket?.price || 0;
-    const priceBackTicket = this.backTicket?.price || 0;
+    const priceTicket: number = this.ticket ? this.ticket.price : 0;
+    const priceBackTicket: number = this.backTicket ? Number(this.backTicket.price) : 0;
     return (
       (priceTicket + priceBackTicket) *
       this.passengersCount[passenger] *
