@@ -5,6 +5,7 @@ import * as TicketsACtions from 'src/app/redux/actions/tickets.actions';
 import * as PassengersActions from 'src/app/redux/actions/passengers.actions';
 import { setSearchForms } from '../../../redux/actions/search-form.actions';
 import { FlightTypes, SearchFormState } from '../../../redux/reducers/search-form.reducer';
+import { selectBackTicket, selectTicket } from 'src/app/redux/selectors/select-ticket.selector';
 
 @Component({
   selector: 'app-result-list',
@@ -31,6 +32,10 @@ export class ResultListComponent implements OnInit {
 
   infant = 0;
 
+  selectTicket$ = this.store.select(selectTicket);
+
+  selectBackTicket$ = this.store.select(selectBackTicket);
+
   constructor(private route: ActivatedRoute, private store: Store, private router: Router) {}
 
   ngOnInit(): void {
@@ -38,17 +43,9 @@ export class ResultListComponent implements OnInit {
       this.typeOfFlight = params.get('typeOfFlight') as FlightTypes;
       this.from = params.get('from') as string;
       this.to = params.get('destination') as string;
-      this.dateFrom = new Date(params.get('dateFrom') || '').toLocaleString('ru', {
-        day: 'numeric',
-        month: 'numeric',
-        year: 'numeric',
-      }) as string;
+      this.dateFrom = new Date(params.get('dateFrom') || '').toString();
       this.dateBack = params.get('dateDestination')
-        ? new Date(params.get('dateDestination') || '').toLocaleString('ru', {
-            day: 'numeric',
-            month: 'numeric',
-            year: 'numeric',
-          })
+        ? new Date(params.get('dateDestination') || '').toString()
         : null;
       this.adult = +(params.get('adult') || 1);
       this.child = +(params.get('child') || 0);

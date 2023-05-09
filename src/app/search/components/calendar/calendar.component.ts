@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ITicket } from '../../models/tickets.model';
 
@@ -73,7 +73,7 @@ export class CalendarComponent implements OnInit {
     this.tickets.find((ticket) => new Date(ticket.date).getTime() === date.getTime())?.price || 0;
 
   public getSeat = (date: Date): number => {
-    const ticket: ITicket | undefined = this.tickets.find(
+    const ticket = this.tickets.find(
       (_ticket) => new Date(_ticket.date).getTime() === date.getTime()
     );
     return ticket ? ticket.seats : 0;

@@ -17,17 +17,25 @@ export const initialState: SelectTicketsState = {
 export const selectTicketReducer = createReducer(
   initialState,
   on(
-    SelectTicketActions.SelectTicket,
+    SelectTicketActions.setSelectedTicket,
     (state, { ticket }): SelectTicketsState => ({
       ...state,
       ticket,
     })
   ),
   on(
-    SelectTicketActions.SelectBackTicket,
+    SelectTicketActions.setSelectedBackTicket,
     (state, { backTicket }): SelectTicketsState => ({
       ...state,
       backTicket,
+    })
+  ),
+  on(
+    SelectTicketActions.resetSelectedTickets,
+    (state): SelectTicketsState => ({
+      ...state,
+      ticket: null,
+      backTicket: null,
     })
   )
 );

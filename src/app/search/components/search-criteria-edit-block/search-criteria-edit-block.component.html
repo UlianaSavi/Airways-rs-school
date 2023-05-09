@@ -7,15 +7,16 @@
         formControlName="from"
         [matAutocomplete]="autoFrom"
         placeholder="Choose your destination"
+        #inputFrom
       />
       <mat-autocomplete #autoFrom="matAutocomplete" [displayWith]="displayFn">
         <mat-option
           *ngFor="let city of filteredFromCities$ | async"
-          [value]="city.name + ' ' + city.code"
+          [value]="city.name"
+          [disabled]="inputDestination.value !== '' && city.name === inputDestination.value"
         >
           <div class="option__city-top">
-            <span>{{ city.name }}</span>
-            <span>({{ city.code }})</span>
+            <span>{{ city.name + ' ' + '(' + city.code + ')' }}</span>
           </div>
           <div class="option__city-bottom">
             <span *ngIf="city.main_airport_name">{{ city.main_airport_name }},&nbsp;</span>
@@ -36,11 +37,11 @@
       <mat-autocomplete #autoDestination="matAutocomplete" [displayWith]="displayFn">
         <mat-option
           *ngFor="let city of filteredDestinationCities$ | async"
-          [value]="city.name + ' ' + city.code"
+          [value]="city.name"
+          [disabled]="inputFrom.value !== '' && inputFrom.value === city.name"
         >
           <div class="option__city-top">
-            <span>{{ city.name }}</span>
-            <span>({{ city.code }})</span>
+            <span>{{ city.name + ' ' + '(' + city.code + ')' }}</span>
           </div>
           <div class="option__city-bottom">
             <span *ngIf="city.main_airport_name">{{ city.main_airport_name }},&nbsp;</span>
