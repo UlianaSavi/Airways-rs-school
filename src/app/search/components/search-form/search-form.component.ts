@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { PassengersType } from '../../../core/models/passengers.model';
@@ -15,6 +15,7 @@ import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.s
 import { ApiService } from 'src/app/core/services/api.service';
 import { CitiesService } from 'src/app/core/services/cities.service';
 import { resetSelectedTickets } from 'src/app/redux/actions/select-ticket.actions';
+import { selectSearchFormFeature } from '../../../redux/selectors/search-form.selectors';
 
 @Component({
   selector: 'app-search-form',
@@ -27,12 +28,15 @@ export class SearchFormComponent implements OnInit {
     private fb: FormBuilder,
     private store: Store,
     private apiService: ApiService,
-    private citiesService: CitiesService
+    private citiesService: CitiesService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   cities: City[] | [] = [];
 
   $dateFormat = this.store.select(CurrencyDateSelectors.selectDateFormat);
+
+  formData$ = this.store.select(selectSearchFormFeature);
 
   filteredFromCities$!: Observable<City[]>;
 
@@ -94,6 +98,7 @@ export class SearchFormComponent implements OnInit {
     this.$dateFormat.subscribe(() => {
       this.dateFrom = new Date(this.searchForm.value.dateFrom!.toString());
       this.dateDest = new Date(this.searchForm.value.dateDestination!.toString());
+      this.cdr.detectChanges();
     });
 
     this.searchForm.controls.typeOfFlight.setValue('round');
@@ -110,6 +115,18 @@ export class SearchFormComponent implements OnInit {
 
     //reset selected tickets in store
     this.store.dispatch(resetSelectedTickets());
+
+    this.formData$.subscribe((form) => {
+      this.searchForm.patchValue({
+        typeOfFlight: form.typeOfFlight,
+        from: form.from,
+        destination: form.destination,
+        amountOfPass: form.passengersCount,
+      });
+      this.dateFrom = new Date(form.dateFrom);
+      this.dateDest = form.dateDestination ? new Date(form.dateDestination) : undefined;
+      this.cdr.detectChanges();
+    });
   }
 
   displayFn(city: string): string {

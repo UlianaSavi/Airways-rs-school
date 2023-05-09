@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import {
   dateDestinationValidator,
@@ -28,7 +28,8 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
     private citiesService: CitiesService,
     private router: Router,
     private store: Store,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   private cities: City[] | [] = [];
@@ -60,10 +61,6 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
   infant: string | null = null;
 
   typeOfFlight: string | null = null;
-
-  switchDestinations(from: HTMLInputElement, to: HTMLInputElement) {
-    [from.value, to.value] = [to.value, from.value];
-  }
 
   setCountPassengers(newCountPassengers: [PassengersType, number]) {
     this.searchEditForm.controls.amountOfPass.controls[newCountPassengers[0]].setValue(
@@ -106,6 +103,7 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
     this.formatDate$.subscribe(() => {
       this.dateFrom = new Date(this.searchEditForm.value.dateFrom!.toString());
       this.dateTo = new Date(this.searchEditForm.value.dateDestination!.toString());
+      this.cdr.detectChanges();
     });
 
     this.route.queryParamMap.subscribe((params) => {
