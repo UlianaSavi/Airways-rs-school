@@ -1,5 +1,5 @@
 <div *ngIf="tickets$ | async as tickets">
-  <div class="result-item" *ngIf="tickets.length">
+  <div class="result-item" *ngIf="tickets.length && currTicket">
     <div class="result-item__title">
       <img
         class="result-item__title-img"
@@ -7,19 +7,23 @@
         [ngClass]="{ mirrorY: isBack }"
       />
       <span *ngIf="!isBack; else elseTemplate">
-        {{ currTicket?.country?.from }} to {{ currTicket?.country?.to }}
+        {{ currTicket.country.from }} to {{ currTicket.country.to }}
       </span>
       <ng-template #elseTemplate>
-        {{ currTicket?.country?.to }} to {{ currTicket?.country?.from }}
+        {{ currTicket.country.to }} to {{ currTicket.country.from }}
       </ng-template>
     </div>
     <app-calendar
-      *ngIf="!selected"
+      *ngIf="(selectedTicket$ | async) === null"
       class="result-item__calendar"
       [isBack]="isBack"
       [tickets]="filterTickets(tickets)"
       (selectDate)="setSelectDate($event)"
     ></app-calendar>
-    <app-ticket class="result-item__details" [currTicket]="currTicket"></app-ticket>
+    <app-ticket
+      class="result-item__details"
+      [currTicket]="currTicket"
+      [isBack]="isBack"
+    ></app-ticket>
   </div>
 </div>

@@ -14,6 +14,7 @@ import { Store } from '@ngrx/store';
 import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CitiesService } from 'src/app/core/services/cities.service';
+import { resetSelectedTickets } from 'src/app/redux/actions/select-ticket.actions';
 
 @Component({
   selector: 'app-search-form',
@@ -106,6 +107,9 @@ export class SearchFormComponent implements OnInit {
     this.searchForm.get('destination')?.valueChanges.subscribe(() => {
       this.searchForm.get('from')?.setErrors(validSameCities('from')(this.searchForm.get('from')!));
     });
+
+    //reset selected tickets in store
+    this.store.dispatch(resetSelectedTickets());
   }
 
   displayFn(city: string): string {

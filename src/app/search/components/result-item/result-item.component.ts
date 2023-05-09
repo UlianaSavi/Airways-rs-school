@@ -1,17 +1,17 @@
-import { Component, Input, OnChanges } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { ITicket } from '../../models/tickets.model';
 import { selectTickets } from 'src/app/redux/selectors/tickets.selector';
 import { Store } from '@ngrx/store';
 import { selectSearchFormFeature } from '../../../redux/selectors/search-form.selectors';
+import { selectBackTicket, selectTicket } from 'src/app/redux/selectors/select-ticket.selector';
 
 @Component({
   selector: 'app-result-item',
   templateUrl: './result-item.component.html',
   styleUrls: ['./result-item.component.scss'],
 })
-export class ResultItemComponent implements OnChanges {
+export class ResultItemComponent implements OnChanges, OnInit {
   @Input() isBack = false;
 
   @Input() cityFrom: string | null = null;
@@ -20,16 +20,22 @@ export class ResultItemComponent implements OnChanges {
 
   searchFormData$ = this.store.select(selectSearchFormFeature);
 
+  selectedTicket$: Observable<ITicket | null> = of(null);
+
   selectedDate!: Date;
 
   currTicket: ITicket | null = null;
-  
-  selected = false;
 
   constructor(private store: Store) {
     this.searchFormData$.subscribe((form) => {
       this.selectedDate = new Date(form.dateFrom);
     });
+  }
+
+  ngOnInit(): void {
+    this.selectedTicket$ = this.isBack
+      ? this.store.select(selectBackTicket)
+      : this.store.select(selectTicket);
   }
 
   ngOnChanges(): void {

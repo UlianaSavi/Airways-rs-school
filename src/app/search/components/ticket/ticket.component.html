@@ -33,21 +33,27 @@
       <span>{{ currTicket.flightNum }}</span>
     </div>
   </div>
-  <div class="details__select">
+  <div class="details__select" [ngClass]="{ details__selected: isSelected }">
     <div class="seat-price">
-      <div class="seat" appSeatBackground [availableSeats]="currTicket.seats">
+      <div *ngIf="!isSelected" class="seat" appSeatBackground [availableSeats]="currTicket.seats">
         {{ currTicket.seats }} seats available
       </div>
-      <div class="price-title">Price</div>
-      <div class="price" *ngIf="currentCurrency$ | async as currentCurrency">
-        {{
-          currTicket.price * currentCurrency.euroCoefficient
-            | currency : currentCurrency.name : "symbol"
-        }}
+      <div *ngIf="!isSelected" class="price-title">Price</div>
+      <div class="price" [ngClass]="{ 'price-black': isSelected }">
+        {{ currTicket.price | currency : "EUR" }}
       </div>
     </div>
     <div class="details__select-btn-container">
-      <button class="details__select-btn btn">Select</button>
+      <button
+        class="edit-btn btn-transparent btn"
+        *ngIf="isSelected; else selectBtn"
+        (click)="editTicket()"
+      >
+        Edit
+      </button>
+      <ng-template #selectBtn>
+        <button class="details__select-btn btn" (click)="selectTicket()">Select</button>
+      </ng-template>
     </div>
   </div>
 </div>

@@ -1,12 +1,14 @@
 import { createAction, props } from '@ngrx/store';
 import { ITicket } from 'src/app/search/models/tickets.model';
 
-export const SelectTicket = createAction(
+export const setSelectedTicket = createAction(
   '[SelectTicket] SelectTicket',
   props<{ ticket: ITicket | null }>()
 );
 
-export const SelectBackTicket = createAction(
+export const setSelectedBackTicket = createAction(
   '[SelectTicket] SelectBackTicket',
   props<{ backTicket: ITicket | null }>()
 );
+
+export const resetSelectedTickets = createAction('[SelectTicket] Reset selected tickets');
