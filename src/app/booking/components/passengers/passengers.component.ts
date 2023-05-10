@@ -5,7 +5,7 @@ import { PassengersFormData } from '../../models/forms.model';
 import { CONTACT_FROM_ID } from 'src/app/shared/constants/contact-form';
 import { PassengerData } from 'src/app/core/models/passengers.model';
 import { Store } from '@ngrx/store';
-import { selectCountPassengers } from '../../../redux/selectors/passengers.selectors';
+import { selectSearchFormFeature } from '../../../redux/selectors/search-form.selectors';
 
 @Component({
   selector: 'app-passengers',
@@ -24,8 +24,12 @@ export class PassengersComponent {
   canContinue = false;
 
   constructor(private location: Location, private store: Store) {
-    this.peopleCount$.subscribe((count) => {
-      this.passengersFormsData = this.setPeopleArray(count.adult, count.child, count.infant);
+    this.searchForm$.subscribe((form) => {
+      this.passengersFormsData = this.setPeopleArray(
+        form.passengersCount.adult,
+        form.passengersCount.child,
+        form.passengersCount.infant
+      );
     });
     this.formsStatus = [
       ...this.passengersFormsData.map(({ id }) => ({ id, value: false })),
@@ -63,7 +67,7 @@ export class PassengersComponent {
     }
   }
 
-  peopleCount$ = this.store.select(selectCountPassengers);
+  searchForm$ = this.store.select(selectSearchFormFeature);
 
   private setPeopleArray(
     adultCount: number,

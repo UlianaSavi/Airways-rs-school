@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import * as TicketsACtions from 'src/app/redux/actions/tickets.actions';
-import * as PassengersActions from 'src/app/redux/actions/passengers.actions';
+import * as TicketsActions from 'src/app/redux/actions/tickets.actions';
 import { setSearchForms } from '../../../redux/actions/search-form.actions';
 import { FlightTypes, SearchFormState } from '../../../redux/reducers/search-form.reducer';
 import { selectBackTicket, selectTicket } from 'src/app/redux/selectors/select-ticket.selector';
@@ -52,8 +51,8 @@ export class ResultListComponent implements OnInit {
       this.infant = +(params.get('infant') || 0);
     });
     if (this.dateBack) {
-      this.store.dispatch(TicketsACtions.ApiTicketsType());
-    } else this.store.dispatch(TicketsACtions.ApiOneWayTicketsType({ query: this.from || '' }));
+      this.store.dispatch(TicketsActions.ApiTicketsType());
+    } else this.store.dispatch(TicketsActions.ApiOneWayTicketsType({ query: this.from || '' }));
 
     const searchForm: SearchFormState = {
       typeOfFlight: this.typeOfFlight,
@@ -76,19 +75,6 @@ export class ResultListComponent implements OnInit {
   }
 
   public onContinue() {
-    this.store.dispatch(
-      PassengersActions.SetCountPassengers({
-        adult: {
-          count: this.adult,
-        },
-        child: {
-          count: this.child,
-        },
-        infant: {
-          count: this.infant,
-        },
-      })
-    );
     this.router.navigateByUrl('/booking');
   }
 }
