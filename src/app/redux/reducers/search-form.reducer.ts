@@ -16,7 +16,7 @@ export interface SearchFormState {
 }
 
 export const initialState: SearchFormState = {
-  typeOfFlight: 'one',
+  typeOfFlight: 'round',
   from: '',
   destination: '',
   dateFrom: '',
