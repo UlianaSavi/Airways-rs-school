@@ -15,6 +15,8 @@ import { ApiOneWayTicketsType, ApiTicketsType } from 'src/app/redux/actions/tick
 import { Store } from '@ngrx/store';
 import { ApiService } from 'src/app/core/services/api.service';
 import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
+import { FlightTypes, SearchFormState } from '../../../redux/reducers/search-form.reducer';
+import { setSearchForms } from '../../../redux/actions/search-form.actions';
 
 @Component({
   selector: 'app-search-criteria-edit-block',
@@ -103,7 +105,11 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
     this.formatDate$.subscribe(() => {
       this.dateFrom = new Date(this.searchEditForm.value.dateFrom!.toString());
       this.dateTo = new Date(this.searchEditForm.value.dateDestination!.toString());
-      this.cdr.detectChanges();
+      this.cdr.detach();
+      setTimeout(() => {
+        this.cdr.detectChanges();
+        this.cdr.reattach();
+      });
     });
 
     this.route.queryParamMap.subscribe((params) => {
@@ -196,5 +202,20 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
     this.router.navigate(['search', 'results'], {
       queryParams: { ...query },
     });
+
+    const searchForm: SearchFormState = {
+      typeOfFlight: this.typeOfFlight as FlightTypes,
+      from: this.from!,
+      destination: this.to!,
+      dateFrom: this.dateFrom!.toString(),
+      dateDestination: this.dateTo ? this.dateTo.toString() : null,
+      passengersCount: {
+        adult: +this.adult!,
+        child: +this.child!,
+        infant: +this.infant!,
+      },
+    };
+
+    this.store.dispatch(setSearchForms({ searchForm }));
   };
 }

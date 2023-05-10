@@ -98,7 +98,11 @@ export class SearchFormComponent implements OnInit {
     this.$dateFormat.subscribe(() => {
       this.dateFrom = new Date(this.searchForm.value.dateFrom!.toString());
       this.dateDest = new Date(this.searchForm.value.dateDestination!.toString());
-      this.cdr.detectChanges();
+      this.cdr.detach();
+      setTimeout(() => {
+        this.cdr.detectChanges();
+        this.cdr.reattach();
+      });
     });
 
     this.searchForm.controls.typeOfFlight.setValue('round');
