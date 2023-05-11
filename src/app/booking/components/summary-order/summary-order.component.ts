@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
-import { PassengerData, PassengerInfo, PassengersType } from 'src/app/core/models/passengers.model';
-import { selectPassengers } from 'src/app/redux/selectors/passengers.selectors';
+import { PassengerData, PassengersType } from 'src/app/core/models/passengers.model';
+import { selectPassengersData } from 'src/app/redux/selectors/passengers.selectors';
 import { selectBackTicket, selectTicket } from 'src/app/redux/selectors/select-ticket.selector';
 import { ITicket } from 'src/app/search/models/tickets.model';
 
@@ -16,10 +16,10 @@ export class SummaryOrderComponent implements OnInit {
 
   ticket$!: Observable<ITicket | null>;
 
-  passengersData$: Observable<Record<PassengersType, PassengerInfo>> =
-    this.store.select(selectPassengers);
+  passengersData$: Observable<Record<PassengersType, PassengerData[]>> =
+    this.store.select(selectPassengersData);
 
-  passengers!: Record<PassengersType, PassengerInfo>;
+  passengers: Record<PassengersType, PassengerData[]> = { adult: [], child: [], infant: [] };
 
   passArr: PassengersType[] = ['adult', 'child', 'infant'];
 
@@ -35,7 +35,7 @@ export class SummaryOrderComponent implements OnInit {
   public getAllPassengerInArray() {
     const pass: ({ passType: PassengersType } & PassengerData)[] = [];
     Object.keys(this.passengers).forEach((passType) => {
-      this.passengers[passType as PassengersType].data.forEach((data) => {
+      this.passengers[passType as PassengersType].forEach((data) => {
         return pass.push({ passType: passType as PassengersType, ...data });
       });
     });

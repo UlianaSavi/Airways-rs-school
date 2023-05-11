@@ -1,28 +1,20 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { PassengersState, passengersFeatureKey } from '../reducers/passengers.reducer';
-import { PassengerData, PassengerInfo, PassengersType } from 'src/app/core/models/passengers.model';
+import {
+  PassengerContacts,
+  PassengerData,
+  PassengersType,
+} from '../../core/models/passengers.model';
 
-const selectPassengersFeature = createFeatureSelector<PassengersState>(passengersFeatureKey);
+export const selectPassengersDataFeature =
+  createFeatureSelector<PassengersState>(passengersFeatureKey);
 
-export const selectPassengers = createSelector(
-  selectPassengersFeature,
-  (state: PassengersState): Record<PassengersType, PassengerInfo> => state
+export const selectPassengersData = createSelector(
+  selectPassengersDataFeature,
+  (state: PassengersState): Record<PassengersType, PassengerData[]> => state.data
 );
 
-export const selectCountPassengers = createSelector(
-  selectPassengersFeature,
-  (state: PassengersState): Record<PassengersType, number> => ({
-    adult: state.adult.count,
-    child: state.child.count,
-    infant: state.infant.count,
-  })
-);
-
-export const selectDataPassengers = createSelector(
-  selectPassengersFeature,
-  (state: PassengersState): Record<PassengersType, PassengerData[]> => ({
-    adult: state.adult.data,
-    child: state.child.data,
-    infant: state.infant.data,
-  })
+export const selectPassengersContacts = createSelector(
+  selectPassengersDataFeature,
+  (state: PassengersState): PassengerContacts => state.contacts
 );

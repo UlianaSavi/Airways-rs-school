@@ -9,7 +9,13 @@ export type PassengerData = {
   baggageCount: number;
 };
 
-export type PassengerInfo = {
-  count: number;
-  data: PassengerData[];
+export type PassengerDataExtended = PassengerData & {
+  id: string;
+  ageStatus: string;
+};
+
+export type PassengerContacts = {
+  countryCode: string;
+  phone: string;
+  email: string;
 };

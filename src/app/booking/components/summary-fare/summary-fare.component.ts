@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { take } from 'rxjs';
 import { PassengersType } from 'src/app/core/models/passengers.model';
 import { selectCurrencyFormat } from 'src/app/redux/selectors/currency-date.selectors';
-import { selectCountPassengers } from 'src/app/redux/selectors/passengers.selectors';
+import { selectPassengersData } from 'src/app/redux/selectors/passengers.selectors';
 import { selectBackTicket, selectTicket } from 'src/app/redux/selectors/select-ticket.selector';
 import { ITicket } from 'src/app/search/models/tickets.model';
 
@@ -23,7 +23,7 @@ export class SummaryFareComponent implements OnInit {
 
   backTicket: ITicket | null = null;
 
-  passengersCount!: Record<PassengersType, number>;
+  passengersCount: Record<PassengersType, number> = { adult: 1, child: 0, infant: 0 };
 
   currentCurrency$ = this.store.select(selectCurrencyFormat);
 
@@ -41,9 +41,16 @@ export class SummaryFareComponent implements OnInit {
       .pipe(take(1))
       .subscribe((_ticket) => (this.backTicket = _ticket));
     this.store
-      .select(selectCountPassengers)
+      .select(selectPassengersData)
       .pipe(take(1))
-      .subscribe((passengersCount) => (this.passengersCount = passengersCount));
+      .subscribe(
+        (passengersData) =>
+          (this.passengersCount = {
+            adult: passengersData.adult.length,
+            child: passengersData.child.length,
+            infant: passengersData.infant.length,
+          })
+      );
   }
 
   public getFare(passenger: PassengersType): number {

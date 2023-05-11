@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import {
   dateDestinationValidator,
@@ -15,6 +15,8 @@ import { ApiOneWayTicketsType, ApiTicketsType } from 'src/app/redux/actions/tick
 import { Store } from '@ngrx/store';
 import { ApiService } from 'src/app/core/services/api.service';
 import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
+import { FlightTypes, SearchFormState } from '../../../redux/reducers/search-form.reducer';
+import { setSearchForms } from '../../../redux/actions/search-form.actions';
 
 @Component({
   selector: 'app-search-criteria-edit-block',
@@ -28,7 +30,8 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
     private citiesService: CitiesService,
     private router: Router,
     private store: Store,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   private cities: City[] | [] = [];
@@ -60,10 +63,6 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
   infant: string | null = null;
 
   typeOfFlight: string | null = null;
-
-  switchDestinations(from: HTMLInputElement, to: HTMLInputElement) {
-    [from.value, to.value] = [to.value, from.value];
-  }
 
   setCountPassengers(newCountPassengers: [PassengersType, number]) {
     this.searchEditForm.controls.amountOfPass.controls[newCountPassengers[0]].setValue(
@@ -106,6 +105,11 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
     this.formatDate$.subscribe(() => {
       this.dateFrom = new Date(this.searchEditForm.value.dateFrom!.toString());
       this.dateTo = new Date(this.searchEditForm.value.dateDestination!.toString());
+      this.cdr.detach();
+      setTimeout(() => {
+        this.cdr.detectChanges();
+        this.cdr.reattach();
+      });
     });
 
     this.route.queryParamMap.subscribe((params) => {
@@ -198,5 +202,22 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
     this.router.navigate(['search', 'results'], {
       queryParams: { ...query },
     });
+
+    const searchForm: SearchFormState = {
+      typeOfFlight: this.typeOfFlight as FlightTypes,
+      from: this.searchEditForm.value.from!,
+      destination: this.searchEditForm.value.destination!,
+      dateFrom: this.searchEditForm.value.dateFrom!.toString(),
+      dateDestination: this.searchEditForm.value.dateDestination
+        ? this.searchEditForm.value.dateDestination.toString()
+        : null,
+      passengersCount: {
+        adult: +this.searchEditForm.value.amountOfPass!.adult!,
+        child: +this.searchEditForm.value.amountOfPass!.child!,
+        infant: +this.searchEditForm.value.amountOfPass!.infant!,
+      },
+    };
+
+    this.store.dispatch(setSearchForms({ searchForm }));
   };
 }

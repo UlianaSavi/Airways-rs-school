@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { PassengerInfo, PassengersType } from 'src/app/core/models/passengers.model';
-import { selectPassengers } from 'src/app/redux/selectors/passengers.selectors';
+import { PassengerData, PassengersType } from 'src/app/core/models/passengers.model';
+import { selectPassengersData } from 'src/app/redux/selectors/passengers.selectors';
 import { selectBackTicket, selectTicket } from 'src/app/redux/selectors/select-ticket.selector';
 import { ITicket } from 'src/app/search/models/tickets.model';
 
@@ -17,8 +17,8 @@ export class SummaryComponent {
 
   backTicket$: Observable<ITicket | null> = this.store.select(selectBackTicket);
 
-  passengersData$: Observable<Record<PassengersType, PassengerInfo>> =
-    this.store.select(selectPassengers);
+  passengersData$: Observable<Record<PassengersType, PassengerData[]>> =
+    this.store.select(selectPassengersData);
 
   constructor(private store: Store, private router: Router) {}
 
