@@ -6,6 +6,7 @@ import {
   setSelectedTicket,
 } from 'src/app/redux/actions/select-ticket.actions';
 import { selectBackTicket, selectTicket } from 'src/app/redux/selectors/select-ticket.selector';
+import { selectCurrencyFormat } from 'src/app/redux/selectors/currency-date.selectors';
 
 @Component({
   selector: 'app-ticket',
@@ -18,6 +19,8 @@ export class TicketComponent implements OnInit {
   @Input() isBack = false;
 
   isSelected = false;
+
+  currentCurrency$ = this.store.select(selectCurrencyFormat);
 
   constructor(private store: Store) {}
 
