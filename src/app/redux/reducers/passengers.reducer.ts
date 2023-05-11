@@ -1,26 +1,43 @@
 import { createReducer, on } from '@ngrx/store';
 import * as PassengersActions from '../actions/passengers.actions';
-import { PassengerData, PassengersType } from 'src/app/core/models/passengers.model';
+import {
+  PassengerContacts,
+  PassengerData,
+  PassengersType,
+} from 'src/app/core/models/passengers.model';
 
 export const passengersFeatureKey = 'passengers';
 
-export type PassengersState = Record<PassengersType, PassengerData[]>;
+export interface PassengersState {
+  data: Record<PassengersType, PassengerData[]>;
+  contacts: PassengerContacts;
+}
 
 const initialState: PassengersState = {
-  adult: [],
-  child: [],
-  infant: [],
+  data: {
+    adult: [],
+    child: [],
+    infant: [],
+  },
+  contacts: {
+    countryCode: '',
+    phone: '',
+    email: '',
+  },
 };
 
 export const passengersReducer = createReducer(
   initialState,
   on(
     PassengersActions.SetDataPassengers,
-    (state, { adult, child, infant }): PassengersState => ({
+    (state, { adult, child, infant, contacts }): PassengersState => ({
       ...state,
-      adult,
-      child,
-      infant,
+      data: {
+        adult,
+        child,
+        infant,
+      },
+      contacts: contacts,
     })
   )
 );

@@ -3,9 +3,10 @@ import { Location } from '@angular/common';
 import { ContactForm } from '../../models/contact-form.model';
 import { PassengersFormData } from '../../models/forms.model';
 import { CONTACT_FROM_ID } from 'src/app/shared/constants/contact-form';
-import { PassengerData } from 'src/app/core/models/passengers.model';
+import { PassengerData, PassengerDataExtended } from 'src/app/core/models/passengers.model';
 import { Store } from '@ngrx/store';
 import { selectSearchFormFeature } from '../../../redux/selectors/search-form.selectors';
+import * as PassengersActions from '../../../redux/actions/passengers.actions';
 
 @Component({
   selector: 'app-passengers',
@@ -17,9 +18,12 @@ export class PassengersComponent {
 
   formsStatus: { id: string; value: boolean }[] = [];
 
-  passengersForm: PassengerData | [] = [];
-
-  contactForm: ContactForm | [] = [];
+  contactForm: ContactForm = {
+    id: 'CONTACT_FROM_ID',
+    phone: '',
+    countryCode: '',
+    email: '',
+  };
 
   canContinue = false;
 
@@ -44,12 +48,57 @@ export class PassengersComponent {
     this.location.back();
   }
 
-  addPassengersForm(passengersForm: PassengerData) {
-    this.passengersForm = passengersForm;
+  passengersForm: { [id: string]: PassengerDataExtended } = {};
+
+  adultsData: PassengerData[] = [];
+
+  childrenData: PassengerData[] = [];
+
+  infantsData: PassengerData[] = [];
+
+  addPassengersForm(passengersForm: PassengerDataExtended) {
+    this.passengersForm[passengersForm.id] = passengersForm;
+
+    this.updatePassengersForm();
+  }
+
+  private updatePassengersForm() {
+    this.adultsData = [];
+    this.childrenData = [];
+    this.infantsData = [];
+
+    for (const id in this.passengersForm) {
+      const passengerData: PassengerData = {
+        firstName: this.passengersForm[id].firstName,
+        lastName: this.passengersForm[id].lastName,
+        gender: this.passengersForm[id].gender,
+        dateOfBird: this.passengersForm[id].dateOfBird,
+        baggage: this.passengersForm[id].baggage,
+        baggageCount: this.passengersForm[id].baggageCount,
+      };
+      if (this.passengersForm[id].ageStatus === 'Adult') this.adultsData.push(passengerData);
+      if (this.passengersForm[id].ageStatus === 'Children') this.childrenData.push(passengerData);
+      if (this.passengersForm[id].ageStatus === 'Infant') this.infantsData.push(passengerData);
+    }
   }
 
   addContactForm(contactForm: ContactForm) {
     this.contactForm = contactForm;
+  }
+
+  addDataToStore() {
+    this.store.dispatch(
+      PassengersActions.SetDataPassengers({
+        adult: this.adultsData,
+        child: this.childrenData,
+        infant: this.infantsData,
+        contacts: {
+          phone: this.contactForm.phone!,
+          email: this.contactForm.email!,
+          countryCode: this.contactForm.countryCode!,
+        },
+      })
+    );
   }
 
   setFormFullField(props: { id: string; value: boolean }) {
