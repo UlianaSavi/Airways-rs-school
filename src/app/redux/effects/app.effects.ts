@@ -10,11 +10,9 @@ export class AppEffects {
     return this.actions$.pipe(
       ofType(TicketsActions.ApiTicketsType),
       switchMap(() =>
-        this.dataService.getAllTickets().pipe(
-          map((tickets) => {
-            return TicketsActions.SetAllTickets({ tickets });
-          })
-        )
+        this.dataService
+          .getAllTickets()
+          .pipe(map((tickets) => TicketsActions.SetAllTickets({ tickets })))
       )
     );
   });

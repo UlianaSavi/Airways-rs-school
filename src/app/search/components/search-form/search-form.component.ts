@@ -117,7 +117,6 @@ export class SearchFormComponent implements OnInit {
       this.searchForm.get('from')?.setErrors(validSameCities('from')(this.searchForm.get('from')!));
     });
 
-    //reset selected tickets in store
     this.store.dispatch(resetSelectedTickets());
 
     this.formData$.subscribe((form) => {
@@ -133,7 +132,7 @@ export class SearchFormComponent implements OnInit {
     });
   }
 
-  displayFn(city: string): string {
+  public displayFn(city: string): string {
     return city ? city : '';
   }
 
@@ -147,18 +146,17 @@ export class SearchFormComponent implements OnInit {
     );
   }
 
-  switchDestinations(from: HTMLInputElement, to: HTMLInputElement) {
+  public switchDestinations(from: HTMLInputElement, to: HTMLInputElement) {
     [from.value, to.value] = [to.value, from.value];
   }
 
-  setCountPassengers(newCountPassengers: [PassengersType, number]) {
+  public setCountPassengers(newCountPassengers: [PassengersType, number]) {
     this.searchForm.controls.amountOfPass.controls[newCountPassengers[0]].setValue(
       newCountPassengers[1]
     );
   }
 
-  onSubmit(e: SubmitEvent) {
-    e.preventDefault();
+  public onSubmit() {
     const formVal = this.searchForm.value;
     const query: IQueryParams = {
       typeOfFlight: formVal.typeOfFlight || '',
