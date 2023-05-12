@@ -11,7 +11,7 @@
   border-top: 3px solid $primary-text-color;
   border-radius: 8px;
 
-  & > div {
+  &__block {
     padding: 20px 24px;
   }
 
@@ -31,14 +31,12 @@
     }
   }
 
-  &__date {
-    span + span {
-      margin-left: 36px;
-    }
+  &__date-time {
+    margin-left: 36px;
   }
 
   &__passenger {
-    & + & {
+    &+& {
       border-top: 1px solid $main-background;
     }
 

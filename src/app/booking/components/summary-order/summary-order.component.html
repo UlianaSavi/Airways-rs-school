@@ -1,5 +1,5 @@
 <div class="summary-order">
-  <div class="summary-order__header" *ngIf="ticket$ | async as ticket">
+  <div class="summary-order__header summary-order__block" *ngIf="ticket$ | async as ticket">
     <div class="summary-order__flight">
       <span class="summary-order__flight-number">{{ ticket.flightNum }}</span>
       <span class="summary-order__flight-titl">
@@ -8,17 +8,22 @@
     </div>
     <div class="summary-order__date">
       <span>{{ ticket.date | date : "fullDate" }}</span>
-      <span>{{ ticket.times.start }} — {{ ticket.times.end }}</span>
+      <span class="summary-order__date-time">
+        {{ ticket.times.start }} — {{ ticket.times.end }}
+      </span>
     </div>
   </div>
-  <div class="summary-order__passenger" *ngFor="let passenger of getAllPassengerInArray()">
+  <div
+    class="summary-order__passenger summary-order__block"
+    *ngFor="let passenger of getAllPassengerInArray()"
+  >
     <div class="summary-order__passenger-name">
       {{ passenger.firstName }} {{ passenger.lastName }}
     </div>
-    <div class="summary-order__passenger-included">
-      <div>1 checked bag (total 23 kg) included</div>
+    <div class="summary-order__passenger-included" *ngIf="passenger.passType !== 'infant'">
+      <div *ngIf="passenger.baggage">1 checked bag (total 23 kg) included</div>
       <div>1 cabin bag + 1 personal item (max. 8 kg) included</div>
-      <div *ngIf="passenger.passType !== 'infant'">Seat 20E</div>
+      <div>Seat 20E</div>
     </div>
   </div>
 </div>
