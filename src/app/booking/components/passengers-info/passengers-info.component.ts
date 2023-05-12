@@ -50,20 +50,6 @@ export class PassengersInfoComponent implements OnInit {
 
   dateOfBird: Date | undefined;
 
-  increase() {
-    this.baggageCount += 1;
-    this.passengersInfoForm.patchValue({
-      baggageCount: this.baggageCount,
-    });
-  }
-
-  decrease() {
-    if (this.baggageCount > 1) this.baggageCount -= 1;
-    this.passengersInfoForm.patchValue({
-      baggageCount: this.baggageCount,
-    });
-  }
-
   onToggleChange() {
     this.baggageCount = 1;
   }

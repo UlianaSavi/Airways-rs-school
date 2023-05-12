@@ -4,12 +4,7 @@
     <div class="passengers-info-block">
       <mat-form-field color="primary" appearance="fill">
         <mat-label>First name</mat-label>
-        <input
-          matInput
-          type="text"
-          name="firstName"
-          formControlName="firstName"
-        />
+        <input matInput type="text" name="firstName" formControlName="firstName" />
         <mat-error *ngIf="passengersInfoForm.get('firstName')?.hasError('required')">
           First name is required
         </mat-error>
@@ -104,11 +99,6 @@
       >
         Baggage
       </mat-slide-toggle>
-      <div *ngIf="baggage.checked" class="baggage-counter">
-        <mat-icon class="baggage-counter-icon" (click)="decrease()">remove</mat-icon>
-        {{ baggageCount }}
-        <mat-icon class="baggage-counter-icon" (click)="increase()">add</mat-icon>
-      </div>
     </div>
   </form>
 </div>
