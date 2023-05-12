@@ -22,8 +22,6 @@ export class SummaryComponent {
 
   constructor(private store: Store, private router: Router) {}
 
-  public addToCart() {}
-
   public buyNow() {
     this.router.navigateByUrl('/cart');
   }
