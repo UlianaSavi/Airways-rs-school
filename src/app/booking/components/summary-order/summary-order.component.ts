@@ -16,6 +16,8 @@ export class SummaryOrderComponent implements OnInit {
 
   ticket$!: Observable<ITicket | null>;
 
+  seat = Math.ceil(Math.random() * 40);
+
   passengersData$: Observable<Record<PassengersType, PassengerData[]>> =
     this.store.select(selectPassengersData);
 
@@ -40,5 +42,9 @@ export class SummaryOrderComponent implements OnInit {
       });
     });
     return pass;
+  }
+
+  public getSeat(): string {
+    return `${this.seat++}E`;
   }
 }

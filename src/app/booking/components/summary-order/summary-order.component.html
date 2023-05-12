@@ -23,7 +23,7 @@
     <div class="summary-order__passenger-included" *ngIf="passenger.passType !== 'infant'">
       <div *ngIf="passenger.baggage">1 checked bag (total 23 kg) included</div>
       <div>1 cabin bag + 1 personal item (max. 8 kg) included</div>
-      <div>Seat 20E</div>
+      <div>Seat {{ getSeat() }}</div>
     </div>
   </div>
 </div>
