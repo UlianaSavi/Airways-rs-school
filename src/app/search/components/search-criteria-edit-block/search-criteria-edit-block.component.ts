@@ -205,16 +205,22 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
 
     const searchForm: SearchFormState = {
       typeOfFlight: this.typeOfFlight as FlightTypes,
-      from: this.searchEditForm.value.from!,
-      destination: this.searchEditForm.value.destination!,
-      dateFrom: this.searchEditForm.value.dateFrom!.toString(),
+      from: this.searchEditForm.value.from || '',
+      destination: this.searchEditForm.value.destination || '',
+      dateFrom: (this.searchEditForm.value.dateFrom || new Date()).toString(),
       dateDestination: this.searchEditForm.value.dateDestination
         ? this.searchEditForm.value.dateDestination.toString()
         : null,
       passengersCount: {
-        adult: +this.searchEditForm.value.amountOfPass!.adult!,
-        child: +this.searchEditForm.value.amountOfPass!.child!,
-        infant: +this.searchEditForm.value.amountOfPass!.infant!,
+        adult: this.searchEditForm.value.amountOfPass
+          ? +(this.searchEditForm.value.amountOfPass.adult || 0)
+          : 0,
+        child: this.searchEditForm.value.amountOfPass
+          ? +(this.searchEditForm.value.amountOfPass.child || 0)
+          : 0,
+        infant: this.searchEditForm.value.amountOfPass
+          ? +(this.searchEditForm.value.amountOfPass.infant || 0)
+          : 0,
       },
     };
 

@@ -40,8 +40,6 @@ export class PassengersInfoComponent implements OnInit {
     baggageCount: [1],
   });
 
-  baggageCount = 1;
-
   maxMinDate = new Date(new Date().getFullYear() - 18, 11, 31);
 
   currentDate = new Date();
@@ -49,24 +47,6 @@ export class PassengersInfoComponent implements OnInit {
   formatDate$ = this.store.select(CurrencyDateSelectors.selectDateFormat);
 
   dateOfBird: Date | undefined;
-
-  increase() {
-    this.baggageCount += 1;
-    this.passengersInfoForm.patchValue({
-      baggageCount: this.baggageCount,
-    });
-  }
-
-  decrease() {
-    if (this.baggageCount > 1) this.baggageCount -= 1;
-    this.passengersInfoForm.patchValue({
-      baggageCount: this.baggageCount,
-    });
-  }
-
-  onToggleChange() {
-    this.baggageCount = 1;
-  }
 
   ngOnInit(): void {
     this.passengersInfoForm.valueChanges.subscribe(() => {

@@ -22,7 +22,10 @@ export const ticketsReducer = createReducer(
     })
   ),
   on(
-    TicketsActions.ApiOneWayTicketsType,
-    (state: CatalogState, tickets): CatalogState => ({ ...(state || []), ...tickets })
+    TicketsActions.SetOneWayTickets,
+    (state, { tickets }): CatalogState => ({
+      ...state,
+      items: [...(state.items || []), ...tickets],
+    })
   )
 );
