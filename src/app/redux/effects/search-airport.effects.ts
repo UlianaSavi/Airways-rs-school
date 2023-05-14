@@ -5,7 +5,7 @@ import { map, mergeMap } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
 
 @Injectable()
-export class ApiEffects {
+export class SearchAirportEffects {
   public getAirports$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AirportActions.setSearchKeyAirport),

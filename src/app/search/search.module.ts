@@ -14,6 +14,8 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { CalendarItemComponent } from './components/calendar-item/calendar-item.component';
 import { SeatBackgroundDirective } from './directives/seat-background.directive';
 import { CalendarSeatIndicatorDirective } from './directives/calendar-seat-indicator.directive';
+import { EffectsModule } from '@ngrx/effects';
+import { SearchAirportEffects } from '../redux/effects/search-airport.effects';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,13 @@ import { CalendarSeatIndicatorDirective } from './directives/calendar-seat-indic
     SeatBackgroundDirective,
     CalendarSeatIndicatorDirective,
   ],
-  imports: [CommonModule, SearchRoutingModule, ReactiveFormsModule, SharedModule, NgOptimizedImage],
+  imports: [
+    CommonModule,
+    SearchRoutingModule,
+    ReactiveFormsModule,
+    SharedModule,
+    NgOptimizedImage,
+    EffectsModule.forFeature([SearchAirportEffects]),
+  ],
 })
 export class SearchModule {}

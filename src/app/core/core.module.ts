@@ -12,7 +12,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileModule } from '../profile/profile.module';
 import { SharedModule } from '../shared/shared.module';
 import { metaReducers, reducers } from '../redux/state.models';
-import { ApiEffects } from '../redux/effects/api.effects';
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, PageNotFoundComponent],
@@ -31,7 +30,7 @@ import { ApiEffects } from '../redux/effects/api.effects';
       trace: false,
       traceLimit: 75,
     }),
-    EffectsModule.forRoot([ApiEffects]),
+    EffectsModule.forRoot(),
     StoreRouterConnectingModule.forRoot(),
     ReactiveFormsModule,
     NgOptimizedImage,
