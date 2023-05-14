@@ -10,6 +10,7 @@ import { AuthService } from './core/services/auth.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ApiInterceptor } from './core/interceptor/api.interceptor';
 import { SearchModule } from './search/search.module';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +30,7 @@ import { SearchModule } from './search/search.module';
       useClass: ApiInterceptor,
       multi: true,
     },
+    DatePipe,
   ],
   bootstrap: [AppComponent],
 })

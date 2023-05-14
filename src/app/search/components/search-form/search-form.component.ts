@@ -1,21 +1,23 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable, Subject, debounceTime, distinctUntilChanged, take } from 'rxjs';
 import { PassengersType } from '../../../core/models/passengers.model';
-import {
-  dateDestinationValidator,
-  validCityValidator,
-  validSameCities,
-} from '../../validators/validators';
+import { dateDestinationValidator, validSameCities } from '../../validators/validators';
 import { City } from '../../models/cities.model';
 import { IQueryParams } from 'src/app/core/models/query-params.model';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
-import { ApiService } from 'src/app/core/services/api.service';
-import { CitiesService } from 'src/app/core/services/cities.service';
 import { resetSelectedTickets } from 'src/app/redux/actions/select-ticket.actions';
 import { selectSearchFormFeature } from '../../../redux/selectors/search-form.selectors';
+import { Airport } from 'src/app/core/models/airport.model';
+import {
+  selectAirports,
+  selectFromAirport,
+  selectToAirport,
+} from 'src/app/redux/selectors/airport.selectors';
+import * as AirportActions from 'src/app/redux/actions/airport.actions';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-search-form',
@@ -27,9 +29,8 @@ export class SearchFormComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private store: Store,
-    private apiService: ApiService,
-    private citiesService: CitiesService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private datePipe: DatePipe
   ) {}
 
   cities: City[] | [] = [];
@@ -42,9 +43,15 @@ export class SearchFormComponent implements OnInit {
 
   filteredDestinationCities$!: Observable<City[]>;
 
-  minDate = new Date('05.07.2023');
+  airport$: Observable<Airport[]> = this.store.select(selectAirports);
 
-  maxDate = new Date('05.16.2023');
+  fromAirport$: Observable<Airport | null> = this.store.select(selectFromAirport);
+
+  toAirport$: Observable<Airport | null> = this.store.select(selectToAirport);
+
+  minDate = new Date();
+
+  maxDate = new Date('06.16.2023');
 
   typeOfPassengers: PassengersType[] = ['adult', 'child', 'infant'];
 
@@ -67,34 +74,13 @@ export class SearchFormComponent implements OnInit {
 
   dateDest: Date | undefined;
 
+  private searchInputValue$ = new Subject<string>();
+
   ngOnInit() {
-    this.citiesService.getCities().subscribe((cities) => {
-      this.cities = cities;
-      this.searchForm.controls.from.setValidators([
-        Validators.required,
-        validCityValidator(this.cities),
-        validSameCities('from'),
-      ]);
-      this.searchForm.controls.destination.setValidators([
-        Validators.required,
-        validCityValidator(this.cities),
-        validSameCities('destination'),
-      ]);
-      this.filteredFromCities$ = this.searchForm.valueChanges.pipe(
-        startWith(''),
-        map((value) => {
-          const name = typeof value === 'string' ? value : value?.from;
-          return name ? this._filter(name as string) : this.cities.slice();
-        })
-      );
-      this.filteredDestinationCities$ = this.searchForm.valueChanges.pipe(
-        startWith(''),
-        map((value) => {
-          const name = typeof value === 'string' ? value : value?.destination;
-          return name ? this._filter(name as string) : this.cities.slice();
-        })
-      );
+    this.searchInputValue$.pipe(debounceTime(500), distinctUntilChanged()).subscribe((value) => {
+      this.store.dispatch(AirportActions.setSearchKeyAirport({ searchKeyAirport: value }));
     });
+
     this.$dateFormat.subscribe(() => {
       this.dateFrom = new Date(this.searchForm.value.dateFrom!.toString());
       this.dateDest = new Date(this.searchForm.value.dateDestination!.toString());
@@ -104,6 +90,10 @@ export class SearchFormComponent implements OnInit {
         this.cdr.reattach();
       });
     });
+
+    this.searchForm.controls.dateDestination.setValue(
+      this.dateDest ? this.dateDest.toString() : null
+    );
 
     this.searchForm.controls.typeOfFlight.setValue('round');
 
@@ -127,37 +117,53 @@ export class SearchFormComponent implements OnInit {
         destination: form.destination,
         amountOfPass: form.passengersCount,
       });
-      this.dateFrom = new Date(form.dateFrom);
-      this.dateDest = form.dateDestination ? new Date(form.dateDestination) : undefined;
+      this.searchForm.controls.dateFrom.setValue(
+        form.dateFrom ? this.datePipe.transform(new Date(form.dateFrom), 'yyyy-MM-dd') : null
+      );
+      this.searchForm.controls.dateDestination.setValue(
+        form.dateDestination
+          ? this.datePipe.transform(new Date(form.dateDestination), 'yyyy-MM-dd')
+          : null
+      );
       this.cdr.detectChanges();
     });
   }
 
-  displayFn(city: string): string {
+  public displayFn(city: string): string {
     return city ? city : '';
   }
 
-  private _filter(name: string): City[] {
-    const filterValue = name.toLowerCase();
-
-    return this.cities.filter(
-      (city) =>
-        city.name.toLowerCase().includes(filterValue) ||
-        city.code.toLowerCase().includes(filterValue)
-    );
-  }
-
-  switchDestinations(from: HTMLInputElement, to: HTMLInputElement) {
+  public switchDestinations(from: HTMLInputElement, to: HTMLInputElement) {
     [from.value, to.value] = [to.value, from.value];
+
+    this.store.dispatch(AirportActions.changeFromAirportTooAirport());
   }
 
-  setCountPassengers(newCountPassengers: [PassengersType, number]) {
+  public setCountPassengers(newCountPassengers: [PassengersType, number]) {
     this.searchForm.controls.amountOfPass.controls[newCountPassengers[0]].setValue(
       newCountPassengers[1]
     );
   }
 
-  onSubmit(e: SubmitEvent) {
+  public searchAirport(value: string) {
+    this.searchInputValue$.next(value);
+  }
+
+  public setFromAirport(airport: Airport) {
+    this.store.dispatch(AirportActions.setFromAirport({ fromAirport: airport }));
+    this.resetAirportStore();
+  }
+
+  public setToAirport(airport: Airport) {
+    this.store.dispatch(AirportActions.seTotAirport({ toAirport: airport }));
+    this.resetAirportStore();
+  }
+
+  private resetAirportStore() {
+    this.store.dispatch(AirportActions.resetAirportStore());
+  }
+
+  public onSubmit(e: SubmitEvent) {
     e.preventDefault();
     const formVal = this.searchForm.value;
     const query: IQueryParams = {
