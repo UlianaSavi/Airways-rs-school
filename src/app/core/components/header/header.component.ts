@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { SingInStatusService } from '../../services/sing-in-status.service';
 import { Subscription, filter } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { CurrentStep } from '../../models/current-step.model';
@@ -7,6 +6,7 @@ import { Store } from '@ngrx/store';
 import * as CurrencyDateActions from '../../../redux/actions/currency-date.actions';
 import { MY_FORMATS } from '../../../shared/shared.module';
 import { NavigationEnd, Router } from '@angular/router';
+import { PopapsStatusService } from '../../services/popaps-status.service';
 
 enum EuroCoefficient {
   EUR = 1,
@@ -22,7 +22,7 @@ enum EuroCoefficient {
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
-    private singInStatusService: SingInStatusService,
+    private PopapsStatusService: PopapsStatusService,
     public authService: AuthService,
     private store: Store,
     private router: Router
@@ -78,11 +78,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   activeLastStep = false;
 
   changeStatusSingIn() {
-    this.singInStatusService.setSingInStatus(!this.singInActive);
+    this.PopapsStatusService.setSingInStatus(!this.singInActive);
   }
 
   ngOnInit(): void {
-    this.singInSubscription = this.singInStatusService.singInStatus$.subscribe(
+    this.singInSubscription = this.PopapsStatusService.singInStatus$.subscribe(
       (status) => (this.singInActive = status)
     );
   }

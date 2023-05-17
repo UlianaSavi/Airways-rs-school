@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { SingInStatusService } from '../../core/services/sing-in-status.service';
+import { PopapsStatusService } from '../../core/services/popaps-status.service';
 import { Subscription } from 'rxjs';
 import {
   AbstractControl,
@@ -18,7 +18,7 @@ import { IUser } from '../../core/models/user.model';
   styleUrls: ['./sing-in-form.component.scss'],
 })
 export class SingInFormComponent implements OnInit, OnDestroy {
-  constructor(private singInStatusService: SingInStatusService, private authService: AuthService) {}
+  constructor(private PopapsStatusService: PopapsStatusService, private authService: AuthService) {}
 
   passwordPattern = '(?=.*[0-9])(?=.*[!@#$%^?&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^?&*]{8,}';
 
@@ -88,11 +88,11 @@ export class SingInFormComponent implements OnInit, OnDestroy {
   singInSubscription: Subscription | undefined;
 
   changeStatus() {
-    this.singInStatusService.setSingInStatus(!this.singInActive);
+    this.PopapsStatusService.setSingInStatus(!this.singInActive);
   }
 
   ngOnInit(): void {
-    this.singInSubscription = this.singInStatusService.singInStatus$.subscribe(
+    this.singInSubscription = this.PopapsStatusService.singInStatus$.subscribe(
       (status) => (this.singInActive = status)
     );
   }
