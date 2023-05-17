@@ -1,6 +1,6 @@
 <table class="booking-table__table" matSort (matSortChange)="sortData($event)">
   <tr class="booking-table__table-header row">
-    <th class="booking-table__table-header-left">
+    <th class="booking-table__table-first-column booking-table__table-header-left">
       <mat-checkbox
         [color]="'primary'"
         [checked]="allSelected"
@@ -14,11 +14,11 @@
     <th mat-sort-header="date">Date & Time</th>
     <th class="booking-table__table-header-left">Passengers</th>
     <th mat-sort-header="price">Price</th>
-    <th></th>
+    <th class="booking-table__table-header-menu"></th>
   </tr>
   <tbody *ngIf="currentCurrency$ | async as currentCurrency">
     <tr class="row" *ngFor="let item of sortedData">
-      <td>
+      <td class="booking-table__table-first-column">
         <mat-checkbox
           [color]="'primary'"
           [checked]="item.select"
