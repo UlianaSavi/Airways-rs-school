@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { PopapsStatusService } from 'src/app/core/services/popaps-status.service';
+import { emailPattern } from '../../constants/email-pattern';
 
 @Component({
   selector: 'app-payment',
@@ -16,7 +17,14 @@ export class PaymentComponent implements OnInit, OnDestroy {
   paymentActive = false;
 
   paymentForm = new FormGroup({
-    email: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.pattern(emailPattern)]),
+    cardNumber: new FormControl('', [Validators.required]),
+    cardDates: new FormControl('', [Validators.required]),
+    CVC: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(3),
+      Validators.minLength(3),
+    ]),
   });
 
   ngOnInit() {
@@ -31,5 +39,9 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
   closePayment = () => {
     this.PopapsService.setPaymentStatus(false);
+  };
+
+  onSubmit = () => {
+    this.paymentForm.reset();
   };
 }

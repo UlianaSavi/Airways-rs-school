@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContactForm } from '../../models/contact-form.model';
 import { CONTACT_FROM_ID } from 'src/app/shared/constants/contact-form';
+import { emailPattern } from 'src/app/core/constants/email-pattern';
 
 @Component({
   selector: 'app-contact-details-block',
@@ -13,8 +14,6 @@ export class ContactDetailsBlockComponent {
 
   @Output() fullField = new EventEmitter<{ id: string; value: boolean }>();
 
-  emailPattern = /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/;
-
   contactDetailsForm = new FormGroup({
     countryCode: new FormControl('', [Validators.required]),
     phone: new FormControl(null, [
@@ -22,7 +21,7 @@ export class ContactDetailsBlockComponent {
       Validators.minLength(10),
       Validators.maxLength(12),
     ]),
-    email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
+    email: new FormControl('', [Validators.required, Validators.pattern(emailPattern)]),
   });
 
   hasErr = () => {

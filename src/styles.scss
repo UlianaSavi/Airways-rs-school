@@ -87,3 +87,9 @@ input[type="number"] {
   color: $white;
   cursor: pointer;
 }
+
+:disabled {
+  background: $btn-disabledBtn-link;
+  cursor: not-allowed;
+}
+
