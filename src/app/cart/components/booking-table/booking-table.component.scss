@@ -1,0 +1,116 @@
+@import "variables";
+
+.booking-table {
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+
+    .row {
+      width: 100%;
+      border-bottom: solid 1px #e1e5eb;
+    }
+
+    .ceil {
+      padding: 20px 0;
+    }
+
+    &-header {
+      height: 67px;
+      border: 0.5px solid #e9edf1;
+      background-color: $main-background;
+
+      &-left {
+        text-align: left;
+      }
+    }
+
+    &-flight-number {
+      color: $lite-blue-background;
+    }
+
+    &-price {
+      color: $table-price;
+    }
+
+    &-link {
+      margin-left: 14px;
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    &-total {
+      text-align: end;
+
+      &-number {
+        margin: 0px 36px 0px 20px;
+        font-weight: 700;
+        font-size: 30px;
+        line-height: 36px;
+        background: linear-gradient(90deg, #11397e 0%, #005abc 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+      }
+    }
+  }
+}
+
+::ng-deep .mat-sort-header-arrow[style] {
+  opacity: 1 !important;
+  transform: none !important;
+
+  // Hide default arrow stem
+  .mat-sort-header-stem {
+    display: none;
+  }
+
+  .mat-sort-header-indicator {
+    opacity: 1;
+    color: #454a53;
+    font-weight: bold;
+    font-size: 12px;
+    transform: none !important;
+
+    // Hide default arrow as its composed of left, right and middle
+    .mat-sort-header-pointer-left,
+    .mat-sort-header-pointer-right,
+    .mat-sort-header-pointer-middle {
+      display: none;
+    }
+
+    &::before {
+      content: "\25B4";
+      top: -16px;
+      position: absolute;
+    }
+
+    &::after {
+      content: "\25BE";
+      top: -5px;
+      position: absolute;
+    }
+  }
+}
+
+// custom ascending arrow
+[aria-sort="ascending"] {
+  ::ng-deep .mat-sort-header-arrow {
+    .mat-sort-header-indicator {
+      &::after {
+        color: #d0d9df;
+      }
+    }
+  }
+}
+
+// custom descending arrow
+[aria-sort="descending"] {
+  ::ng-deep .mat-sort-header-arrow {
+    .mat-sort-header-indicator {
+      &::before {
+        color: #d0d9df;
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+<table class="booking-table__table" matSort (matSortChange)="sortData($event)">
+  <tr class="booking-table__table-header row">
+    <th class="booking-table__table-header-left">
+      <mat-checkbox
+        [color]="'primary'"
+        [checked]="allSelected"
+        (change)="setAll($event.checked)"
+        [indeterminate]="someSelected()"
+      ></mat-checkbox>
+    </th>
+    <th mat-sort-header="flightNum">No.</th>
+    <th mat-sort-header="flight">Flight</th>
+    <th mat-sort-header="type">Type trip</th>
+    <th mat-sort-header="date">Date & Time</th>
+    <th class="booking-table__table-header-left">Passengers</th>
+    <th mat-sort-header="price">Price</th>
+    <th></th>
+  </tr>
+  <tbody *ngIf="currentCurrency$ | async as currentCurrency">
+    <tr class="row" *ngFor="let item of sortedData">
+      <td>
+        <mat-checkbox
+          [color]="'primary'"
+          [checked]="item.select"
+          (change)="onSelected($event.checked, item); updateAllSelected()"
+        ></mat-checkbox>
+      </td>
+      <td class="booking-table__table-flight-number ceil">
+        <div>{{ item.ticket.flightNum }}</div>
+        <div *ngIf="item.backTicket">{{ item.backTicket.flightNum }}</div>
+      </td>
+      <td class="ceil">
+        <div>{{ item.city.from }} — {{ item.city.to }}</div>
+        <div *ngIf="item.backTicket">{{ item.city.to }} — {{ item.city.from }}</div>
+      </td>
+      <td class="ceil">{{ item.backTicket ? "Round Trip" : "One way" }}</td>
+      <td class="ceil">
+        <div>
+          {{ item.ticket.date | date : "d MMM, y" }}, {{ item.ticket.times.start }} —
+          {{ item.ticket.times.end }}
+        </div>
+        <div *ngIf="item.backTicket">
+          {{ item.backTicket.date | date : "d MMM, y" }}, {{ item.backTicket.times.start }} —
+          {{ item.backTicket.times.end }}
+        </div>
+      </td>
+      <td class="ceil">
+        <div>{{ item.passengers.adult }} x Adult</div>
+        <div *ngIf="item.passengers.child">{{ item.passengers.child }} x Child</div>
+        <div *ngIf="item.passengers.infant">{{ item.passengers.infant }} x Infant</div>
+      </td>
+      <td class="booking-table__table-price ceil">
+        {{ item.price | currency : currentCurrency.name }}
+      </td>
+      <td>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="delete(item.id)">Delete</button>
+          <button mat-menu-item (click)="edit(item.id)">Edit</button>
+        </mat-menu>
+      </td>
+    </tr>
+    <tr class="row">
+      <td colspan="5" class="ceil">
+        <a
+          mat-button
+          class="booking-table__table-link"
+          [color]="'primary'"
+          [routerLink]="['/search']"
+          routerLinkActive="active"
+        >
+          + Add new trip
+        </a>
+      </td>
+      <td colspan="3" class="booking-table__table-total ceil">
+        Total
+        <span class="booking-table__table-total-number">
+          {{ getTotal() | currency : currentCurrency.name }}
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
