@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PopapsStatusService } from 'src/app/core/services/popaps-status.service';
 
 @Component({
   selector: 'app-cart-form',
@@ -6,10 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./cart-form.component.scss'],
 })
 export class CartFormComponent {
-  openedPayment = false;
+  constructor(private PopapsService: PopapsStatusService) {}
 
   openPayment = () => {
-    console.log('payment opened!');
-    this.openedPayment = !this.openedPayment;
+    this.PopapsService.setPaymentStatus(true);
+    console.log('set payment popap');
   };
 }

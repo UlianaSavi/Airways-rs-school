@@ -18,7 +18,7 @@ import { IUser } from '../../core/models/user.model';
   styleUrls: ['./sing-in-form.component.scss'],
 })
 export class SingInFormComponent implements OnInit, OnDestroy {
-  constructor(private PopapsStatusService: PopapsStatusService, private authService: AuthService) {}
+  constructor(private PopapsService: PopapsStatusService, private authService: AuthService) {}
 
   passwordPattern = '(?=.*[0-9])(?=.*[!@#$%^?&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^?&*]{8,}';
 
@@ -88,11 +88,11 @@ export class SingInFormComponent implements OnInit, OnDestroy {
   singInSubscription: Subscription | undefined;
 
   changeStatus() {
-    this.PopapsStatusService.setSingInStatus(!this.singInActive);
+    this.PopapsService.setSingInStatus(!this.singInActive);
   }
 
   ngOnInit(): void {
-    this.singInSubscription = this.PopapsStatusService.singInStatus$.subscribe(
+    this.singInSubscription = this.PopapsService.singInStatus$.subscribe(
       (status) => (this.singInActive = status)
     );
   }

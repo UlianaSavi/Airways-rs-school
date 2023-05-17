@@ -8,6 +8,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { PaymentComponent } from './components/payment/payment.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileModule } from '../profile/profile.module';
 import { SharedModule } from '../shared/shared.module';
@@ -15,8 +16,8 @@ import { metaReducers, reducers } from '../redux/state.models';
 import { AppEffects } from '../redux/effects/app.effects';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, PageNotFoundComponent],
-  exports: [HeaderComponent, FooterComponent],
+  declarations: [HeaderComponent, FooterComponent, PageNotFoundComponent, PaymentComponent],
+  exports: [HeaderComponent, FooterComponent, PaymentComponent],
   imports: [
     CommonModule,
     BrowserAnimationsModule,

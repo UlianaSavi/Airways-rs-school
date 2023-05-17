@@ -9,7 +9,15 @@ export class PopapsStatusService {
 
   singInStatus$ = this.singInStatus$$.asObservable();
 
+  paymentStatus$$ = new Subject<boolean>();
+
+  paymentStatus$ = this.paymentStatus$$.asObservable();
+
   setSingInStatus(status: boolean) {
     this.singInStatus$$.next(status);
+  }
+
+  setPaymentStatus(status: boolean) {
+    this.paymentStatus$$.next(status);
   }
 }
