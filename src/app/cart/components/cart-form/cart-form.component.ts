@@ -11,6 +11,5 @@ export class CartFormComponent {
 
   openPayment = () => {
     this.PopapsService.setPaymentStatus(true);
-    console.log('set payment popap');
   };
 }

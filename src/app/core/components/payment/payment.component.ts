@@ -19,13 +19,17 @@ export class PaymentComponent implements OnInit, OnDestroy {
     email: new FormControl('', [Validators.required]),
   });
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.paymentSubscription = this.PopapsService.paymentStatus$.subscribe(
       (status) => (this.paymentActive = status)
     );
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.paymentSubscription?.unsubscribe();
   }
+
+  closePayment = () => {
+    this.PopapsService.setPaymentStatus(false);
+  };
 }
