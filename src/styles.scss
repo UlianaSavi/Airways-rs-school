@@ -89,7 +89,7 @@ input[type="number"] {
 }
 
 :disabled {
-  background: $btn-disabledBtn-link;
-  cursor: not-allowed;
+  background: $btn-disabledBtn-link !important;
+  cursor: not-allowed !important;
 }
 
