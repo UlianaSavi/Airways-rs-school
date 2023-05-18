@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-page-not-found',
@@ -6,9 +6,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
   styleUrls: ['./page-not-found.component.scss'],
 })
 export class PageNotFoundComponent implements OnInit, OnDestroy {
-  link = document.querySelector('#appIcon') as HTMLLinkElement;
+  link = this.renderer.selectRootElement('#appIcon');
 
-  previousFavicon = this.link.href;
+  previousFavicon = this.link.getAttribute('href');
+
+  constructor(private renderer: Renderer2) {}
 
   ngOnInit(): void {
     this.link.href = 'assets/favicons/favicon-404.png';
