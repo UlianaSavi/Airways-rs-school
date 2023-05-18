@@ -150,8 +150,8 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
       })
     );
 
-    this.minDate = new Date('05.08.2023').toISOString().slice(0, 10);
-    this.maxDate = new Date('05.17.2023').toISOString().slice(0, 10);
+    this.minDate = new Date('05.28.2023').toISOString().slice(0, 10);
+    this.maxDate = new Date('06.06.2023').toISOString().slice(0, 10);
 
     this.searchEditForm.get('from')?.valueChanges.subscribe(() => {
       this.searchEditForm
