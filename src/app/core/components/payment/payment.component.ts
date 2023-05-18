@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { PopapsStatusService } from 'src/app/core/services/popaps-status.service';
 import { emailPattern } from '../../constants/email-pattern';
+import * as valid from 'card-validator';
+import { cardNumRegexp1, cardNumRegexp2 } from '../../constants/card-number-pattern';
 
 @Component({
   selector: 'app-payment',
@@ -16,15 +18,15 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
   paymentActive = false;
 
+  cardImagePath = 'default';
+
+  cardNumRegexp = this.cardImagePath === 'american-express' ? cardNumRegexp2 : cardNumRegexp1;
+
   paymentForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.pattern(emailPattern)]),
-    cardNumber: new FormControl('', [Validators.required]),
+    cardNumber: new FormControl('', [Validators.required, Validators.pattern(this.cardNumRegexp)]),
     cardDates: new FormControl('', [Validators.required]),
-    CVC: new FormControl('', [
-      Validators.required,
-      Validators.maxLength(3),
-      Validators.minLength(3),
-    ]),
+    CVC: new FormControl('', [Validators.required]),
   });
 
   ngOnInit() {
@@ -39,6 +41,14 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
   closePayment = () => {
     this.PopapsService.setPaymentStatus(false);
+  };
+
+  checkCardType = () => {
+    const num = this.paymentForm.value?.cardNumber;
+    if (num && num.toString().length > 3 && num.toString().length <= 4) {
+      const cardType = valid.number(num).card?.type;
+      this.cardImagePath = cardType || 'default';
+    }
   };
 
   onSubmit = () => {

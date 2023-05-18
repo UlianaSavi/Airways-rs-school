@@ -17,13 +17,21 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
-        <input
-          matInput
-          type="number"
-          name="cardNumber"
-          formControlName="cardNumber"
-          placeholder="Card number"
-        />
+        <div class="payment__card-input">
+          <input
+            matInput
+            type="number"
+            name="cardNumber"
+            formControlName="cardNumber"
+            (input)="checkCardType()"
+            placeholder="0000 0000 0000 0000"
+          />
+          <img
+            class="payment__card-input__img"
+            src="assets/icons/{{ cardImagePath }}.png"
+            alt="Card icon"
+          />
+        </div>
         <mat-error *ngIf="paymentForm.get('cardNumber')?.hasError('required')">
           card number is required
         </mat-error>

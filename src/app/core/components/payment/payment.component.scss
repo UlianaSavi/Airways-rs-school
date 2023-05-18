@@ -35,6 +35,16 @@
     }
   }
 
+  &__card-input {
+    display: flex;
+    align-items: center;
+
+    &__img {
+      height: fit-content;
+      width: 30px;
+    }
+  }
+
   .btn-blue {
     padding: 10px;
     border-radius: 7px;
