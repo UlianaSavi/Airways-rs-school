@@ -62,7 +62,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
       const num = val.toString().slice(0, 4);
       let month = num.slice(0, 2);
       let year = num.slice(-2);
-      if (Number(year) > 23) {
+      if (Number(year) < 23) {
         year = '23';
       }
       if (Number(month) > 12) {
