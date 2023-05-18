@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import * as CurrencyDateActions from '../../../redux/actions/currency-date.actions';
 import { MY_FORMATS } from '../../../shared/shared.module';
 import { NavigationEnd, Router } from '@angular/router';
-import { PopapsStatusService } from '../../services/popaps-status.service';
+import { PopupsStatusService } from '../../services/popaps-status.service';
 
 enum EuroCoefficient {
   EUR = 1,
@@ -22,7 +22,7 @@ enum EuroCoefficient {
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
-    private popapsService: PopapsStatusService,
+    private popapsService: PopupsStatusService,
     public authService: AuthService,
     private store: Store,
     private router: Router

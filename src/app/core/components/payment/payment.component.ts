@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { PopapsStatusService } from 'src/app/core/services/popaps-status.service';
+import { PopupsStatusService } from 'src/app/core/services/popaps-status.service';
 import { emailPattern } from '../../constants/email-pattern';
 import * as valid from 'card-validator';
 import { cardNumRegexp1, cardNumRegexp2 } from '../../constants/card-number-pattern';
@@ -12,7 +12,7 @@ import { cardNumRegexp1, cardNumRegexp2 } from '../../constants/card-number-patt
   styleUrls: ['./payment.component.scss'],
 })
 export class PaymentComponent implements OnInit, OnDestroy {
-  constructor(private PopapsService: PopapsStatusService) {}
+  constructor(private PopapsService: PopupsStatusService) {}
 
   paymentSubscription: Subscription | null = null;
 

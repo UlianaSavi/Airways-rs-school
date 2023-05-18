@@ -4,12 +4,12 @@ import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class PopapsStatusService {
-  singInStatus$$ = new Subject<boolean>();
+export class PopupsStatusService {
+  private singInStatus$$ = new Subject<boolean>();
 
   singInStatus$ = this.singInStatus$$.asObservable();
 
-  paymentStatus$$ = new Subject<boolean>();
+  private paymentStatus$$ = new Subject<boolean>();
 
   paymentStatus$ = this.paymentStatus$$.asObservable();
 

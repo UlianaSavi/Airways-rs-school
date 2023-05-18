@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { PopapsStatusService } from '../../core/services/popaps-status.service';
+import { PopupsStatusService } from '../../core/services/popaps-status.service';
 import { Subscription } from 'rxjs';
 import {
   AbstractControl,
@@ -19,7 +19,7 @@ import { emailPattern } from 'src/app/core/constants/email-pattern';
   styleUrls: ['./sing-in-form.component.scss'],
 })
 export class SingInFormComponent implements OnInit, OnDestroy {
-  constructor(private popapsService: PopapsStatusService, private authService: AuthService) {}
+  constructor(private popapsService: PopupsStatusService, private authService: AuthService) {}
 
   passwordPattern = '(?=.*[0-9])(?=.*[!@#$%^?&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^?&*]{8,}';
 
