@@ -78,5 +78,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
     e.preventDefault();
     this.closePayment();
     this.paymentForm.reset();
+    // when cart is ready - add here method to save order data to store (for user acc info)
   };
 }
