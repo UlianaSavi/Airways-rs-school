@@ -51,7 +51,17 @@ export class PaymentComponent implements OnInit, OnDestroy {
     }
   };
 
-  onSubmit = () => {
+  setExpiration = () => {
+    const val = this.paymentForm.value.cardDates;
+    if (val && val.toString().length > 4) {
+      const res = val.toString().slice(0, 4);
+      this.paymentForm.get('cardDates')?.setValue(res);
+    }
+  };
+
+  onSubmit = (e: SubmitEvent) => {
+    e.preventDefault();
+    this.closePayment();
     this.paymentForm.reset();
   };
 }

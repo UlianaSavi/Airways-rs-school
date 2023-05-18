@@ -2,7 +2,7 @@
   <div class="cross" (click)="closePayment()">&#215;</div>
   <div class="payment">
     <h1 class="payment__title">Order</h1>
-    <form [formGroup]="paymentForm" class="payment__form">
+    <form [formGroup]="paymentForm" class="payment__form" (ngSubmit)="onSubmit($event)">
       <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
         <input matInput type="email" name="e-mail" formControlName="email" placeholder="Email" />
         <mat-error *ngIf="paymentForm.get('email')?.hasError('required')">
@@ -40,10 +40,11 @@
         <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
           <input
             matInput
-            type="month"
+            type="number"
             name="cardDates"
             formControlName="cardDates"
             placeholder="MM / YY"
+            (input)="setExpiration()"
           />
           <mat-error *ngIf="paymentForm.get('cardDates')?.hasError('required')">
             this filed is required
@@ -64,7 +65,7 @@
           </mat-error>
         </mat-form-field>
       </div>
-      <button class="btn btn-blue" [disabled]="paymentForm.invalid">Buy</button>
+      <button type="submit" class="btn btn-blue" [disabled]="paymentForm.invalid">Buy</button>
     </form>
   </div>
 </div>
