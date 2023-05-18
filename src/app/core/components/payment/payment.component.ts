@@ -52,10 +52,25 @@ export class PaymentComponent implements OnInit, OnDestroy {
   };
 
   setExpiration = () => {
-    const val = this.paymentForm.value.cardDates;
-    if (val && val.toString().length > 4) {
-      const res = val.toString().slice(0, 4);
+    const val = this.paymentForm.value.cardDates || '';
+    if (val.toString().match('/') || val.toString().match(/[^0-9]/)) {
+      const numberEl = val.replace(/[^0-9]/g, '');
+      this.paymentForm.get('cardDates')?.setValue(numberEl);
+      return;
+    }
+    if (val && val.toString().length >= 4) {
+      const num = val.toString().slice(0, 4);
+      let month = num.slice(0, 2);
+      let year = num.slice(-2);
+      if (Number(year) > 23) {
+        year = '23';
+      }
+      if (Number(month) > 12) {
+        month = '01';
+      }
+      const res = `${month} / ${year}`;
       this.paymentForm.get('cardDates')?.setValue(res);
+      return;
     }
   };
 
