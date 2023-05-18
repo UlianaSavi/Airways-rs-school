@@ -7,9 +7,9 @@ import { PopapsStatusService } from 'src/app/core/services/popaps-status.service
   styleUrls: ['./cart-form.component.scss'],
 })
 export class CartFormComponent {
-  constructor(private PopapsService: PopapsStatusService) {}
+  constructor(private popapsService: PopapsStatusService) {}
 
   openPayment = () => {
-    this.PopapsService.setPaymentStatus(true);
+    this.popapsService.setPaymentStatus(true);
   };
 }

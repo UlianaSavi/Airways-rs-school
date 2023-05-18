@@ -7,6 +7,10 @@
   top: 100px;
 }
 
+.singIn-modal.active {
+  display: flex;
+}
+
 .singIn {
   width: 494px;
   background: $white;

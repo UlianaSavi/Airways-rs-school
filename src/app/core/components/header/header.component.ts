@@ -22,7 +22,7 @@ enum EuroCoefficient {
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
-    private PopapsService: PopapsStatusService,
+    private popapsService: PopapsStatusService,
     public authService: AuthService,
     private store: Store,
     private router: Router
@@ -78,11 +78,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   activeLastStep = false;
 
   changeStatusSingIn() {
-    this.PopapsService.setSingInStatus(!this.singInActive);
+    this.popapsService.setSingInStatus(!this.singInActive);
   }
 
   ngOnInit(): void {
-    this.singInSubscription = this.PopapsService.singInStatus$.subscribe(
+    this.singInSubscription = this.popapsService.singInStatus$.subscribe(
       (status) => (this.singInActive = status)
     );
   }
