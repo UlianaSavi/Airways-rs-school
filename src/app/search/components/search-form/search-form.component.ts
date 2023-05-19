@@ -170,6 +170,7 @@ export class SearchFormComponent implements OnInit {
       child: formVal.amountOfPass?.child || 0,
       infant: formVal.amountOfPass?.infant || 0,
     };
+    localStorage.setItem('query', JSON.stringify(query));
     this.router.navigate(['search', 'results'], {
       queryParams: { ...query },
     });
