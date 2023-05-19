@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { take } from 'rxjs';
 import { Booking } from 'src/app/core/models/booking.model';
 import { PassengersType } from 'src/app/core/models/passengers.model';
+import { PopupsStatusService } from 'src/app/core/services/popups-status.service';
 import { addBooking } from 'src/app/redux/actions/booking.actions';
 import { selectPassengersData } from 'src/app/redux/selectors/passengers.selectors';
 import { selectBackTicket, selectTicket } from 'src/app/redux/selectors/select-ticket.selector';
@@ -31,7 +31,9 @@ export class SummaryComponent implements OnInit {
 
   totalPrice = 0;
 
-  constructor(private store: Store, private router: Router) {}
+  id = 0;
+
+  constructor(private store: Store, private popupsService: PopupsStatusService) {}
 
   ngOnInit(): void {
     this.store
@@ -57,7 +59,7 @@ export class SummaryComponent implements OnInit {
   }
 
   private getFareCurrentPassenger(passenger: PassengersType): number {
-    const priceTicket: number = this.ticket ? this.ticket.price : 0;
+    const priceTicket: number = this.ticket ? Number(this.ticket.price) : 0;
     const priceBackTicket: number = this.backTicket ? Number(this.backTicket.price) : 0;
     return (
       (priceTicket + priceBackTicket) *
@@ -78,15 +80,12 @@ export class SummaryComponent implements OnInit {
     };
   }
 
-  public buyNow(): void {
-    this.router.navigateByUrl('/cart');
-  }
-
   public addToCart(): void {
     if (this.ticket === null) return;
+    this.id = Math.ceil(Math.random() * 10_000);
 
     const booking: Booking = {
-      id: Math.ceil(Math.random() * 10_000),
+      id: this.id,
       city: {
         from: this.ticket.country.from,
         to: this.ticket.country.to,
@@ -110,4 +109,8 @@ export class SummaryComponent implements OnInit {
 
     this.store.dispatch(addBooking({ booking: booking }));
   }
+
+  public openPayment = () => {
+    this.popupsService.setPaymentStatus(true);
+  };
 }

@@ -19,10 +19,16 @@
       <a mat-flat-button color="basic" class="summary__bottom-btn" [routerLink]="['/booking']">
         Back
       </a>
-      <button mat-stroked-button color="primary" class="summary__bottom-btn" (click)="addToCart()">
+      <button
+        mat-stroked-button
+        color="primary"
+        class="summary__bottom-btn"
+        (click)="addToCart()"
+        [disabled]="id !== 0"
+      >
         Add to order cart
       </button>
-      <button mat-flat-button color="primary" class="summary__bottom-btn" (click)="buyNow()">
+      <button mat-flat-button color="primary" class="summary__bottom-btn" (click)="openPayment()">
         Buy now
       </button>
     </div>

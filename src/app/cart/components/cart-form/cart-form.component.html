@@ -14,10 +14,10 @@
         color="primary"
         class="cart__bottom-btn"
         [disabled]="selectedCount === 0"
+        (click)="openPayment()"
       >
         Payment
       </button>
     </div>
   </div>
 </div>
-<button (click)="openPayment()" class="btn">Payment</button>

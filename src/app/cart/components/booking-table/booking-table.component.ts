@@ -1,5 +1,12 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -18,6 +25,7 @@ function compare(a: number | string, b: number | string, isAsc: boolean) {
   selector: 'app-booking-table',
   templateUrl: './booking-table.component.html',
   styleUrls: ['./booking-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookingTableComponent implements OnInit, OnDestroy {
   @Output() selectedCount = new EventEmitter<number>();
@@ -35,6 +43,7 @@ export class BookingTableComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.bookings$.subscribe((bookings) => (this.bookingItems = bookings));
     this.selection.changed.subscribe(() => this.addSelectedCount());
+    this.selection.select(...this.bookingItems.map((booking) => booking.id));
   }
 
   public setAll() {
