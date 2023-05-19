@@ -3,10 +3,20 @@
     <div class="cart__title">
       <h3 class="h3-blue">Cart</h3>
     </div>
-    <app-booking-table class="cart__table"></app-booking-table>
+    <app-booking-table
+      class="cart__table"
+      (selectedCount)="setSelectedCount($event)"
+    ></app-booking-table>
     <div class="cart__bottom">
-      <div class="cart__bottom-selected-count">2 selected</div>
-      <button mat-flat-button color="primary" class="cart__bottom-btn">Payment</button>
+      <div class="cart__bottom-selected-count">{{ selectedCount }} selected</div>
+      <button
+        mat-flat-button
+        color="primary"
+        class="cart__bottom-btn"
+        [disabled]="selectedCount === 0"
+      >
+        Payment
+      </button>
     </div>
   </div>
 </div>

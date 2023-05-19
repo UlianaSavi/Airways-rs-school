@@ -12,7 +12,6 @@ import { IQueryParams } from 'src/app/core/models/query-params.model';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
-import { ApiService } from 'src/app/core/services/api.service';
 import { CitiesService } from 'src/app/core/services/cities.service';
 import { resetSelectedTickets } from 'src/app/redux/actions/select-ticket.actions';
 import { selectSearchFormFeature } from '../../../redux/selectors/search-form.selectors';
@@ -27,7 +26,6 @@ export class SearchFormComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private store: Store,
-    private apiService: ApiService,
     private citiesService: CitiesService,
     private cdr: ChangeDetectorRef
   ) {}
@@ -42,9 +40,9 @@ export class SearchFormComponent implements OnInit {
 
   filteredDestinationCities$!: Observable<City[]>;
 
-  minDate = new Date('05.07.2023');
+  minDate = new Date();
 
-  maxDate = new Date('05.16.2023');
+  maxDate = new Date('06.30.2023');
 
   typeOfPassengers: PassengersType[] = ['adult', 'child', 'infant'];
 

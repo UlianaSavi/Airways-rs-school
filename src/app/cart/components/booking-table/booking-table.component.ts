@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Cart } from 'src/app/core/models/cart.model';
+import { Observable } from 'rxjs';
+import { Booking } from 'src/app/core/models/booking.model';
 import { IQueryParams } from 'src/app/core/models/query-params.model';
+import { removeBooking } from 'src/app/redux/actions/booking.actions';
+import { selectBookings } from 'src/app/redux/selectors/booking.selectors';
 import { selectCurrencyFormat } from 'src/app/redux/selectors/currency-date.selectors';
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {
@@ -15,93 +19,46 @@ function compare(a: number | string, b: number | string, isAsc: boolean) {
   templateUrl: './booking-table.component.html',
   styleUrls: ['./booking-table.component.scss'],
 })
-export class BookingTableComponent {
+export class BookingTableComponent implements OnInit, OnDestroy {
+  @Output() selectedCount = new EventEmitter<number>();
+
   currentCurrency$ = this.store.select(selectCurrencyFormat);
 
-  cartItems: Cart[] = [
-    {
-      id: 1,
-      select: true,
-      city: {
-        from: 'Madrid',
-        to: 'Dublin',
-      },
-      ticket: {
-        date: '05.16.2023',
-        times: {
-          start: '7:20',
-          end: '12:30',
-        },
-        flightNum: 'SD-233',
-      },
-      backTicket: {
-        date: '05.18.2023',
-        times: {
-          start: '17:20',
-          end: '22:30',
-        },
-        flightNum: 'SD-235',
-      },
-      passengers: {
-        adult: 2,
-        child: 1,
-        infant: 0,
-      },
-      price: 532,
-    },
-    {
-      id: 2,
-      select: true,
-      city: {
-        from: 'Ulan-Ude',
-        to: 'Barcelona',
-      },
-      ticket: {
-        date: '05.16.2023',
-        times: {
-          start: '7:20',
-          end: '12:30',
-        },
-        flightNum: 'SD-233',
-      },
-      passengers: {
-        adult: 3,
-        child: 2,
-        infant: 1,
-      },
-      price: 554,
-    },
-  ];
+  bookingItems: Booking[] = [];
 
-  sortedData: Cart[] = this.cartItems.slice();
+  bookings$: Observable<Booking[]> = this.store.select(selectBookings);
 
-  allSelected = true;
+  selection = new SelectionModel<number>(true, []);
 
   constructor(private store: Store, private router: Router) {}
 
-  public onSelected(checked: boolean, cartItem: Cart) {
-    cartItem.select = checked;
+  ngOnInit(): void {
+    this.bookings$.subscribe((bookings) => (this.bookingItems = bookings));
+    this.selection.changed.subscribe(() => this.addSelectedCount());
   }
 
-  public updateAllSelected() {
-    this.allSelected = this.sortedData.every((booking) => booking.select);
+  public setAll() {
+    if (this.isAllSelected()) this.selection.clear();
+    else this.selection.select(...this.bookingItems.map((booking) => booking.id));
   }
 
-  public setAll(selected: boolean) {
-    this.allSelected = selected;
-    this.sortedData.forEach((booking) => (booking.select = selected));
+  public isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.bookingItems.length;
+    return numSelected === numRows;
   }
 
-  public someSelected(): boolean {
-    return this.sortedData.filter((booking) => booking.select).length > 0 && !this.allSelected;
+  public deleteBooking(bookingId: number): void {
+    this.store.dispatch(removeBooking({ id: bookingId }));
+    this.selection.deselect(bookingId);
   }
 
-  public delete(cartId: number): void {
-    this.sortedData = this.sortedData.filter((cart) => cart.id !== cartId);
+  private addSelectedCount() {
+    this.selectedCount.emit(this.selection.selected.length);
   }
 
-  public edit(bookingId: number): void {
-    const bookingItem: Cart | undefined = this.sortedData.find(
+  public editBooking(bookingId: number): void {
+    const bookingItem: Booking | undefined = this.bookingItems.find(
       (booking) => booking.id === bookingId
     );
     if (!bookingItem) return;
@@ -117,22 +74,27 @@ export class BookingTableComponent {
       child: bookingItem.passengers.child || 0,
       infant: bookingItem.passengers.infant || 0,
     };
+
+    this.store.dispatch(removeBooking({ id: bookingId }));
+
     this.router.navigate(['search', 'results'], {
       queryParams: { ...query },
     });
   }
 
   public getTotal(): number {
-    return this.sortedData.reduce((acc, bookingItem) => acc + bookingItem.price, 0);
+    return this.bookingItems
+      .filter((booking) => this.selection.selected.includes(booking.id))
+      .reduce((acc, booking) => acc + booking.price, 0);
   }
 
   public sortData(sort: Sort) {
-    const data = this.cartItems.slice();
+    const data = this.bookingItems.slice();
     if (!sort.active || sort.direction === '') {
-      this.sortedData = data;
+      this.bookingItems = data;
       return;
     }
-    this.sortedData = data.sort((a, b) => {
+    this.bookingItems = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       const aType = a.backTicket ? 'round' : 'one';
       const bType = a.backTicket ? 'round' : 'one';
@@ -151,5 +113,9 @@ export class BookingTableComponent {
           return 0;
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.selection.changed.unsubscribe();
   }
 }

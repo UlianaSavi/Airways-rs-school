@@ -3,9 +3,9 @@
     <th class="booking-table__table-first-column booking-table__table-header-left">
       <mat-checkbox
         [color]="'primary'"
-        [checked]="allSelected"
-        (change)="setAll($event.checked)"
-        [indeterminate]="someSelected()"
+        [checked]="selection.hasValue() && isAllSelected()"
+        (change)="setAll()"
+        [indeterminate]="selection.hasValue() && !isAllSelected()"
       ></mat-checkbox>
     </th>
     <th mat-sort-header="flightNum">No.</th>
@@ -17,12 +17,13 @@
     <th class="booking-table__table-header-menu"></th>
   </tr>
   <tbody *ngIf="currentCurrency$ | async as currentCurrency">
-    <tr class="row" *ngFor="let item of sortedData">
+    <tr class="row" *ngFor="let item of bookingItems">
       <td class="booking-table__table-first-column">
         <mat-checkbox
           [color]="'primary'"
-          [checked]="item.select"
-          (change)="onSelected($event.checked, item); updateAllSelected()"
+          (click)="$event.stopPropagation()"
+          [checked]="selection.isSelected(item.id)"
+          (change)="$event ? selection.toggle(item.id) : null"
         ></mat-checkbox>
       </td>
       <td class="booking-table__table-flight-number ceil">
@@ -57,8 +58,8 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="delete(item.id)">Delete</button>
-          <button mat-menu-item (click)="edit(item.id)">Edit</button>
+          <button mat-menu-item (click)="deleteBooking(item.id)">Delete</button>
+          <button mat-menu-item (click)="editBooking(item.id)">Edit</button>
         </mat-menu>
       </td>
     </tr>

@@ -5,4 +5,10 @@ import { Component } from '@angular/core';
   templateUrl: './cart-form.component.html',
   styleUrls: ['./cart-form.component.scss'],
 })
-export class CartFormComponent {}
+export class CartFormComponent {
+  selectedCount = 0;
+
+  public setSelectedCount(count: number) {
+    this.selectedCount = count;
+  }
+}

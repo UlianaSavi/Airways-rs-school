@@ -6,16 +6,20 @@
     </div>
     <div class="summary__order">
       <app-summary-order></app-summary-order>
-      <app-summary-order *ngIf="backTicket$ | async" [isBack]="true"></app-summary-order>
+      <app-summary-order *ngIf="backTicket" [isBack]="true"></app-summary-order>
     </div>
     <div class="summary__fare">
-      <app-summary-fare></app-summary-fare>
+      <app-summary-fare
+        [passengersCount]="passengersCount"
+        [fare]="getFare()"
+        [total]="totalPrice"
+      ></app-summary-fare>
     </div>
     <div class="summary__bottom">
       <a mat-flat-button color="basic" class="summary__bottom-btn" [routerLink]="['/booking']">
         Back
       </a>
-      <button mat-stroked-button color="primary" class="summary__bottom-btn">
+      <button mat-stroked-button color="primary" class="summary__bottom-btn" (click)="addToCart()">
         Add to order cart
       </button>
       <button mat-flat-button color="primary" class="summary__bottom-btn" (click)="buyNow()">

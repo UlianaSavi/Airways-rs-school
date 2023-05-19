@@ -21,6 +21,7 @@ import {
   searchFormReducer,
   SearchFormState,
 } from './reducers/search-form.reducer';
+import { BookingState, bookingFeatureKey, bookingReducer } from './reducers/booking.reducer';
 
 export interface State {
   [currencyDateFeatureKey]: CurrencyDateState;
@@ -28,6 +29,7 @@ export interface State {
   [ticketsFeatureKey]: CatalogState;
   [selectTicketFeatureKey]: SelectTicketsState;
   [passengersFeatureKey]: PassengersState;
+  [bookingFeatureKey]: BookingState;
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -36,6 +38,7 @@ export const reducers: ActionReducerMap<State> = {
   [ticketsFeatureKey]: ticketsReducer,
   [selectTicketFeatureKey]: selectTicketReducer,
   [passengersFeatureKey]: passengersReducer,
+  [bookingFeatureKey]: bookingReducer,
 };
 
 export const metaReducers: MetaReducer<State>[] = isDevMode() ? [] : [];

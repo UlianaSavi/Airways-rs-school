@@ -4,16 +4,16 @@
       <div *ngIf="passengersCount[passenger]">
         <div class="row-fare title">
           <div>{{ passengersCount[passenger] }} x {{ passenger | titlecase }} Fare</div>
-          <div>{{ getFare(passenger) | currency : currentCurrency.name : "symbol" }}</div>
+          <div>{{ fare[passenger] | currency : currentCurrency.name : "symbol" }}</div>
         </div>
         <div class="summary-fare__passenger-fare">
           <div class="row-fare">
             <div>Fare</div>
-            <div>{{ getFare(passenger) * 0.645 | currency : currentCurrency.name : "symbol" }}</div>
+            <div>{{ fare[passenger] * 0.645 | currency : currentCurrency.name : "symbol" }}</div>
           </div>
           <div class="row-fare">
             <div>Tax & Service Charge</div>
-            <div>{{ getFare(passenger) * 0.355 | currency : currentCurrency.name : "symbol" }}</div>
+            <div>{{ fare[passenger] * 0.355 | currency : currentCurrency.name : "symbol" }}</div>
           </div>
         </div>
       </div>
@@ -22,7 +22,7 @@
   <div class="summary-fare__total row-fare">
     <div>Total</div>
     <div class="summary-fare__total-quantity">
-      {{ getTotal() | currency : currentCurrency.name : "symbol" }}
+      {{ total | currency : currentCurrency.name : "symbol" }}
     </div>
   </div>
 </div>

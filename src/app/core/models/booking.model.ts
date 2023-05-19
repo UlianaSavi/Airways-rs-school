@@ -1,6 +1,6 @@
 import { PassengersType } from './passengers.model';
 
-type CartTicket = {
+type BookingFlight = {
   date: string;
   times: {
     start: string;
@@ -9,15 +9,14 @@ type CartTicket = {
   flightNum: string;
 };
 
-export interface Cart {
+export interface Booking {
   id: number;
-  select: boolean;
   city: {
     from: string;
     to: string;
   };
-  ticket: CartTicket;
-  backTicket?: CartTicket;
+  ticket: BookingFlight;
+  backTicket?: BookingFlight;
   passengers: Record<PassengersType, number>;
   price: number;
 }
