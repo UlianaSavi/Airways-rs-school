@@ -42,7 +42,7 @@ main {
 }
 
 .active {
-  display: block !important;
+  display: block; // !important
 }
 
 .btn {
@@ -86,3 +86,20 @@ input[type="number"] {
 .mirrorY {
   transform: scale(-1, 1);
 }
+
+// close symbol
+.cross {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  font-size: 32px;
+  color: $white;
+  cursor: pointer;
+}
+
+:disabled {
+  background: $btn-disabledBtn-link !important;
+  cursor: not-allowed !important;
+}
+

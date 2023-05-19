@@ -1,5 +1,4 @@
 //colors text
-$main-text-color: #000000;
 $primary-text-color: #11397e;
 $second-text-color: #1c1b1f;
 $third-text-color: #74767a;
@@ -9,15 +8,15 @@ $lite-grey: rgb(193 193 193);
 $passengers-text: #49454f;
 $passengers-info-text: #10264c;
 $seat-text-color: #454a53;
+$inactive-text-color: #d0d9df;
 
 // box-shadow
 $box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
-$inactive-text-color: #d0d9df;
-$seat-text-color: #454a53;
 
 //colors background
 $white: #ffffff;
 $black: black;
+$black-transparent: rgba(0, 0, 0, 0.726);
 $form-background-color: rgba(255, 255, 255, 0.85);
 $main-background: #f5f5f5;
 $btn-transparent: #f4f6f9;
