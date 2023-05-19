@@ -7,6 +7,10 @@
   top: 100px;
 }
 
+.singIn-modal.active {
+  display: flex;
+}
+
 .singIn {
   width: 494px;
   background: $white;
@@ -92,11 +96,6 @@
   height: 44px;
   color: $white;
   cursor: pointer;
-
-  &:disabled {
-    background: $btn-disabledBtn-link;
-    color: $btn-disabledSubmit-color;
-  }
 }
 
 .signUp-phone {

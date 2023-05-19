@@ -40,9 +40,9 @@ export class SearchFormComponent implements OnInit {
 
   filteredDestinationCities$!: Observable<City[]>;
 
-  minDate = new Date();
+  minDate = new Date('05.28.2023');
 
-  maxDate = new Date('06.30.2023');
+  maxDate = new Date('06.06.2023');
 
   typeOfPassengers: PassengersType[] = ['adult', 'child', 'infant'];
 

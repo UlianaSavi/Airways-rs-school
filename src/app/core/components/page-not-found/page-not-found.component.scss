@@ -1,0 +1,29 @@
+@import "variables";
+
+h1 {
+  margin: 0;
+}
+
+.container-404 {
+  height: 100%;
+}
+
+.info-404 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $primary-text-color;
+}
+
+.text-404 {
+  font-size: 5rem;
+}
+
+.icon-404 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  font-size: 5rem;
+}

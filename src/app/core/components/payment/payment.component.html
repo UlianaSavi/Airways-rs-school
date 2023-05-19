@@ -1,0 +1,71 @@
+<div class="blackout" [class.active]="paymentActive">
+  <div class="cross" (click)="closePayment()">&#215;</div>
+  <div class="payment">
+    <h1 class="payment__title">Order</h1>
+    <form [formGroup]="paymentForm" class="payment__form" (ngSubmit)="onSubmit($event)">
+      <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
+        <input matInput type="email" name="e-mail" formControlName="email" placeholder="Email" />
+        <mat-error *ngIf="paymentForm.get('email')?.hasError('required')">
+          E-mail is required
+        </mat-error>
+        <mat-error
+          *ngIf="
+            paymentForm.controls['email']?.value?.length && paymentForm.controls['email'].invalid
+          "
+        >
+          Please enter a valid email
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
+        <div class="payment__card-input">
+          <input
+            matInput
+            type="number"
+            name="cardNumber"
+            formControlName="cardNumber"
+            (input)="checkCardType()"
+            placeholder="0000 0000 0000 0000"
+          />
+          <img
+            class="payment__card-input__img"
+            src="assets/icons/{{ cardImagePath }}.png"
+            alt="Card icon"
+          />
+        </div>
+        <mat-error *ngIf="paymentForm.get('cardNumber')?.hasError('required')">
+          card number is required
+        </mat-error>
+      </mat-form-field>
+      <div class="payment__form__info">
+        <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
+          <input
+            matInput
+            type="text"
+            name="cardDates"
+            formControlName="cardDates"
+            placeholder="MM / YY"
+            (input)="setExpiration()"
+          />
+          <mat-error *ngIf="paymentForm.get('cardDates')?.hasError('required')">
+            this filed is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
+          <input
+            matInput
+            type="text"
+            name="CVC"
+            formControlName="CVC"
+            placeholder="CVC"
+            [minlength]="3"
+            [maxlength]="3"
+          />
+          <mat-error *ngIf="paymentForm.get('CVC')?.hasError('required')">
+            CVC is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <button type="submit" class="btn btn-blue" [disabled]="paymentForm.invalid">Buy</button>
+    </form>
+  </div>
+</div>

@@ -32,7 +32,7 @@
       font-size: 12px;
       line-height: 16px;
       letter-spacing: 0.4px;
-      color: $main-text-color;
+      color: $black;
       position: relative;
       z-index: 2;
 
@@ -65,7 +65,7 @@
 
       & span {
         margin-left: 12px;
-        color: $main-text-color;
+        color: $black;
       }
     }
   }
@@ -147,7 +147,7 @@
       font-weight: 700;
       font-size: 30px;
       line-height: 36px;
-      color: $main-text-color;
+      color: $black;
     }
   }
 }
