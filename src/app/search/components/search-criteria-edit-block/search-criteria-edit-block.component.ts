@@ -191,6 +191,7 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
       child: formVal.amountOfPass?.child || 0,
       infant: formVal.amountOfPass?.infant || 0,
     };
+    localStorage.setItem('query', JSON.stringify(query));
     if (this.typeOfFlight === 'round') {
       this.apiService.getAllTickets();
       this.store.dispatch(ApiTicketsType());
