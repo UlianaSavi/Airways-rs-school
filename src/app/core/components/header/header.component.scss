@@ -154,6 +154,10 @@
       top: -20px;
     }
 
+    &__steps-title {
+      display: none;
+    }
+
     &__options.active {
       display: block;
 
@@ -182,10 +186,6 @@
   .header-logo {
     width: 100%;
     max-width: 75px;
-  }
-
-  .header__steps-title {
-    display: none;
   }
 }
 
