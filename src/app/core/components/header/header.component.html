@@ -10,7 +10,7 @@
       width="112"
       priority
     />
-    <span *ngIf="!stepsActivate">Book flight</span>
+    <span class="header__steps-title" *ngIf="!stepsActivate">Book flight</span>
     <div *ngIf="stepsActivate" class="header-booking">
       <div class="booking-step">
         <div class="booking-step-icon" [ngClass]="{ activeStep: activeSearchStep }">
@@ -60,45 +60,54 @@
         <span>Review & Payment</span>
       </div>
     </div>
-    <select
-      class="header-button header-date-format"
-      name="date-format"
-      id="date-format"
-      [(ngModel)]="dateFormat"
-      (ngModelChange)="onChangeDateFormat()"
-    >
-      <option class="header-option" selected>MM/DD/YYYY</option>
-      <option class="header-option">DD/MM/YYYY</option>
-      <option class="header-option">YYYY/DD/MM</option>
-      <option class="header-option">YYYY/MM/DD</option>
-    </select>
-    <select
-      class="header-button header-currency"
-      name="currency"
-      id="currency"
-      [(ngModel)]="currency"
-      (ngModelChange)="onChangeCurrencyFormat()"
-    >
-      <option class="header-option" selected>EUR</option>
-      <option class="header-option">USD</option>
-      <option class="header-option">RUB</option>
-      <option class="header-option">PLN</option>
-    </select>
-    <button
-      *ngIf="!authService.isLoggedIn"
-      class="header-button header-singIn"
-      (click)="changeStatusSingIn()"
-    >
-      <img ngSrc="assets/icons/singInIcon.svg" alt="sign in" width="24" height="24" />
-      <span>Sign in</span>
-    </button>
-    <button
-      *ngIf="authService.isLoggedIn"
-      routerLink="/profile"
-      class="header-button header-singIn"
-    >
-      <span>{{ authService.currentUser?.name?.firstName }}</span>
-    </button>
+    <div class="container header__menu">
+      <div [ngClass]="burgerMenu ? 'header__options active' : 'header__options'">
+        <select
+          class="header-button header-date-format"
+          name="date-format"
+          id="date-format"
+          [(ngModel)]="dateFormat"
+          (ngModelChange)="onChangeDateFormat()"
+        >
+          <option class="header-option" selected>MM/DD/YYYY</option>
+          <option class="header-option">DD/MM/YYYY</option>
+          <option class="header-option">YYYY/DD/MM</option>
+          <option class="header-option">YYYY/MM/DD</option>
+        </select>
+        <select
+          class="header-button header-currency"
+          name="currency"
+          id="currency"
+          [(ngModel)]="currency"
+          (ngModelChange)="onChangeCurrencyFormat()"
+        >
+          <option class="header-option" selected>EUR</option>
+          <option class="header-option">USD</option>
+          <option class="header-option">RUB</option>
+          <option class="header-option">PLN</option>
+        </select>
+        <button
+          *ngIf="!authService.isLoggedIn"
+          class="header-button header-singIn"
+          (click)="changeStatusSingIn()"
+        >
+          <img ngSrc="assets/icons/singInIcon.svg" alt="sign in" width="24" height="24" />
+          <span>Sign in</span>
+        </button>
+        <button
+          *ngIf="authService.isLoggedIn"
+          routerLink="/profile"
+          class="header-button header-singIn"
+        >
+          <span>{{ authService.currentUser?.name?.firstName }}</span>
+        </button>
+      </div>
+      <div class="header__burger" (click)="burger()">
+        <div class="header__burger-line"></div>
+        <div class="header__burger-line"></div>
+        <div class="header__burger-line"></div>
+      </div>
+    </div>
     <button routerLink="/cart" routerLinkActive="active" class="header-basket">
       <img ngSrc="assets/icons/basket_icon.svg" alt="basket" width="24" height="24" />
     </button>
