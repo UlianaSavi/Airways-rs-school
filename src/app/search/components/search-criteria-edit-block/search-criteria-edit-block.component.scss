@@ -129,3 +129,20 @@
   z-index: 2;
   box-shadow: $box-shadow;
 }
+
+@media (max-width: 900px) {
+  .edit-form {
+    flex-wrap: wrap;
+    padding: 24px 10px;
+
+    &__field {
+      width: 40%;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .edit-form__field {
+    width: 100%;
+  }
+}
