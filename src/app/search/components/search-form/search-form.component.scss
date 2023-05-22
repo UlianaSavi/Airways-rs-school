@@ -9,14 +9,16 @@
 }
 
 ::ng-deep .search-form {
-  width: 580px;
+  width: 100%;
+  max-width: 580px;
   height: 390px;
-  padding: 24px;
   position: absolute;
   top: 150px;
   left: 160px;
   display: flex;
   flex-direction: column;
+  padding: 24px;
+
   background: $form-background-color;
   border-radius: 8px;
 
@@ -138,4 +140,32 @@
   background-color: #ffffff;
   position: relative;
   z-index: 2;
+}
+
+@media (max-width: 1500px) {
+  .search-form {
+    height: fit-content;
+    position: relative;
+    left: 0;
+    top: 0;
+
+    &__dates-amount {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__field-dates {
+      width: 100%;
+    }
+
+    &__bottom {
+      justify-content: center;
+    }
+
+    &__btn {
+      width: 100%;
+      height: 50px;
+    }
+  }
+
 }
