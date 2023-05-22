@@ -1,10 +1,13 @@
 @import "variables";
 
 .details {
+  width: 100%;
   height: 130px;
-  margin-bottom: 8px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+
   background-color: $white;
   color: $third-text-color;
 
@@ -149,5 +152,45 @@
       line-height: 36px;
       color: $black;
     }
+  }
+}
+
+@media (max-width: 1120px) {
+  .details {
+    height: fit-content;
+    flex-direction: column;
+    align-items: normal;
+
+    &__flight {
+      border-bottom: 2px dashed $footer-border;
+    }
+
+    &__select {
+      border-left: none;
+    }
+  }
+
+}
+
+@media (max-width: 720px) {
+
+  .details__flight {
+    font-size: 14px;
+  }
+
+  .details__flight-center {
+    margin: 0 2px;
+  }
+
+  .details__flight {
+    padding: 28px 10px 28px 10px;
+  }
+
+}
+
+@media (max-width: 540px) {
+  .details__flight {
+    flex-direction: column;
+    align-items: normal;
   }
 }
