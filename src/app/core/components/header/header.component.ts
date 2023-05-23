@@ -12,7 +12,7 @@ import { selectBookings } from 'src/app/redux/selectors/booking.selectors';
 
 enum EuroCoefficient {
   EUR = 1,
-  USD = 0.9,
+  USD = 1.08,
   RUB = 90,
   PLN = 4.6,
 }
