@@ -13,7 +13,7 @@
       class="result-bottom__link"
       (click)="onContinue()"
       [disabled]="
-        (selectTicket$ | async) === null || (dateBack && (selectBackTicket$ | async)) === null
+        (selectTicket$ | async) === null || (dateBack && (selectBackTicket$ | async) === null)
       "
     >
       Continue

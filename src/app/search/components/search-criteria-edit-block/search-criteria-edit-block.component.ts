@@ -40,9 +40,9 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
 
   filteredDestinationCities$!: Observable<City[]>;
 
-  minDate = '';
+  minDate = new Date('05.28.2023');
 
-  maxDate = '';
+  maxDate = new Date('06.06.2023');
 
   typeOfPassengers: PassengersType[] = ['adult', 'child', 'infant'];
 
@@ -149,9 +149,6 @@ export class SearchCriteriaEditBlockComponent implements OnInit {
         return name ? this._filter(name as string) : this.cities.slice();
       })
     );
-
-    this.minDate = new Date('05.28.2023').toISOString().slice(0, 10);
-    this.maxDate = new Date('06.06.2023').toISOString().slice(0, 10);
 
     this.searchEditForm.get('from')?.valueChanges.subscribe(() => {
       this.searchEditForm
