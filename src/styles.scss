@@ -82,6 +82,10 @@ input[type="number"] {
   appearance: textfield;
 }
 
+input {
+  text-overflow: ellipsis;
+}
+
 //отражение изображения
 .mirrorY {
   transform: scale(-1, 1);
