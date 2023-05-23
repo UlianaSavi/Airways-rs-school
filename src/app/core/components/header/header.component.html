@@ -99,8 +99,14 @@
     >
       <span>{{ authService.currentUser?.name?.firstName }}</span>
     </button>
-    <button routerLink="/cart" routerLinkActive="active" class="header-basket">
+    <button
+      routerLink="/cart"
+      routerLinkActive="active"
+      class="header-basket"
+      *ngIf="bookings$ | async as bookings"
+    >
       <img ngSrc="assets/icons/basket_icon.svg" alt="basket" width="24" height="24" />
+      <div class="header-basket-count" *ngIf="bookings.length > 0">{{ bookings.length }}</div>
     </button>
   </div>
 </header>

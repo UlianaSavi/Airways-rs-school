@@ -12,7 +12,6 @@ import { IQueryParams } from 'src/app/core/models/query-params.model';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as CurrencyDateSelectors from '../../../redux/selectors/currency-date.selectors';
-import { ApiService } from 'src/app/core/services/api.service';
 import { CitiesService } from 'src/app/core/services/cities.service';
 import { resetSelectedTickets } from 'src/app/redux/actions/select-ticket.actions';
 import { selectSearchFormFeature } from '../../../redux/selectors/search-form.selectors';
@@ -27,7 +26,6 @@ export class SearchFormComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private store: Store,
-    private apiService: ApiService,
     private citiesService: CitiesService,
     private cdr: ChangeDetectorRef
   ) {}

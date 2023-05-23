@@ -1,2 +1,23 @@
-<p>cart-form works!</p>
-<button (click)="openPayment()" class="btn">Payment</button>
+<div class="container cart">
+  <div class="cart__wrapper">
+    <div class="cart__title">
+      <h3 class="h3-blue">Cart</h3>
+    </div>
+    <app-booking-table
+      class="cart__table"
+      (selectedCount)="setSelectedCount($event)"
+    ></app-booking-table>
+    <div class="cart__bottom">
+      <div class="cart__bottom-selected-count">{{ selectedCount }} selected</div>
+      <button
+        mat-flat-button
+        color="primary"
+        class="cart__bottom-btn"
+        [disabled]="selectedCount === 0"
+        (click)="openPayment()"
+      >
+        Payment
+      </button>
+    </div>
+  </div>
+</div>

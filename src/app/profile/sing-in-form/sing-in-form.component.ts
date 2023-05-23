@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { PopupsStatusService } from '../../core/services/popaps-status.service';
+import { PopupsStatusService } from '../../core/services/popups-status.service';
 import { Subscription } from 'rxjs';
 import {
   AbstractControl,

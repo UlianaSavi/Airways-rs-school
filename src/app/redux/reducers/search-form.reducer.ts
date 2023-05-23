@@ -26,5 +26,6 @@ export const initialState: SearchFormState = {
 
 export const searchFormReducer = createReducer(
   initialState,
-  on(SearchFormActions.setSearchForms, (state, action): SearchFormState => action.searchForm)
+  on(SearchFormActions.setSearchForms, (state, action): SearchFormState => action.searchForm),
+  on(SearchFormActions.resetSearchForm, (): SearchFormState => ({ ...initialState }))
 );
