@@ -6,10 +6,12 @@ export const bookingFeatureKey = 'booking';
 
 export interface BookingState {
   bookings: Booking[];
+  selectedBookingIds: string[];
 }
 
 export const initialState: BookingState = {
   bookings: [],
+  selectedBookingIds: [],
 };
 
 export const bookingReducer = createReducer(
@@ -23,9 +25,16 @@ export const bookingReducer = createReducer(
   ),
   on(
     BookingActions.removeBooking,
-    (state, { id }): BookingState => ({
+    (state, { ids }): BookingState => ({
       ...state,
-      bookings: state.bookings.filter((booking) => booking.id !== id),
+      bookings: state.bookings.filter((booking) => !ids.includes(booking.id)),
+    })
+  ),
+  on(
+    BookingActions.setSelectedBookingIds,
+    (state, { selectedBookingIds }): BookingState => ({
+      ...state,
+      selectedBookingIds: [...selectedBookingIds],
     })
   )
 );

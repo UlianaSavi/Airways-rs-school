@@ -7,6 +7,11 @@ export const addBooking = createAction(
 );
 
 export const removeBooking = createAction(
-  '[Booking] Remove booking element',
-  props<{ id: number }>()
+  '[Booking] Remove booking elements',
+  props<{ ids: string[] }>()
+);
+
+export const setSelectedBookingIds = createAction(
+  '[Booking] Set selected booking ids',
+  props<{ selectedBookingIds: string[] }>()
 );

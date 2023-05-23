@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { take } from 'rxjs';
+import { v4 as uuidV4 } from 'uuid';
 import { Booking } from 'src/app/core/models/booking.model';
 import { PassengersType } from 'src/app/core/models/passengers.model';
 import { PopupsStatusService } from 'src/app/core/services/popups-status.service';
@@ -31,7 +32,7 @@ export class SummaryComponent implements OnInit {
 
   totalPrice = 0;
 
-  id = 0;
+  id = '';
 
   constructor(private store: Store, private popupsService: PopupsStatusService) {}
 
@@ -82,7 +83,8 @@ export class SummaryComponent implements OnInit {
 
   public addToCart(): void {
     if (this.ticket === null) return;
-    this.id = Math.ceil(Math.random() * 10_000);
+
+    if (this.id === '') this.id = uuidV4() as string;
 
     const booking: Booking = {
       id: this.id,

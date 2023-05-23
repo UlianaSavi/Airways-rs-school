@@ -13,7 +13,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Booking } from 'src/app/core/models/booking.model';
 import { IQueryParams } from 'src/app/core/models/query-params.model';
-import { removeBooking } from 'src/app/redux/actions/booking.actions';
+import * as BookingActions from 'src/app/redux/actions/booking.actions';
 import { selectBookings } from 'src/app/redux/selectors/booking.selectors';
 import { selectCurrencyFormat } from 'src/app/redux/selectors/currency-date.selectors';
 
@@ -36,13 +36,19 @@ export class BookingTableComponent implements OnInit, OnDestroy {
 
   bookings$: Observable<Booking[]> = this.store.select(selectBookings);
 
-  selection = new SelectionModel<number>(true, []);
+  selection = new SelectionModel<string>(true, []);
 
   constructor(private store: Store, private router: Router) {}
 
   ngOnInit(): void {
     this.bookings$.subscribe((bookings) => (this.bookingItems = bookings));
-    this.selection.changed.subscribe(() => this.addSelectedCount());
+
+    this.selection.changed.subscribe((id) => {
+      this.addSelectedCount();
+      this.store.dispatch(
+        BookingActions.setSelectedBookingIds({ selectedBookingIds: [...id.source.selected] })
+      );
+    });
     this.selection.select(...this.bookingItems.map((booking) => booking.id));
   }
 
@@ -57,8 +63,8 @@ export class BookingTableComponent implements OnInit, OnDestroy {
     return numSelected === numRows;
   }
 
-  public deleteBooking(bookingId: number): void {
-    this.store.dispatch(removeBooking({ id: bookingId }));
+  public deleteBooking(bookingId: string): void {
+    this.store.dispatch(BookingActions.removeBooking({ ids: [...bookingId] }));
     this.selection.deselect(bookingId);
   }
 
@@ -66,11 +72,13 @@ export class BookingTableComponent implements OnInit, OnDestroy {
     this.selectedCount.emit(this.selection.selected.length);
   }
 
-  public editBooking(bookingId: number): void {
+  public editBooking(bookingId: string): void {
     const bookingItem: Booking | undefined = this.bookingItems.find(
       (booking) => booking.id === bookingId
     );
+
     if (!bookingItem) return;
+
     const query: IQueryParams = {
       typeOfFlight: bookingItem.backTicket ? 'round' : 'one',
       from: bookingItem.city.from || '',
@@ -84,7 +92,7 @@ export class BookingTableComponent implements OnInit, OnDestroy {
       infant: bookingItem.passengers.infant || 0,
     };
 
-    this.store.dispatch(removeBooking({ id: bookingId }));
+    this.store.dispatch(BookingActions.removeBooking({ ids: [...bookingId] }));
 
     this.router.navigate(['search', 'results'], {
       queryParams: { ...query },

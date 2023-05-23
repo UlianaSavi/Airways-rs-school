@@ -1,10 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { PopupsStatusService } from 'src/app/core/services/popups-status.service';
 import { emailPattern } from '../../constants/email-pattern';
 import * as valid from 'card-validator';
 import { cardNumRegexp1, cardNumRegexp2 } from '../../constants/card-number-pattern';
+import { Store } from '@ngrx/store';
+import { removeBooking } from 'src/app/redux/actions/booking.actions';
+import { selectBookingIds } from 'src/app/redux/selectors/booking.selectors';
 
 @Component({
   selector: 'app-payment',
@@ -12,7 +15,7 @@ import { cardNumRegexp1, cardNumRegexp2 } from '../../constants/card-number-patt
   styleUrls: ['./payment.component.scss'],
 })
 export class PaymentComponent implements OnInit, OnDestroy {
-  constructor(private PopupsService: PopupsStatusService) {}
+  constructor(private PopupsService: PopupsStatusService, private store: Store) {}
 
   paymentSubscription: Subscription | null = null;
 
@@ -21,6 +24,8 @@ export class PaymentComponent implements OnInit, OnDestroy {
   cardImagePath = 'default';
 
   cardNumRegexp = this.cardImagePath === 'american-express' ? cardNumRegexp2 : cardNumRegexp1;
+
+  selectedBookingIds$ = this.store.select(selectBookingIds);
 
   paymentForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.pattern(emailPattern)]),
@@ -79,5 +84,8 @@ export class PaymentComponent implements OnInit, OnDestroy {
     this.closePayment();
     this.paymentForm.reset();
     // when cart is ready - add here method to save order data to store (for user acc info)
+    this.selectedBookingIds$
+      .pipe(take(1))
+      .subscribe((ids) => this.store.dispatch(removeBooking({ ids })));
   };
 }

@@ -51,7 +51,7 @@
         <div *ngIf="item.passengers.infant">{{ item.passengers.infant }} x Infant</div>
       </td>
       <td class="booking-table__table-price ceil">
-        {{ item.price | currency : currentCurrency.name }}
+        {{ item.price * currentCurrency.euroCoefficient | currency : currentCurrency.name }}
       </td>
       <td>
         <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -78,7 +78,7 @@
       <td colspan="3" class="booking-table__table-total ceil">
         Total
         <span class="booking-table__table-total-number">
-          {{ getTotal() | currency : currentCurrency.name }}
+          {{ getTotal() * currentCurrency.euroCoefficient | currency : currentCurrency.name }}
         </span>
       </td>
     </tr>

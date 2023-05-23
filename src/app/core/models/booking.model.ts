@@ -10,7 +10,7 @@ type BookingFlight = {
 };
 
 export interface Booking {
-  id: number;
+  id: string;
   city: {
     from: string;
     to: string;

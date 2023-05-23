@@ -20,4 +20,12 @@ export class SummaryFareComponent {
   currentCurrency$ = this.store.select(selectCurrencyFormat);
 
   constructor(private store: Store) {}
+
+  public getPriceWithoutTax(passenger: PassengersType): number {
+    return this.fare[passenger] * 0.645;
+  }
+
+  public getTax(passenger: PassengersType): number {
+    return this.fare[passenger] * 0.355;
+  }
 }

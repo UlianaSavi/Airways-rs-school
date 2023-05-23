@@ -8,3 +8,8 @@ export const selectBookings = createSelector(
   selectBookingsFeature,
   (state: BookingState): Booking[] => state.bookings
 );
+
+export const selectBookingIds = createSelector(
+  selectBookingsFeature,
+  (state: BookingState): string[] => state.selectedBookingIds
+);
