@@ -63,7 +63,7 @@
                 Password is required
               </mat-error>
             </mat-form-field>
-            <div class="singIn-link-div">
+            <div class="singIn-link-div" (click)="passwordHelperOpen()">
               <span class="singIn-link">Forgot password?</span>
             </div>
             <button class="login-submit" type="submit" [disabled]="logInForm.invalid">

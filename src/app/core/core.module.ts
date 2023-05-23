@@ -14,10 +14,17 @@ import { ProfileModule } from '../profile/profile.module';
 import { SharedModule } from '../shared/shared.module';
 import { metaReducers, reducers } from '../redux/state.models';
 import { AppEffects } from '../redux/effects/app.effects';
+import { PasswordHelperPopupComponent } from './components/password-helper-popup/password-helper-popup.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, PageNotFoundComponent, PaymentComponent],
-  exports: [HeaderComponent, FooterComponent, PaymentComponent],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    PageNotFoundComponent,
+    PaymentComponent,
+    PasswordHelperPopupComponent,
+  ],
+  exports: [HeaderComponent, FooterComponent, PaymentComponent, PasswordHelperPopupComponent],
   imports: [
     CommonModule,
     BrowserAnimationsModule,

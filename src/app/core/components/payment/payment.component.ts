@@ -15,7 +15,7 @@ import { selectBookingIds } from 'src/app/redux/selectors/booking.selectors';
   styleUrls: ['./payment.component.scss'],
 })
 export class PaymentComponent implements OnInit, OnDestroy {
-  constructor(private PopupsService: PopupsStatusService, private store: Store) {}
+  constructor(private popupsService: PopupsStatusService, private store: Store) {}
 
   paymentSubscription: Subscription | null = null;
 
@@ -35,7 +35,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   });
 
   ngOnInit() {
-    this.paymentSubscription = this.PopupsService.paymentStatus$.subscribe(
+    this.paymentSubscription = this.popupsService.paymentStatus$.subscribe(
       (status) => (this.paymentActive = status)
     );
   }
@@ -45,7 +45,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   closePayment = () => {
-    this.PopupsService.setPaymentStatus(false);
+    this.popupsService.setPaymentStatus(false);
   };
 
   checkCardType = () => {
