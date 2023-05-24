@@ -13,6 +13,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   exports: [
@@ -31,6 +32,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatTabsModule,
     MatCheckboxModule,
     MatFormFieldModule,
+    MatSortModule,
   ],
 })
 export class MaterialModule {}

@@ -1,5 +1,9 @@
 @import "variables";
 
+:host {
+  display: contents
+}
+
 .header {
   height: 88px;
   width: 100%;
@@ -152,6 +156,10 @@
       display: none;
       position: absolute;
       top: -20px;
+    }
+
+    &-menu {
+      order: 1;
     }
 
     &__steps-title {

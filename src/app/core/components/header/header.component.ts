@@ -1,16 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, filter } from 'rxjs';
+import { Observable, Subscription, filter } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { CurrentStep } from '../../models/current-step.model';
 import { Store } from '@ngrx/store';
 import * as CurrencyDateActions from '../../../redux/actions/currency-date.actions';
 import { MY_FORMATS } from '../../../shared/shared.module';
 import { NavigationEnd, Router } from '@angular/router';
-import { PopupsStatusService } from '../../services/popaps-status.service';
+import { PopupsStatusService } from '../../services/popups-status.service';
+import { Booking } from '../../models/booking.model';
+import { selectBookings } from 'src/app/redux/selectors/booking.selectors';
 
 enum EuroCoefficient {
   EUR = 1,
-  USD = 0.9,
+  USD = 1.08,
   RUB = 90,
   PLN = 4.6,
 }
@@ -35,6 +37,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   dateFormat = 'MM/DD/YYYY';
 
   currency = 'EUR';
+
+  bookings$: Observable<Booking[]> = this.store.select(selectBookings);
 
   onChangeDateFormat() {
     this.store.dispatch(CurrencyDateActions.setDateFormat({ formatDate: this.dateFormat }));

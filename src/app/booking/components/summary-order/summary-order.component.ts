@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
 import { PassengerData, PassengersType } from 'src/app/core/models/passengers.model';
@@ -10,6 +10,7 @@ import { ITicket } from 'src/app/search/models/tickets.model';
   selector: 'app-summary-order',
   templateUrl: './summary-order.component.html',
   styleUrls: ['./summary-order.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SummaryOrderComponent implements OnInit {
   @Input() isBack = false;
@@ -22,8 +23,6 @@ export class SummaryOrderComponent implements OnInit {
     this.store.select(selectPassengersData);
 
   passengers: Record<PassengersType, PassengerData[]> = { adult: [], child: [], infant: [] };
-
-  passArr: PassengersType[] = ['adult', 'child', 'infant'];
 
   constructor(private store: Store) {}
 

@@ -5,3 +5,5 @@ export const setSearchForms = createAction(
   '[SearchForm] Set SearchForms',
   props<{ searchForm: SearchFormState }>()
 );
+
+export const resetSearchForm = createAction('[SearchForm] Reset SearchForms');
