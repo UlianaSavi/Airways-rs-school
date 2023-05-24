@@ -145,29 +145,7 @@
 
 @media (max-width: 1120px) {
   .header-booking {
-    width: fit-content;
-    flex-direction: column;
-    align-items: flex-start;
-    column-gap: 6px;
-    padding-bottom: 3px;
-
-    white-space: nowrap;
-  }
-
-  .booking-line {
     display: none;
-  }
-}
-
-@media (max-width: 540px) {
-  .header {
-    &-logo {
-      width: 25%;
-    }
-
-    &-menu {
-      column-gap: 20px;
-    }
   }
 }
 
@@ -213,27 +191,9 @@
 }
 
 @media (max-width: 360px) {
-  .header {
-    &__options.active {
-      left: 50px;
-
-    }
-
-    &-booking {
-      font-size: 12px;
-    }
-
-    &-menu {
-      column-gap: 5px;
-    }
-
-    &__menu {
-      width: auto !important;
-      padding: 0;
-    }
-
-    &-basket {
-      padding: 0;
-    }
+  .header-logo {
+    width: 100%;
+    max-width: 75px;
   }
 }
+

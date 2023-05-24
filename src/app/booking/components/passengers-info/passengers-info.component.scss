@@ -72,3 +72,17 @@ h3 {
 .baggage-counter-icon {
   cursor: pointer;
 }
+
+@media (max-width: 920px) {
+  .passengers-info-block {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+}
+
+@media (max-width: 360px) {
+  .gender-toggle {
+    min-width: 100%;
+  }
+}
