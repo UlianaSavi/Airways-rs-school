@@ -12,6 +12,8 @@ import {
 
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { PolicyComponent } from './components/policy/policy.component';
+import { TermsComponent } from './components/terms/terms.component';
 
 export const MY_FORMATS = {
   parse: {
@@ -26,7 +28,10 @@ export const MY_FORMATS = {
 };
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    PolicyComponent,
+    TermsComponent
+  ],
   imports: [CommonModule, RouterLink, RouterLinkActive, NgOptimizedImage, MatNativeDateModule],
   exports: [
     RouterLink,

@@ -1,10 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import * as TicketsActions from 'src/app/redux/actions/tickets.actions';
 import { setSearchForms } from '../../../redux/actions/search-form.actions';
 import { FlightTypes, SearchFormState } from '../../../redux/reducers/search-form.reducer';
 import { selectBackTicket, selectTicket } from 'src/app/redux/selectors/select-ticket.selector';
+import { ITicket } from '../../models/tickets.model';
+import { TicketsCheckService } from 'src/app/core/services/tickets-check.servise';
 
 @Component({
   selector: 'app-result-list',
@@ -33,9 +36,26 @@ export class ResultListComponent implements OnInit {
 
   selectTicket$ = this.store.select(selectTicket);
 
+  sameTicketsSubscription: Subscription | null = null;
+
+  badDatesTicketsSubscription: Subscription | null = null;
+
+  ticketFrom: ITicket | null = null;
+
+  ticketBack: ITicket | null = null;
+
   selectBackTicket$ = this.store.select(selectBackTicket);
 
-  constructor(private route: ActivatedRoute, private store: Store, private router: Router) {}
+  sameTickets = false;
+
+  badDatesSelect = false;
+
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store,
+    private router: Router,
+    private ticketsCheckService: TicketsCheckService
+  ) {}
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((params) => {
@@ -68,7 +88,44 @@ export class ResultListComponent implements OnInit {
     };
 
     this.store.dispatch(setSearchForms({ searchForm }));
+
+    this.sameTicketsSubscription = this.ticketsCheckService.sameTickets$.subscribe(
+      (status) => (this.sameTickets = status)
+    );
+
+    this.badDatesTicketsSubscription = this.ticketsCheckService.badDatesSelect$.subscribe(
+      (status) => (this.badDatesSelect = status)
+    );
+
+    this.selectTicket$.subscribe((ticket) => {
+      this.ticketFrom = ticket;
+      this.sameTicketsCheck();
+      this.badDatesSelectCheck();
+    });
+    this.selectBackTicket$.subscribe((ticketBack) => {
+      this.ticketBack = ticketBack;
+      this.sameTicketsCheck();
+      this.badDatesSelectCheck();
+    });
   }
+
+  public sameTicketsCheck = () => {
+    if (this.ticketFrom && this.ticketBack) {
+      this.sameTickets = this.ticketFrom.date === this.ticketBack.date;
+      this.ticketsCheckService.checkSameTickets(this.sameTickets);
+    } else {
+      this.sameTickets = false;
+    }
+  };
+
+  public badDatesSelectCheck = () => {
+    if (this.ticketFrom && this.ticketBack && !this.sameTickets) {
+      this.badDatesSelect = this.ticketFrom.date > this.ticketBack.date;
+      this.ticketsCheckService.checkBadDatesSelect(this.badDatesSelect);
+    } else {
+      this.badDatesSelect = false;
+    }
+  };
 
   public editBlockChanged(editBlock: boolean) {
     this.canEditBlock = editBlock;

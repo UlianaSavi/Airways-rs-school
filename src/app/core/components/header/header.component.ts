@@ -81,6 +81,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   activeLastStep = false;
 
+  burgerMenu = false;
+
   changeStatusSingIn() {
     this.popapsService.setSingInStatus(!this.singInActive);
   }
@@ -90,6 +92,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       (status) => (this.singInActive = status)
     );
   }
+
+  burger = () => {
+    this.burgerMenu = !this.burgerMenu;
+  };
 
   getCurrStep() {
     switch (location.pathname) {
