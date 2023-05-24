@@ -2,13 +2,8 @@
 <app-search-criteria-edit-block *ngIf="canEditBlock"></app-search-criteria-edit-block>
 <div class="container">
   <div class="result-list">
-    <app-result-item [cityFrom]="from" (click)="sameTicketsCheck()"></app-result-item>
-    <app-result-item
-      *ngIf="dateBack"
-      [isBack]="true"
-      [cityFrom]="from"
-      (click)="sameTicketsCheck()"
-    ></app-result-item>
+    <app-result-item [cityFrom]="from"></app-result-item>
+    <app-result-item *ngIf="dateBack" [isBack]="true" [cityFrom]="from"></app-result-item>
   </div>
   <div class="result-bottom">
     <a mat-flat-button color="basic" class="result-bottom__link" [routerLink]="['/search']">Back</a>

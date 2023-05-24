@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import * as TicketsActions from 'src/app/redux/actions/tickets.actions';
 import { setSearchForms } from '../../../redux/actions/search-form.actions';
 import { FlightTypes, SearchFormState } from '../../../redux/reducers/search-form.reducer';
 import { selectBackTicket, selectTicket } from 'src/app/redux/selectors/select-ticket.selector';
 import { ITicket } from '../../models/tickets.model';
+import { SameTicketsCheckService } from 'src/app/core/services/same-tickets-check.servise';
 
 @Component({
   selector: 'app-result-list',
@@ -34,6 +36,8 @@ export class ResultListComponent implements OnInit {
 
   selectTicket$ = this.store.select(selectTicket);
 
+  sameTicketsSubscription: Subscription | null = null;
+
   ticketFrom: ITicket | null = null;
 
   ticketBack: ITicket | null = null;
@@ -42,7 +46,12 @@ export class ResultListComponent implements OnInit {
 
   sameTickets = false;
 
-  constructor(private route: ActivatedRoute, private store: Store, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store,
+    private router: Router,
+    private sameTicketsCheckService: SameTicketsCheckService
+  ) {}
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((params) => {
@@ -75,18 +84,27 @@ export class ResultListComponent implements OnInit {
     };
 
     this.store.dispatch(setSearchForms({ searchForm }));
-  }
 
-  public sameTicketsCheck = () => {
+    this.sameTicketsSubscription = this.sameTicketsCheckService.sameTickets$.subscribe(
+      (status) => (this.sameTickets = status)
+    );
+
     this.selectTicket$.subscribe((ticket) => {
       this.ticketFrom = ticket;
+      this.sameTicketsCheck();
     });
     this.selectBackTicket$.subscribe((ticketBack) => {
       this.ticketBack = ticketBack;
+      this.sameTicketsCheck();
     });
+  }
+
+  public sameTicketsCheck = () => {
     if (this.ticketFrom && this.ticketBack) {
-      console.log(this.ticketFrom.date, this.ticketBack.date);
       this.sameTickets = this.ticketFrom.date === this.ticketBack.date;
+      this.sameTicketsCheckService.checkSameTickets(this.sameTickets);
+    } else {
+      this.sameTickets = false;
     }
   };
 
