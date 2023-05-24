@@ -1,11 +1,13 @@
 @import "variables";
 
 .cart {
+  width: 95%;
+
   justify-content: flex-start;
   align-items: center;
-  width: 100%;
   margin: 40px auto 100px;
   padding: 0px 0px 30px 0px;
+
   background-color: $white;
   box-shadow: $box-shadow;
   border-radius: 8px;
@@ -18,9 +20,9 @@
   }
 
   &__title {
+    height: 88px;
     display: flex;
     align-items: center;
-    height: 88px;
     padding-left: 34px;
   }
 
@@ -43,5 +45,11 @@
       line-height: 24px;
       color: $third-text-color;
     }
+  }
+}
+
+@media (max-width: 1020px) {
+  .cart {
+    font-size: 14px;
   }
 }

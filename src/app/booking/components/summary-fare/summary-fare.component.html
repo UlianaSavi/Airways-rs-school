@@ -6,7 +6,7 @@
           <div>{{ passengersCount[passenger] }} x {{ passenger | titlecase }} Fare</div>
           <div>
             {{
-            fare[passenger] * (currentCurrency$ | async)?.euroCoefficient!
+              fare[passenger] * (currentCurrency$ | async)?.euroCoefficient!
                 | currency : currentCurrency.name : "symbol"
             }}
           </div>
@@ -37,7 +37,10 @@
   <div class="summary-fare__total row-fare">
     <div>Total</div>
     <div class="summary-fare__total-quantity">
-      {{ total * (currentCurrency$ | async)?.euroCoefficient! | currency : currentCurrency.name : "symbol" }}
+      {{
+        total * (currentCurrency$ | async)?.euroCoefficient!
+          | currency : currentCurrency.name : "symbol"
+      }}
     </div>
   </div>
 </div>
