@@ -57,3 +57,23 @@
     border-radius: 5px;
   }
 }
+
+@media (max-width: 620px) {
+  .search-info {
+    height: fit-content;
+    padding: 10px 0;
+
+    .container {
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    &__counts {
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 1120) {
+
+}

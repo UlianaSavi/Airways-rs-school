@@ -37,7 +37,7 @@ main {
   align-items: center;
   height: inherit;
   max-width: 1430px;
-  padding: 0 15px;
+  padding: 0 1em;
   margin: 0 auto;
 }
 
@@ -80,6 +80,10 @@ input::-webkit-inner-spin-button {
 
 input[type="number"] {
   appearance: textfield;
+}
+
+input {
+  text-overflow: ellipsis;
 }
 
 //отражение изображения

@@ -3,28 +3,34 @@
 .singIn-modal {
   display: none;
   position: absolute;
-  right: 160px;
-  top: 100px;
+  right: 30px;
+  top: 7.5em;
+  z-index: 10;
 }
 
 .singIn-modal.active {
   display: flex;
+  width: 100%;
+  justify-content: center;
 }
 
 .singIn {
-  width: 494px;
-  background: $white;
+  position: relative;
+
+  width: 100%;
+  max-width: 494px;
   border-radius: 8px;
   padding: 32px 24px;
-  box-sizing: border-box;
-  position: relative;
+
+  background: $white;
   z-index: 3;
 }
 
 .singIn-closeButton {
   position: absolute;
-  right: -25px;
-  top: -15px;
+  right: 5px;
+  top: 5px;
+
   color: $third-text-color;
   cursor: pointer;
   z-index: 10;
@@ -124,4 +130,19 @@
 
 .half-width {
   width: 50%;
+}
+
+
+@media (max-width: 620px) {
+  .singIn {
+    padding: 32px 5px;
+  }
+
+  .singIn-modal {
+    right: 0;
+  }
+
+  #mat-tab-label-0-0 {
+    background: red !important;
+  }
 }
