@@ -5,6 +5,7 @@ import * as TicketsActions from 'src/app/redux/actions/tickets.actions';
 import { setSearchForms } from '../../../redux/actions/search-form.actions';
 import { FlightTypes, SearchFormState } from '../../../redux/reducers/search-form.reducer';
 import { selectBackTicket, selectTicket } from 'src/app/redux/selectors/select-ticket.selector';
+import { ITicket } from '../../models/tickets.model';
 
 @Component({
   selector: 'app-result-list',
@@ -33,7 +34,13 @@ export class ResultListComponent implements OnInit {
 
   selectTicket$ = this.store.select(selectTicket);
 
+  ticketFrom: ITicket | null = null;
+
+  ticketBack: ITicket | null = null;
+
   selectBackTicket$ = this.store.select(selectBackTicket);
+
+  sameTickets = false;
 
   constructor(private route: ActivatedRoute, private store: Store, private router: Router) {}
 
@@ -69,6 +76,19 @@ export class ResultListComponent implements OnInit {
 
     this.store.dispatch(setSearchForms({ searchForm }));
   }
+
+  public sameTicketsCheck = () => {
+    this.selectTicket$.subscribe((ticket) => {
+      this.ticketFrom = ticket;
+    });
+    this.selectBackTicket$.subscribe((ticketBack) => {
+      this.ticketBack = ticketBack;
+    });
+    if (this.ticketFrom && this.ticketBack) {
+      console.log(this.ticketFrom.date, this.ticketBack.date);
+      this.sameTickets = this.ticketFrom.date === this.ticketBack.date;
+    }
+  };
 
   public editBlockChanged(editBlock: boolean) {
     this.canEditBlock = editBlock;
