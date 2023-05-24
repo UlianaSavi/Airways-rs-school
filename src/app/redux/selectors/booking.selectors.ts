@@ -13,3 +13,8 @@ export const selectBookingIds = createSelector(
   selectBookingsFeature,
   (state: BookingState): string[] => state.selectedBookingIds
 );
+
+export const selectPurchasedTickets = createSelector(
+  selectBookingsFeature,
+  (state: BookingState): Booking[] => state.purchased
+);

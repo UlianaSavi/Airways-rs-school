@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ITicket } from '../../models/tickets.model';
+import { ITicket, ITicketExtended } from '../../models/tickets.model';
 import { Store } from '@ngrx/store';
 import {
   setSelectedBackTicket,
@@ -14,7 +14,7 @@ import { selectCurrencyFormat } from 'src/app/redux/selectors/currency-date.sele
   styleUrls: ['./ticket.component.scss'],
 })
 export class TicketComponent implements OnInit {
-  @Input() currTicket: ITicket | null = null;
+  @Input() currTicket: ITicket | ITicketExtended | null = null;
 
   @Input() isBack = false;
 

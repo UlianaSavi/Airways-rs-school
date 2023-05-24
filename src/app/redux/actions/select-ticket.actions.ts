@@ -1,14 +1,14 @@
 import { createAction, props } from '@ngrx/store';
-import { ITicket } from 'src/app/search/models/tickets.model';
+import { ITicket, ITicketExtended } from 'src/app/search/models/tickets.model';
 
 export const setSelectedTicket = createAction(
   '[SelectTicket] SelectTicket',
-  props<{ ticket: ITicket | null }>()
+  props<{ ticket: ITicket | ITicketExtended | null }>()
 );
 
 export const setSelectedBackTicket = createAction(
   '[SelectTicket] SelectBackTicket',
-  props<{ backTicket: ITicket | null }>()
+  props<{ backTicket: ITicket | ITicketExtended | null }>()
 );
 
 export const resetSelectedTickets = createAction('[SelectTicket] Reset selected tickets');

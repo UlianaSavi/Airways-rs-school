@@ -1,1 +1,90 @@
-<p>here acc</p>
+<div class="container account-container">
+  <div class="account-table">
+    <table>
+      <caption class="table-head">User info</caption>
+      <tbody>
+      <tr>
+        <th>Full name:</th>
+        <td>{{ (authService.currentUser?.name?.firstName + ' ' + authService.currentUser?.name?.lastName) | titlecase}}</td>
+      </tr>
+      <tr>
+        <th>Email:</th>
+        <td>{{ authService.currentUser?.email }}</td>
+      </tr>
+      <tr>
+        <th>Phone:</th>
+        <td>{{ authService.currentUser?.phone }}</td>
+      </tr>
+      <tr>
+        <th>Gender:</th>
+        <td>{{ authService.currentUser?.gender | titlecase }}</td>
+      </tr>
+      <tr>
+        <th>Citizenship:</th>
+        <td>{{ authService.currentUser?.citizenship | titlecase }}</td>
+      </tr>
+      <tr>
+        <th>Birthdate:</th>
+        <td>{{ authService.currentUser?.birthDate | date }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="account-table">
+    <table class="booking-table__table" matSort>
+      <caption class="table-head">Your orders</caption>
+      <thead>
+      <tr class="booking-table__table-header row">
+        <th mat-sort-header="flightNum">No.</th>
+        <th mat-sort-header="flight">Flight</th>
+        <th mat-sort-header="type">Type trip</th>
+        <th mat-sort-header="date">Date & Time</th>
+        <th class="booking-table__table-header-left">Passengers</th>
+        <th mat-sort-header="price">Price</th>
+        <th class="booking-table__table-header-menu"></th>
+      </tr>
+      </thead>
+      <tbody *ngIf="currentCurrency$ | async as currentCurrency">
+      <tr class="row" *ngFor="let item of (purchasedTickets$ | async)">
+        <td class="booking-table__table-flight-number ceil">
+          <div>{{ item.ticket.flightNum }}</div>
+          <div *ngIf="item.backTicket">{{ item.backTicket.flightNum }}</div>
+        </td>
+        <td class="ceil">
+          <div>{{ item.city.from }} — {{ item.city.to }}</div>
+          <div *ngIf="item.backTicket">{{ item.city.to }} — {{ item.city.from }}</div>
+        </td>
+        <td class="ceil">
+          {{ item.backTicket ? "Round Trip" : "One way" }}
+        </td>
+        <td class="ceil">
+          <div>
+            {{ item.ticket.date | date : "d MMM, y" }}, {{ item.ticket.times.start }} —
+            {{ item.ticket.times.end }}
+          </div>
+          <div *ngIf="item.backTicket">
+            {{ item.backTicket.date | date : "d MMM, y" }}, {{ item.backTicket.times.start }} —
+            {{ item.backTicket.times.end }}
+          </div>
+        </td>
+        <td class="ceil">
+          <div>{{ item.passengers.adult }} x Adult</div>
+          <div *ngIf="item.passengers.child">{{ item.passengers.child }} x Child</div>
+          <div *ngIf="item.passengers.infant">{{ item.passengers.infant }} x Infant</div>
+        </td>
+        <td class="booking-table__table-price ceil">
+          {{ item.price * currentCurrency.euroCoefficient | currency : currentCurrency.name }}
+        </td>
+        <td>
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="goSummary(item)">Go to Summary</button>
+          </mat-menu>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

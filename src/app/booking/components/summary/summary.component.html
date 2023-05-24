@@ -15,7 +15,7 @@
         [total]="totalPrice"
       ></app-summary-fare>
     </div>
-    <div class="summary__bottom">
+    <div *ngIf="!viewOnly" class="summary__bottom">
       <a mat-flat-button color="basic" class="summary__bottom-btn" [routerLink]="['/booking']">
         Back
       </a>
