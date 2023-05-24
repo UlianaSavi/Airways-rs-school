@@ -7,7 +7,7 @@ import { setSearchForms } from '../../../redux/actions/search-form.actions';
 import { FlightTypes, SearchFormState } from '../../../redux/reducers/search-form.reducer';
 import { selectBackTicket, selectTicket } from 'src/app/redux/selectors/select-ticket.selector';
 import { ITicket } from '../../models/tickets.model';
-import { SameTicketsCheckService } from 'src/app/core/services/same-tickets-check.servise';
+import { TicketsCheckService } from 'src/app/core/services/tickets-check.servise';
 
 @Component({
   selector: 'app-result-list',
@@ -38,6 +38,8 @@ export class ResultListComponent implements OnInit {
 
   sameTicketsSubscription: Subscription | null = null;
 
+  badDatesTicketsSubscription: Subscription | null = null;
+
   ticketFrom: ITicket | null = null;
 
   ticketBack: ITicket | null = null;
@@ -46,11 +48,13 @@ export class ResultListComponent implements OnInit {
 
   sameTickets = false;
 
+  badDatesSelect = false;
+
   constructor(
     private route: ActivatedRoute,
     private store: Store,
     private router: Router,
-    private sameTicketsCheckService: SameTicketsCheckService
+    private ticketsCheckService: TicketsCheckService
   ) {}
 
   ngOnInit(): void {
@@ -85,26 +89,41 @@ export class ResultListComponent implements OnInit {
 
     this.store.dispatch(setSearchForms({ searchForm }));
 
-    this.sameTicketsSubscription = this.sameTicketsCheckService.sameTickets$.subscribe(
+    this.sameTicketsSubscription = this.ticketsCheckService.sameTickets$.subscribe(
       (status) => (this.sameTickets = status)
+    );
+
+    this.badDatesTicketsSubscription = this.ticketsCheckService.badDatesSelect$.subscribe(
+      (status) => (this.badDatesSelect = status)
     );
 
     this.selectTicket$.subscribe((ticket) => {
       this.ticketFrom = ticket;
       this.sameTicketsCheck();
+      this.badDatesSelectCheck();
     });
     this.selectBackTicket$.subscribe((ticketBack) => {
       this.ticketBack = ticketBack;
       this.sameTicketsCheck();
+      this.badDatesSelectCheck();
     });
   }
 
   public sameTicketsCheck = () => {
     if (this.ticketFrom && this.ticketBack) {
       this.sameTickets = this.ticketFrom.date === this.ticketBack.date;
-      this.sameTicketsCheckService.checkSameTickets(this.sameTickets);
+      this.ticketsCheckService.checkSameTickets(this.sameTickets);
     } else {
       this.sameTickets = false;
+    }
+  };
+
+  public badDatesSelectCheck = () => {
+    if (this.ticketFrom && this.ticketBack && !this.sameTickets) {
+      this.badDatesSelect = this.ticketFrom.date > this.ticketBack.date;
+      this.ticketsCheckService.checkBadDatesSelect(this.badDatesSelect);
+    } else {
+      this.badDatesSelect = false;
     }
   };
 

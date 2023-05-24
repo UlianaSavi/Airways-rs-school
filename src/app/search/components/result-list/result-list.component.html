@@ -15,11 +15,13 @@
       [disabled]="
         (selectTicket$ | async) === null ||
         (dateBack && (selectBackTicket$ | async) === null) ||
-        sameTickets
+        sameTickets ||
+        badDatesSelect
       "
     >
-      <span *ngIf="!sameTickets">Continue</span>
+      <span *ngIf="!sameTickets && !badDatesSelect">Continue</span>
       <span *ngIf="sameTickets">Similar Tickets!</span>
+      <span *ngIf="badDatesSelect">Wrong dates!</span>
     </button>
   </div>
 </div>
