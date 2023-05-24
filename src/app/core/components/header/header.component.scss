@@ -1,5 +1,9 @@
 @import "variables";
 
+:host {
+  display: contents
+}
+
 .header {
   height: 88px;
   width: 100%;
