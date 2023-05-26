@@ -6,7 +6,7 @@ import { emailPattern } from '../../constants/email-pattern';
 import * as valid from 'card-validator';
 import { cardNumRegexp1, cardNumRegexp2 } from '../../constants/card-number-pattern';
 import { Store } from '@ngrx/store';
-import { removeBooking, setSingleBuyTicket } from 'src/app/redux/actions/booking.actions';
+import { setPurchase, setSingleBuyTicket } from 'src/app/redux/actions/booking.actions';
 import { selectBookingIds, selectBookings } from 'src/app/redux/selectors/booking.selectors';
 import { Router } from '@angular/router';
 import { SingleBuyService } from '../../services/single-buy.service';
@@ -102,7 +102,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
     this.selectedBookingIds$
       .pipe(take(1))
-      .subscribe((ids) => this.store.dispatch(removeBooking({ ids })));
+      .subscribe((ids) => this.store.dispatch(setPurchase({ ids })));
 
     this.selectBooking$.pipe(take(1), debounceTime(400)).subscribe((bookings) => {
       if (!bookings.length && this.route.url === '/cart') {

@@ -11,6 +11,8 @@ export const removeBooking = createAction(
   props<{ ids: string[] }>()
 );
 
+export const setPurchase = createAction('[Booking] Set purchase', props<{ ids: string[] }>());
+
 export const setSelectedBookingIds = createAction(
   '[Booking] Set selected booking ids',
   props<{ selectedBookingIds: string[] }>()
