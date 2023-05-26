@@ -1,7 +1,7 @@
 <div class="container account-container">
-  <div class="account-table">
-    <table>
-      <caption class="table-head">User info</caption>
+  <div class="account-info">
+    <table class="account-info__user">
+      <caption class="account-info__head">User info</caption>
       <tbody>
       <tr>
         <th>Full name:</th>
@@ -30,23 +30,23 @@
       </tbody>
     </table>
   </div>
-  <div class="account-table">
-    <table class="booking-table__table" matSort>
-      <caption class="table-head">Your orders</caption>
+  <div class="account-info">
+    <table class="account-info__table" matSort>
+      <caption class="account-info__head">Your orders</caption>
       <thead>
-      <tr class="booking-table__table-header row">
+      <tr class="account-info__table-header row">
         <th mat-sort-header="flightNum">No.</th>
         <th mat-sort-header="flight">Flight</th>
         <th mat-sort-header="type">Type trip</th>
         <th mat-sort-header="date">Date & Time</th>
-        <th class="booking-table__table-header-left">Passengers</th>
+        <th class="account-info__table-header-left">Passengers</th>
         <th mat-sort-header="price">Price</th>
-        <th class="booking-table__table-header-menu"></th>
+        <th class="account-info__table-header-menu"></th>
       </tr>
       </thead>
       <tbody *ngIf="currentCurrency$ | async as currentCurrency">
       <tr class="row" *ngFor="let item of (purchasedTickets$ | async)">
-        <td class="booking-table__table-flight-number ceil">
+        <td class="account-info__table-flight-number ceil">
           <div>{{ item.ticket.flightNum }}</div>
           <div *ngIf="item.backTicket">{{ item.backTicket.flightNum }}</div>
         </td>
@@ -72,7 +72,7 @@
           <div *ngIf="item.passengers.child">{{ item.passengers.child }} x Child</div>
           <div *ngIf="item.passengers.infant">{{ item.passengers.infant }} x Infant</div>
         </td>
-        <td class="booking-table__table-price ceil">
+        <td class="account-info__table-price ceil">
           {{ item.price * currentCurrency.euroCoefficient | currency : currentCurrency.name }}
         </td>
         <td>

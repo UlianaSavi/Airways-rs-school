@@ -4,22 +4,26 @@
   flex-direction: column;
 }
 
-.account-table {
+.account-info {
   width: 100%;
   margin: 20px;
   font-size: 1.2rem;
   padding: 35px;
-  background: #FFFFFF;
+  background: $white;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
-}
 
-.table-head {
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 28px;
-  text-align: left;
-  color: $primary-text-color;
+  &__user {
+    text-align: left;
+  }
+
+  &__head {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: left;
+    color: $primary-text-color;
+  }
 }
 
 ::ng-deep .mat-sort-header-container {
@@ -28,7 +32,7 @@
 
 //СТИЛИ БАТОРА
 
-.booking-table {
+.account-info {
   &__table {
     width: 100%;
     border-collapse: collapse;
@@ -40,11 +44,6 @@
 
     .ceil {
       padding: 20px 0;
-    }
-
-    &-first-column {
-      padding-left: 20px;
-      width: 70px;
     }
 
     &-header {
