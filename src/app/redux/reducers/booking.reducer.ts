@@ -28,9 +28,12 @@ export const bookingReducer = createReducer(
   on(
     BookingActions.removeBooking,
     (state, { ids }): BookingState => ({
+      ...state,
       selectedBookingIds: [],
       bookings: state.bookings.filter((booking) => !ids.includes(booking.id)),
-      purchased: state.bookings.filter((booking) => ids.includes(booking.id)),
+      purchased: state.purchased.concat(
+        state.bookings.filter((booking) => ids.includes(booking.id))
+      ),
     })
   ),
   on(
@@ -38,6 +41,13 @@ export const bookingReducer = createReducer(
     (state, { selectedBookingIds }): BookingState => ({
       ...state,
       selectedBookingIds: [...selectedBookingIds],
+    })
+  ),
+  on(
+    BookingActions.setSingleBuyTicket,
+    (state, { ticket }): BookingState => ({
+      ...state,
+      purchased: state.purchased.concat(ticket),
     })
   )
 );

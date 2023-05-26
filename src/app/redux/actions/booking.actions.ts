@@ -15,3 +15,8 @@ export const setSelectedBookingIds = createAction(
   '[Booking] Set selected booking ids',
   props<{ selectedBookingIds: string[] }>()
 );
+
+export const setSingleBuyTicket = createAction(
+  '[Booking] Set single buy ticket',
+  props<{ ticket: Booking }>()
+);

@@ -10,7 +10,8 @@ import { selectPassengersDataFeature } from 'src/app/redux/selectors/passengers.
 import { selectBackTicket, selectTicket } from 'src/app/redux/selectors/select-ticket.selector';
 import { ITicket, ITicketExtended } from 'src/app/search/models/tickets.model';
 import { PassengersState } from '../../../redux/reducers/passengers.reducer';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SingleBuyService } from '../../../core/services/single-buy.service';
 
 const ticketPriceMultiplier: Record<PassengersType, number> = {
   adult: 1,
@@ -43,7 +44,9 @@ export class SummaryComponent implements OnInit {
   constructor(
     private store: Store,
     private popupsService: PopupsStatusService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private singleBuyService: SingleBuyService
   ) {}
 
   ngOnInit(): void {
@@ -96,21 +99,19 @@ export class SummaryComponent implements OnInit {
     };
   }
 
-  public addToCart(): void {
-    if (this.ticket === null) return;
-
+  private createBookingObj(): Booking {
     if (this.id === '') this.id = uuidV4() as string;
 
     const booking: Booking = {
       id: this.id,
       city: {
-        from: this.ticket.country.from,
-        to: this.ticket.country.to,
+        from: this.ticket!.country.from,
+        to: this.ticket!.country.to,
       },
       ticket: {
-        date: this.ticket.date.toLocaleString(),
-        times: this.ticket.times,
-        flightNum: this.ticket.flightNum,
+        date: this.ticket!.date.toLocaleString(),
+        times: this.ticket!.times,
+        flightNum: this.ticket!.flightNum,
       },
       passengers: this.passengersCount,
       price: this.totalPrice,
@@ -129,10 +130,24 @@ export class SummaryComponent implements OnInit {
       };
     }
 
+    return booking;
+  }
+
+  public addToCart(): void {
+    if (this.ticket === null) return;
+
+    const booking = this.createBookingObj();
+
     this.store.dispatch(addBooking({ booking: booking }));
+
+    this.router.navigate(['/cart']);
   }
 
   public openPayment = () => {
+    const booking = this.createBookingObj();
+
+    this.singleBuyService.setTicket(booking);
+
     this.popupsService.setPaymentStatus(true);
   };
 }
