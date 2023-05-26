@@ -6,7 +6,9 @@
 }
 
 .footer-container {
-  height: 92px;
+  height: fit-content;
+  padding-top: 10px;
+  padding-bottom: 10px;
   justify-content: space-between;
 }
 
@@ -24,4 +26,14 @@
 .pay-icons {
   display: flex;
   column-gap: 15px;
+}
+
+@media (max-width: 620px) {
+  .footer-container {
+    flex-direction: column;
+  }
+
+  .footer-right {
+    flex-direction: column;
+  }
 }

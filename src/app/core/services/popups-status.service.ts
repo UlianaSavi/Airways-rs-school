@@ -13,11 +13,19 @@ export class PopupsStatusService {
 
   paymentStatus$ = this.paymentStatus$$.asObservable();
 
+  private passwordHelperStatus$$ = new Subject<boolean>();
+
+  passwordHelperStatus$ = this.passwordHelperStatus$$.asObservable();
+
   setSingInStatus(status: boolean) {
     this.singInStatus$$.next(status);
   }
 
   setPaymentStatus(status: boolean) {
     this.paymentStatus$$.next(status);
+  }
+
+  setPasswordHelper(status: boolean) {
+    this.passwordHelperStatus$$.next(status);
   }
 }

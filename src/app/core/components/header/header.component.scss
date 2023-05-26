@@ -1,5 +1,9 @@
 @import "variables";
 
+:host {
+  display: contents
+}
+
 .header {
   height: 88px;
   width: 100%;
@@ -9,6 +13,37 @@
 
   background: $header-bg;
   color: $white;
+
+  &__steps-title {
+    white-space: nowrap;
+  }
+
+  .container.header__menu {
+    width: 100%;
+    max-width: 500px;
+    margin: 0;
+  }
+
+  &__options {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  &__burger {
+    display: none;
+    cursor: pointer;
+
+    &-line {
+      width: 25px;
+      height: 2px;
+      margin-bottom: 5px;
+
+      background: $white;
+    }
+  }
 }
 
 .header-logo {
@@ -106,21 +141,59 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  position: relative;
+}
 
-  &-count {
-    position: absolute;
-    right: -2px;
-    top: -2px;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: $second-active-border-color;
-    color: $white;
-    font-weight: 500;
-    font-size: 11px;
-    line-height: 17px;
-    letter-spacing: 0.5px;
-    text-align: center;
+@media (max-width: 1120px) {
+  .header-booking {
+    display: none;
   }
 }
+
+
+@media (max-width: 920px) {
+  .header {
+    &__options {
+      display: none;
+      position: absolute;
+      top: -20px;
+    }
+
+    &-menu {
+      order: 1;
+    }
+
+    &__steps-title {
+      display: none;
+    }
+
+    &__options.active {
+      display: block;
+
+      width: 100%;
+      max-width: 200px;
+      top: 90px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 10px;
+
+      background: $black-transparent;
+
+      border-radius: 10px;
+      filter: invert(1);
+
+    }
+
+    &__burger {
+      display: block;
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .header-logo {
+    width: 100%;
+    max-width: 75px;
+  }
+}
+

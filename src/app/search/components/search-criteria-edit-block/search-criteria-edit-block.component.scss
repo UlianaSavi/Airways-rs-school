@@ -102,7 +102,7 @@
 }
 
 .passengers-amount {
-  width: 145px;
+  width: 100%;
 
   &__title {
     color: #49454f;
@@ -128,4 +128,21 @@
   background: $white;
   z-index: 2;
   box-shadow: $box-shadow;
+}
+
+@media (max-width: 920px) {
+  .edit-form {
+    flex-wrap: wrap;
+    padding: 24px 10px;
+
+    &__field {
+      width: 45%;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .edit-form__field {
+    width: 100%;
+  }
 }

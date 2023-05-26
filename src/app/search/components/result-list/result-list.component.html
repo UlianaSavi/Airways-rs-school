@@ -13,10 +13,15 @@
       class="result-bottom__link"
       (click)="onContinue()"
       [disabled]="
-        (selectTicket$ | async) === null || (dateBack && (selectBackTicket$ | async) === null)
+        (selectTicket$ | async) === null ||
+        (dateBack && (selectBackTicket$ | async) === null) ||
+        sameTickets ||
+        badDatesSelect
       "
     >
-      Continue
+      <span *ngIf="!sameTickets && !badDatesSelect">Continue</span>
+      <span *ngIf="sameTickets">Similar Tickets!</span>
+      <span *ngIf="badDatesSelect">Wrong dates!</span>
     </button>
   </div>
 </div>

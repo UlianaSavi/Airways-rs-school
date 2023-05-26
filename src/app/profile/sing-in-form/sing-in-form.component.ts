@@ -54,6 +54,10 @@ export class SingInFormComponent implements OnInit, OnDestroy {
     };
   }
 
+  passwordHelperOpen = () => {
+    this.popapsService.setPasswordHelper(true);
+  };
+
   // Методы с данными форм для дальнейшего использования
   login() {
     this.authService.login(this.logInForm.value.email!, this.logInForm.value.password!);
