@@ -64,7 +64,7 @@ export class BookingTableComponent implements OnInit, OnDestroy {
   }
 
   public deleteBooking(bookingId: string): void {
-    this.store.dispatch(BookingActions.removeBooking({ ids: [...bookingId] }));
+    this.store.dispatch(BookingActions.removeBooking({ ids: [bookingId] }));
     this.selection.deselect(bookingId);
   }
 

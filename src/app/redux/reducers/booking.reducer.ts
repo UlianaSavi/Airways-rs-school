@@ -7,11 +7,13 @@ export const bookingFeatureKey = 'booking';
 export interface BookingState {
   bookings: Booking[];
   selectedBookingIds: string[];
+  purchased: Booking[];
 }
 
 export const initialState: BookingState = {
   bookings: [],
   selectedBookingIds: [],
+  purchased: [],
 };
 
 export const bookingReducer = createReducer(
@@ -27,7 +29,19 @@ export const bookingReducer = createReducer(
     BookingActions.removeBooking,
     (state, { ids }): BookingState => ({
       ...state,
+      selectedBookingIds: state.selectedBookingIds.filter((selectIds) => !ids.includes(selectIds)),
       bookings: state.bookings.filter((booking) => !ids.includes(booking.id)),
+    })
+  ),
+  on(
+    BookingActions.setPurchase,
+    (state, { ids }): BookingState => ({
+      ...state,
+      selectedBookingIds: state.selectedBookingIds.filter((selectIds) => !ids.includes(selectIds)),
+      bookings: state.bookings.filter((booking) => !ids.includes(booking.id)),
+      purchased: state.purchased.concat(
+        state.bookings.filter((booking) => ids.includes(booking.id))
+      ),
     })
   ),
   on(
@@ -35,6 +49,13 @@ export const bookingReducer = createReducer(
     (state, { selectedBookingIds }): BookingState => ({
       ...state,
       selectedBookingIds: [...selectedBookingIds],
+    })
+  ),
+  on(
+    BookingActions.setSingleBuyTicket,
+    (state, { ticket }): BookingState => ({
+      ...state,
+      purchased: state.purchased.concat(ticket),
     })
   )
 );

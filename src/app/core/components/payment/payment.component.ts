@@ -1,13 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription, take } from 'rxjs';
+import { debounceTime, Subscription, take } from 'rxjs';
 import { PopupsStatusService } from 'src/app/core/services/popups-status.service';
 import { emailPattern } from '../../constants/email-pattern';
 import * as valid from 'card-validator';
 import { cardNumRegexp1, cardNumRegexp2 } from '../../constants/card-number-pattern';
 import { Store } from '@ngrx/store';
-import { removeBooking } from 'src/app/redux/actions/booking.actions';
-import { selectBookingIds } from 'src/app/redux/selectors/booking.selectors';
+import { setPurchase, setSingleBuyTicket } from 'src/app/redux/actions/booking.actions';
+import { selectBookingIds, selectBookings } from 'src/app/redux/selectors/booking.selectors';
+import { Router } from '@angular/router';
+import { SingleBuyService } from '../../services/single-buy.service';
 
 @Component({
   selector: 'app-payment',
@@ -15,7 +17,12 @@ import { selectBookingIds } from 'src/app/redux/selectors/booking.selectors';
   styleUrls: ['./payment.component.scss'],
 })
 export class PaymentComponent implements OnInit, OnDestroy {
-  constructor(private popupsService: PopupsStatusService, private store: Store) {}
+  constructor(
+    private popupsService: PopupsStatusService,
+    private store: Store,
+    private route: Router,
+    private singleBuyService: SingleBuyService
+  ) {}
 
   paymentSubscription: Subscription | null = null;
 
@@ -26,6 +33,8 @@ export class PaymentComponent implements OnInit, OnDestroy {
   cardNumRegexp = this.cardImagePath === 'american-express' ? cardNumRegexp2 : cardNumRegexp1;
 
   selectedBookingIds$ = this.store.select(selectBookingIds);
+
+  selectBooking$ = this.store.select(selectBookings);
 
   paymentForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.pattern(emailPattern)]),
@@ -45,6 +54,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   closePayment = () => {
+    this.singleBuyService.setTicketNull();
     this.popupsService.setPaymentStatus(false);
   };
 
@@ -81,11 +91,26 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
   onSubmit = (e: SubmitEvent) => {
     e.preventDefault();
-    this.closePayment();
-    this.paymentForm.reset();
     // when cart is ready - add here method to save order data to store (for user acc info)
+    this.singleBuyService.ticket$.pipe(take(1)).subscribe((ticket) => {
+      if (ticket) {
+        this.store.dispatch(setSingleBuyTicket({ ticket: ticket }));
+        this.singleBuyService.setTicketNull();
+        this.route.navigate(['/profile']);
+      }
+    });
+
     this.selectedBookingIds$
       .pipe(take(1))
-      .subscribe((ids) => this.store.dispatch(removeBooking({ ids })));
+      .subscribe((ids) => this.store.dispatch(setPurchase({ ids })));
+
+    this.selectBooking$.pipe(take(1), debounceTime(400)).subscribe((bookings) => {
+      if (!bookings.length && this.route.url === '/cart') {
+        this.route.navigate(['/profile']);
+      }
+    });
+
+    this.closePayment();
+    this.paymentForm.reset();
   };
 }

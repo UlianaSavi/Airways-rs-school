@@ -6,9 +6,12 @@ import { Booking } from 'src/app/core/models/booking.model';
 import { PassengersType } from 'src/app/core/models/passengers.model';
 import { PopupsStatusService } from 'src/app/core/services/popups-status.service';
 import { addBooking } from 'src/app/redux/actions/booking.actions';
-import { selectPassengersData } from 'src/app/redux/selectors/passengers.selectors';
+import { selectPassengersDataFeature } from 'src/app/redux/selectors/passengers.selectors';
 import { selectBackTicket, selectTicket } from 'src/app/redux/selectors/select-ticket.selector';
-import { ITicket } from 'src/app/search/models/tickets.model';
+import { ITicket, ITicketExtended } from 'src/app/search/models/tickets.model';
+import { PassengersState } from '../../../redux/reducers/passengers.reducer';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SingleBuyService } from '../../../core/services/single-buy.service';
 
 const ticketPriceMultiplier: Record<PassengersType, number> = {
   adult: 1,
@@ -22,11 +25,13 @@ const ticketPriceMultiplier: Record<PassengersType, number> = {
   styleUrls: ['./summary.component.scss'],
 })
 export class SummaryComponent implements OnInit {
-  ticket: ITicket | null = null;
+  ticket: ITicket | ITicketExtended | null = null;
 
-  backTicket: ITicket | null = null;
+  backTicket: ITicket | ITicketExtended | null = null;
 
   passengersCount: Record<PassengersType, number> = { adult: 1, child: 0, infant: 0 };
+
+  passengersData: PassengersState | undefined;
 
   passengerTypeArr: PassengersType[] = <PassengersType[]>Object.keys(this.passengersCount);
 
@@ -34,9 +39,22 @@ export class SummaryComponent implements OnInit {
 
   id = '';
 
-  constructor(private store: Store, private popupsService: PopupsStatusService) {}
+  viewOnly = false;
+
+  constructor(
+    private store: Store,
+    private popupsService: PopupsStatusService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private singleBuyService: SingleBuyService
+  ) {}
 
   ngOnInit(): void {
+    const previousPage = this.route.snapshot.queryParamMap.get('from');
+    if (previousPage) {
+      this.viewOnly = true;
+    }
+
     this.store
       .select(selectTicket)
       .pipe(take(1))
@@ -46,16 +64,16 @@ export class SummaryComponent implements OnInit {
       .pipe(take(1))
       .subscribe((_ticket) => (this.backTicket = _ticket));
     this.store
-      .select(selectPassengersData)
+      .select(selectPassengersDataFeature)
       .pipe(take(1))
-      .subscribe(
-        (passengersData) =>
-          (this.passengersCount = {
-            adult: passengersData.adult.length,
-            child: passengersData.child.length,
-            infant: passengersData.infant.length,
-          })
-      );
+      .subscribe((passengersData) => {
+        this.passengersCount = {
+          adult: passengersData.data.adult.length,
+          child: passengersData.data.child.length,
+          infant: passengersData.data.infant.length,
+        };
+        this.passengersData = passengersData;
+      });
     this.totalPrice = this.getTotal();
   }
 
@@ -81,24 +99,27 @@ export class SummaryComponent implements OnInit {
     };
   }
 
-  public addToCart(): void {
-    if (this.ticket === null) return;
-
+  private createBookingObj(): Booking {
     if (this.id === '') this.id = uuidV4() as string;
 
     const booking: Booking = {
       id: this.id,
       city: {
-        from: this.ticket.country.from,
-        to: this.ticket.country.to,
+        from: this.ticket!.country.from,
+        to: this.ticket!.country.to,
       },
       ticket: {
-        date: this.ticket.date.toLocaleString(),
-        times: this.ticket.times,
-        flightNum: this.ticket.flightNum,
+        date: this.ticket!.date.toLocaleString(),
+        times: this.ticket!.times,
+        flightNum: this.ticket!.flightNum,
       },
       passengers: this.passengersCount,
       price: this.totalPrice,
+      ticketsInfo: {
+        ticket: this.ticket as ITicketExtended,
+        backTicket: (this.backTicket || null) as ITicketExtended,
+      },
+      passengersData: this.passengersData!,
     };
 
     if (this.backTicket) {
@@ -109,10 +130,24 @@ export class SummaryComponent implements OnInit {
       };
     }
 
+    return booking;
+  }
+
+  public addToCart(): void {
+    if (this.ticket === null) return;
+
+    const booking = this.createBookingObj();
+
     this.store.dispatch(addBooking({ booking: booking }));
+
+    this.router.navigate(['/cart']);
   }
 
   public openPayment = () => {
+    const booking = this.createBookingObj();
+
+    this.singleBuyService.setTicket(booking);
+
     this.popupsService.setPaymentStatus(true);
   };
 }
