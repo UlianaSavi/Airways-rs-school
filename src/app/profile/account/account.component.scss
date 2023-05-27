@@ -25,10 +25,10 @@
     color: $primary-text-color;
     white-space: nowrap;
   }
-}
 
-::ng-deep .mat-sort-header-container {
-  align-items: flex-end !important;
+  ::ng-deep .mat-sort-header-container {
+    align-items: flex-end !important;
+  }
 }
 
 //СТИЛИ БАТОРА
