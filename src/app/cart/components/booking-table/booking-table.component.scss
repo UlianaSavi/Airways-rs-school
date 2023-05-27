@@ -1,8 +1,10 @@
 @import "variables";
 
 .booking-table {
+
   &__table {
     width: 100%;
+    min-width: 920px;
     border-collapse: collapse;
 
     .row {
@@ -121,6 +123,30 @@
       &::before {
         color: $inactive-text-color;
       }
+    }
+  }
+}
+
+@media (max-width: 920px) {
+  .booking-table-wrapper {
+    overflow-x: scroll;
+  }
+
+  .ceil {
+    padding: 10px 0;
+  }
+
+  .booking-table__table {
+    &-total {
+      text-align: start;
+
+      &-number {
+        margin: 0;
+      }
+    }
+
+    &-link {
+      margin-left: 0;
     }
   }
 }

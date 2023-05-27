@@ -23,11 +23,12 @@
     line-height: 28px;
     text-align: left;
     color: $primary-text-color;
+    white-space: nowrap;
   }
-}
 
-::ng-deep .mat-sort-header-container {
-  align-items: flex-end !important;
+  ::ng-deep .mat-sort-header-container {
+    align-items: flex-end !important;
+  }
 }
 
 //СТИЛИ БАТОРА
@@ -149,5 +150,27 @@
         color: $inactive-text-color;
       }
     }
+  }
+}
+
+@media (max-width: 1020px) {
+  .account-info {
+
+    &__table {
+      width: 100%;
+      min-width: 920px;
+    }
+
+    &__wrapper {
+      overflow-y: auto;
+    }
+  }
+
+}
+
+@media (max-width: 620px) {
+  .account-info {
+    padding: 15px;
+    font-size: 1rem;
   }
 }
