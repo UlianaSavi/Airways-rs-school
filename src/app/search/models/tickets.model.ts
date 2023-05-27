@@ -13,3 +13,7 @@ export interface ITicket {
   flightNum: string;
   seats: number;
 }
+
+export interface ITicketExtended extends ITicket {
+  id: number;
+}

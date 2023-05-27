@@ -1,4 +1,6 @@
 import { PassengersType } from './passengers.model';
+import { ITicketExtended } from '../../search/models/tickets.model';
+import { PassengersState } from '../../redux/reducers/passengers.reducer';
 
 type BookingFlight = {
   date: string;
@@ -19,4 +21,9 @@ export interface Booking {
   backTicket?: BookingFlight;
   passengers: Record<PassengersType, number>;
   price: number;
+  ticketsInfo: {
+    ticket: ITicketExtended;
+    backTicket: ITicketExtended | null;
+  };
+  passengersData: PassengersState;
 }

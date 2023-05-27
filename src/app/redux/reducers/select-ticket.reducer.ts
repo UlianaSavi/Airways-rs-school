@@ -1,12 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
 import * as SelectTicketActions from '../actions/select-ticket.actions';
-import { ITicket } from 'src/app/search/models/tickets.model';
+import { ITicket, ITicketExtended } from 'src/app/search/models/tickets.model';
 
 export const selectTicketFeatureKey = 'selectTicket';
 
 export interface SelectTicketsState {
-  ticket: ITicket | null;
-  backTicket: ITicket | null;
+  ticket: ITicket | ITicketExtended | null;
+  backTicket: ITicket | ITicketExtended | null;
 }
 
 export const initialState: SelectTicketsState = {
