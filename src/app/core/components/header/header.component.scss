@@ -138,9 +138,22 @@
 }
 
 .header-basket {
+  position: relative;
   background: transparent;
   border: none;
+  color: $white;
   cursor: pointer;
+
+  &-count {
+    position: absolute;
+    top: 0px;
+    padding: 3px 6px;
+    right: -4px;
+
+    background: $dark-red;
+    border-radius: 50%;
+    font-size: 10px;
+  }
 }
 
 @media (max-width: 1120px) {
