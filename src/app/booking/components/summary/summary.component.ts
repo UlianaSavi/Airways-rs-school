@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { take } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { v4 as uuidV4 } from 'uuid';
 import { Booking } from 'src/app/core/models/booking.model';
 import { PassengersType } from 'src/app/core/models/passengers.model';
@@ -12,6 +12,7 @@ import { ITicket, ITicketExtended } from 'src/app/search/models/tickets.model';
 import { PassengersState } from '../../../redux/reducers/passengers.reducer';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SingleBuyService } from '../../../core/services/single-buy.service';
+import { selectBookings, selectPurchasedTickets } from 'src/app/redux/selectors/booking.selectors';
 
 const ticketPriceMultiplier: Record<PassengersType, number> = {
   adult: 1,
@@ -41,6 +42,14 @@ export class SummaryComponent implements OnInit {
 
   viewOnly = false;
 
+  bookings$: Observable<Booking[]> = this.store.select(selectBookings);
+
+  bookingItems: Booking[] = [];
+
+  purchasedTickets$: Observable<Booking[]> = this.store.select(selectPurchasedTickets);
+
+  purchasedTickets: Booking[] = [];
+
   constructor(
     private store: Store,
     private popupsService: PopupsStatusService,
@@ -54,6 +63,10 @@ export class SummaryComponent implements OnInit {
     if (previousPage) {
       this.viewOnly = true;
     }
+
+    this.bookings$.subscribe((bookings) => (this.bookingItems = bookings));
+
+    this.purchasedTickets$.subscribe((bookings) => (this.purchasedTickets = bookings));
 
     this.store
       .select(selectTicket)
@@ -150,4 +163,26 @@ export class SummaryComponent implements OnInit {
 
     this.popupsService.setPaymentStatus(true);
   };
+
+  public hasInCartAndPurchased(): boolean {
+    const currentBooking = this.createBookingObj();
+
+    const hasInCart = !!this.bookingItems.filter(
+      (booking) =>
+        booking.city.from === currentBooking.city.from &&
+        booking.city.to === currentBooking.city.to &&
+        booking.price === currentBooking.price &&
+        JSON.stringify(booking.ticket) === JSON.stringify(currentBooking.ticket)
+    ).length;
+
+    const hasInPurchased = !!this.purchasedTickets.filter(
+      (booking) =>
+        booking.city.from === currentBooking.city.from &&
+        booking.city.to === currentBooking.city.to &&
+        booking.price === currentBooking.price &&
+        JSON.stringify(booking.ticket) === JSON.stringify(currentBooking.ticket)
+    ).length;
+
+    return hasInCart || hasInPurchased;
+  }
 }
