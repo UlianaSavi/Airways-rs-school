@@ -39,7 +39,7 @@
   <div class="account-info">
     <caption class="account-info__head">Your orders</caption>
     <div class="account-info__wrapper">
-      <table class="account-info__table" matSort>
+      <table class="account-info__table" matSort (matSortChange)="sortData($event)">
         <thead>
           <tr class="account-info__table-header row">
             <th mat-sort-header="flightNum">No.</th>
@@ -52,7 +52,7 @@
           </tr>
         </thead>
         <tbody *ngIf="currentCurrency$ | async as currentCurrency">
-          <tr class="row" *ngFor="let item of purchasedTickets$ | async">
+          <tr class="row" *ngFor="let item of purchasedTickets">
             <td class="account-info__table-flight-number ceil">
               <div>{{ item.ticket.flightNum }}</div>
               <div *ngIf="item.backTicket">{{ item.backTicket.flightNum }}</div>
