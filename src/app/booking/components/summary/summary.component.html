@@ -23,11 +23,18 @@
         mat-stroked-button
         color="primary"
         class="summary__bottom-btn"
+        [disabled]="hasInCartAndPurchased()"
         (click)="addToCart()"
       >
         Add to order cart
       </button>
-      <button mat-flat-button color="primary" class="summary__bottom-btn" (click)="openPayment()">
+      <button
+        mat-flat-button
+        color="primary"
+        class="summary__bottom-btn"
+        [disabled]="hasInCartAndPurchased()"
+        (click)="openPayment()"
+      >
         Buy now
       </button>
     </div>

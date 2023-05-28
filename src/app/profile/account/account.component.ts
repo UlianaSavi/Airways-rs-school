@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 import { Store } from '@ngrx/store';
 import { selectPurchasedTickets } from '../../redux/selectors/booking.selectors';
@@ -11,18 +11,29 @@ import {
   setSelectedTicket,
 } from '../../redux/actions/select-ticket.actions';
 import { SetDataPassengers } from '../../redux/actions/passengers.actions';
+import { Sort } from '@angular/material/sort';
+
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss'],
 })
-export class AccountComponent {
+export class AccountComponent implements OnInit {
   constructor(public authService: AuthService, private store: Store, private route: Router) {}
 
   currentCurrency$ = this.store.select(selectCurrencyFormat);
 
   purchasedTickets$ = this.store.select(selectPurchasedTickets);
+
+  purchasedTickets: Booking[] = [];
+
+  ngOnInit(): void {
+    this.purchasedTickets$.subscribe((bookings) => (this.purchasedTickets = bookings));
+  }
 
   goSummary(ticket: Booking) {
     const ticketsInfo = ticket.ticketsInfo;
@@ -70,5 +81,32 @@ export class AccountComponent {
     );
 
     this.route.navigate(['booking', 'summary'], { queryParams: { from: '/profile' } });
+  }
+
+  public sortData(sort: Sort) {
+    const data = this.purchasedTickets.slice();
+    if (!sort.active || sort.direction === '') {
+      this.purchasedTickets = data;
+      return;
+    }
+    this.purchasedTickets = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      const aType = a.backTicket ? 'round' : 'one';
+      const bType = a.backTicket ? 'round' : 'one';
+      switch (sort.active) {
+        case 'flightNum':
+          return compare(a.ticket.flightNum, b.ticket.flightNum, isAsc);
+        case 'flight':
+          return compare(a.city.from, b.city.to, isAsc);
+        case 'type':
+          return compare(aType, bType, isAsc);
+        case 'date':
+          return compare(a.ticket.date, b.ticket.date, isAsc);
+        case 'price':
+          return compare(a.price, b.price, isAsc);
+        default:
+          return 0;
+      }
+    });
   }
 }

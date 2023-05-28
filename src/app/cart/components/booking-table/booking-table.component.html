@@ -18,7 +18,7 @@
       <th class="booking-table__table-header-menu"></th>
     </tr>
     <tbody *ngIf="currentCurrency$ | async as currentCurrency">
-      <tr class="row" *ngFor="let item of bookings$ | async">
+      <tr class="row" *ngFor="let item of bookingItems">
         <td class="booking-table__table-first-column">
           <mat-checkbox
             [color]="'primary'"
