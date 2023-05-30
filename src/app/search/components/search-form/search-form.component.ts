@@ -94,13 +94,15 @@ export class SearchFormComponent implements OnInit {
       );
     });
     this.$dateFormat.subscribe(() => {
-      this.dateFrom = new Date(this.searchForm.value.dateFrom!.toString());
-      this.dateDest = new Date(this.searchForm.value.dateDestination!.toString());
-      this.cdr.detach();
-      setTimeout(() => {
-        this.cdr.detectChanges();
-        this.cdr.reattach();
-      });
+      if (this.searchForm.value.dateFrom && this.searchForm.value.dateDestination) {
+        this.dateFrom = new Date(this.searchForm.value.dateFrom.toString());
+        this.dateDest = new Date(this.searchForm.value.dateDestination.toString());
+        this.cdr.detach();
+        setTimeout(() => {
+          this.cdr.detectChanges();
+          this.cdr.reattach();
+        });
+      }
     });
 
     this.searchForm.controls.typeOfFlight.setValue('round');
