@@ -41,9 +41,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   bookings$: Observable<Booking[]> = this.store.select(selectBookings);
 
   onChangeDateFormat() {
-    this.store.dispatch(CurrencyDateActions.setDateFormat({ formatDate: this.dateFormat }));
-    MY_FORMATS.parse.dateInput = this.dateFormat;
-    MY_FORMATS.display.dateInput = this.dateFormat;
+    if (this.dateFormat) {
+      this.store.dispatch(CurrencyDateActions.setDateFormat({ formatDate: this.dateFormat }));
+      MY_FORMATS.parse.dateInput = this.dateFormat;
+      MY_FORMATS.display.dateInput = this.dateFormat;
+    }
   }
 
   onChangeCurrencyFormat() {
