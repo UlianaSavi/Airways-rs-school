@@ -1,0 +1,125 @@
+<div class="container">
+  <form [formGroup]="searchEditForm" (submit)="onSubmit($event)" class="edit-form edit-form">
+    <mat-form-field class="edit-form__field">
+      <mat-label>From</mat-label>
+      <input
+        matInput
+        formControlName="from"
+        [matAutocomplete]="autoFrom"
+        placeholder="Choose your destination"
+        #inputFrom
+      />
+      <mat-autocomplete #autoFrom="matAutocomplete" [displayWith]="displayFn">
+        <mat-option
+          *ngFor="let city of filteredFromCities$ | async"
+          [value]="city.name"
+          [disabled]="inputDestination.value !== '' && city.name === inputDestination.value"
+        >
+          <div class="option__city-top">
+            <span>{{ city.name + " " + "(" + city.code + ")" }}</span>
+          </div>
+          <div class="option__city-bottom">
+            <span *ngIf="city.main_airport_name">{{ city.main_airport_name }},&nbsp;</span>
+            <span>{{ city.country_name }}</span>
+          </div>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field class="edit-form__field edit-form__field-dest">
+      <mat-label>Destination</mat-label>
+      <input
+        matInput
+        formControlName="destination"
+        [matAutocomplete]="autoDestination"
+        placeholder="Choose your destination"
+        #inputDestination
+      />
+      <mat-autocomplete #autoDestination="matAutocomplete" [displayWith]="displayFn">
+        <mat-option
+          *ngFor="let city of filteredDestinationCities$ | async"
+          [value]="city.name"
+          [disabled]="inputFrom.value !== '' && inputFrom.value === city.name"
+        >
+          <div class="option__city-top">
+            <span>{{ city.name + " " + "(" + city.code + ")" }}</span>
+          </div>
+          <div class="option__city-bottom">
+            <span *ngIf="city.main_airport_name">{{ city.main_airport_name }},&nbsp;</span>
+            <span>{{ city.country_name }}</span>
+          </div>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field
+      *ngIf="typeOfFlight === 'round'"
+      appearance="fill"
+      class="edit-form__field edit-form__field-dates"
+    >
+      <mat-label>Dates</mat-label>
+      <mat-date-range-input [rangePicker]="pickerRound" [min]="minDate" [max]="maxDate">
+        <input
+          matStartDate
+          placeholder="Start date"
+          formControlName="dateFrom"
+          [(ngModel)]="dateFrom"
+        />
+        <input
+          matEndDate
+          placeholder="End date"
+          formControlName="dateDestination"
+          [(ngModel)]="dateTo"
+        />
+      </mat-date-range-input>
+      <mat-datepicker-toggle matIconSuffix [for]="pickerRound"></mat-datepicker-toggle>
+      <mat-date-range-picker #pickerRound></mat-date-range-picker>
+    </mat-form-field>
+    <mat-form-field
+      *ngIf="typeOfFlight === 'one'"
+      appearance="fill"
+      class="edit-form__field edit-form__field-dates"
+    >
+      <mat-label>Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="dateFrom"
+        [min]="minDate"
+        [max]="maxDate"
+      />
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <div class="edit-form__field">
+      <div class="edit-form__field-addition" (click)="hiddenAddition = !hiddenAddition">
+        <div class="passengers-amount">
+          <div class="passengers-amount__title">Passengers</div>
+          <div class="passengers-amount__amount">
+            {{ searchEditForm.controls.amountOfPass.controls.adult.value }} Adult,
+            {{ searchEditForm.controls.amountOfPass.controls.child.value }} Child,
+            {{ searchEditForm.controls.amountOfPass.controls.infant.value }} Infant
+          </div>
+        </div>
+        <mat-icon fontIcon="arrow_drop_down"></mat-icon>
+      </div>
+      <div *ngIf="hiddenAddition">
+        <div class="addition__dropdown">
+          <app-addition-passengers
+            *ngFor="let type of typeOfPassengers"
+            [typeOfPassengers]="type"
+            [countPassengers]="searchEditForm.controls.amountOfPass.controls[type].value || 0"
+            (newCountPassengers)="setCountPassengers($event)"
+          ></app-addition-passengers>
+        </div>
+      </div>
+    </div>
+    <button
+      type="submit"
+      mat-flat-button
+      color="primary"
+      [disabled]="searchEditForm.invalid"
+      class="search-form__btn"
+    >
+      Search
+    </button>
+  </form>
+</div>

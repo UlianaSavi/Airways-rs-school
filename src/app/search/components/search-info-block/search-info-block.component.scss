@@ -1,0 +1,79 @@
+@import "variables";
+
+.search-info {
+  height: 68px;
+  background: $lite-grey-background;
+  box-shadow: $box-shadow;
+
+  .container {
+    justify-content: flex-start;
+  }
+
+  &__ways {
+    display: flex;
+    align-items: center;
+
+    font-size: 1.14em;
+    font-weight: 500;
+    margin-right: 3em;
+  }
+
+  &__img {
+    margin: 0 10px;
+  }
+
+  &__counts {
+    display: flex;
+    align-items: center;
+    margin-right: 3em;
+
+    color: $grey;
+    font-weight: 500;
+
+    &__round {
+      display: inline-block;
+      height: fit-content;
+      padding: 0 5px;
+
+      font-size: 0.9em;
+      color: $lite-blue;
+      vertical-align: bottom;
+    }
+
+    .icon {
+      transform: scale(0.8) translate(0px, -2px);
+      color: $grey;
+    }
+
+    i {
+      padding: 0 3px;
+    }
+  }
+
+  .btn {
+    width: 44px;
+    height: 28px;
+    padding: 4px 8px 4px 8px;
+    border-radius: 5px;
+  }
+}
+
+@media (max-width: 620px) {
+  .search-info {
+    height: fit-content;
+    padding: 10px 0;
+
+    .container {
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    &__counts {
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 1120) {
+
+}

@@ -1,0 +1,23 @@
+<div class="calendar">
+  <button
+    class="calendar__btn calendar__btn-left btn"
+    (click)="datePrev()"
+    [disabled]="disabledBtn"
+  >
+    &#706;
+  </button>
+  <app-calendar-item
+    class="calendar__item"
+    [ngClass]="{
+      'calendar__item-selected': selectedDate.getTime() === date.getTime(),
+      'calendar__item-inactive': !isChangedDateMoreToday(date) || !getSeat(date)
+    }"
+    [date]="date"
+    [price]="getPrice(date)"
+    appCalendarSeatIndicator
+    [availableSeats]="getSeat(date)"
+    (click)="setSelectDate(date)"
+    *ngFor="let date of dates; trackBy: trackByFn"
+  ></app-calendar-item>
+  <button class="calendar__btn calendar__btn-right btn" (click)="dateNext()">&#707;</button>
+</div>

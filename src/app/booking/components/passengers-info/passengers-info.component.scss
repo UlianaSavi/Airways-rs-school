@@ -1,0 +1,88 @@
+@import "variables";
+
+h3 {
+  margin: 0;
+}
+
+.passengers-info-container {
+  padding: 32px 44px;
+  background: $white;
+  box-shadow: $box-shadow;
+  border-radius: 8px;
+}
+
+.card-head {
+  color: $passengers-info-text;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.passengers-info-form {
+  padding-top: 24px;
+}
+
+.passengers-info-block {
+  display: flex;
+  column-gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+.baggage-container {
+  height: 38px;
+  padding: 24px 0;
+  display: flex;
+  align-items: center;
+  column-gap: 17px;
+  box-sizing: content-box;
+}
+
+.baggage-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 10px;
+}
+
+.gender-toggle {
+  min-width: 215px;
+  margin-bottom: 22px;
+}
+
+.gender-toggle-text {
+  text-align: center;
+}
+
+.gender-active {
+  color: $primary-text-color;
+}
+
+.gender-inactive {
+  color: $black;
+}
+
+.half-width {
+  width: 50%;
+}
+
+.baggage-counter-icon {
+  cursor: pointer;
+}
+
+@media (max-width: 920px) {
+  .passengers-info-block {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+}
+
+@media (max-width: 360px) {
+  .gender-toggle {
+    min-width: 100%;
+  }
+}

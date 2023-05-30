@@ -1,0 +1,35 @@
+@import "variables";
+
+.payment {
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &__info {
+      display: flex;
+      gap: 10px;
+    }
+  }
+
+  &__card-input {
+    display: flex;
+    align-items: center;
+
+    &__img {
+      height: fit-content;
+      width: 30px;
+    }
+  }
+
+  .btn-blue {
+    padding: 10px;
+    border-radius: 7px;
+    transition: all .2s ease-in-out;
+  }
+
+  .btn-blue:not(:disabled):hover {
+    filter: brightness(1.4);
+    transition: all .2s ease-in-out;
+  }
+}

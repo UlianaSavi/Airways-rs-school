@@ -1,0 +1,244 @@
+<div class="singIn-modal" [class.active]="singInActive">
+  <div class="singIn">
+    <mat-tab-group mat-align-tabs="center" animationDuration="300ms" dynamicHeight>
+      <mat-tab label="Log in">
+        <div class="login-tab">
+          <div class="fastLogin-buttons">
+            <button class="header-button fastLogin-button">
+              <img ngSrc="assets/icons/google_icon.svg" alt="google icon" height="19" width="18" />
+              <span>Continue with Google</span>
+            </button>
+            <button class="header-button fastLogin-button">
+              <img
+                ngSrc="assets/icons/facebook_icon.svg"
+                alt="google icon"
+                height="19"
+                width="18"
+              />
+              <span>Continue with Facebook</span>
+            </button>
+          </div>
+          <div class="alternative-login">
+            <div class="singIn-line"></div>
+            <span class="singUp-alt-text">or log in with your email</span>
+            <div class="singIn-line"></div>
+          </div>
+
+          <form [formGroup]="logInForm" class="singIn-form" novalidate (ngSubmit)="login()">
+            <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
+              <mat-label>E-mail</mat-label>
+              <input matInput type="text" name="e-mail" formControlName="email" />
+              <mat-error *ngIf="logInForm.get('email')?.hasError('required')">
+                E-mail is required
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  logInForm.controls['email']?.value?.length && logInForm.controls['email'].invalid
+                "
+              >
+                Please enter a valid email
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
+              <mat-label>Password</mat-label>
+              <input
+                matInput
+                [type]="hide ? 'password' : 'text'"
+                name="password"
+                formControlName="password"
+              />
+              <button
+                mat-icon-button
+                matSuffix
+                type="button"
+                (click)="hide = !hide"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide"
+              >
+                <mat-icon class="password-visibility">
+                  {{ hide ? "visibility_off" : "visibility" }}
+                </mat-icon>
+              </button>
+              <mat-error *ngIf="logInForm.get('password')?.hasError('required')">
+                Password is required
+              </mat-error>
+            </mat-form-field>
+            <div class="singIn-link-div" (click)="passwordHelperOpen()">
+              <span class="singIn-link">Forgot password?</span>
+            </div>
+            <button class="login-submit" type="submit" [disabled]="logInForm.invalid">
+              Log in
+            </button>
+          </form>
+        </div>
+      </mat-tab>
+      <mat-tab label="Sign up">
+        <div class="signup-tab">
+          <div class="fastLogin-buttons">
+            <button class="header-button fastLogin-button">
+              <img ngSrc="assets/icons/google_icon.svg" alt="google icon" height="19" width="18" />
+              <span>Continue with Google</span>
+            </button>
+            <button class="header-button fastLogin-button">
+              <img
+                ngSrc="assets/icons/facebook_icon.svg"
+                alt="google icon"
+                height="19"
+                width="18"
+              />
+              <span>Continue with Facebook</span>
+            </button>
+          </div>
+          <div class="alternative-login">
+            <div class="singUp-line"></div>
+            <span class="singUp-alt-text">or sign up with your email</span>
+            <div class="singUp-line"></div>
+          </div>
+
+          <form
+            [formGroup]="registrationForm"
+            class="singIn-form"
+            novalidate
+            (ngSubmit)="registration()"
+          >
+            <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
+              <mat-label>E-mail</mat-label>
+              <input matInput type="text" name="e-mail" formControlName="email" />
+              <mat-error *ngIf="registrationForm.get('email')?.hasError('required')">
+                E-mail is required
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  registrationForm.controls['email']?.value?.length &&
+                  registrationForm.controls['email'].invalid
+                "
+              >
+                Please enter a valid email
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
+              <mat-label>Password</mat-label>
+              <input matInput type="password" name="password" formControlName="password" />
+              <mat-error *ngIf="registrationForm.get('password')?.hasError('required')">
+                Password is required
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  registrationForm.controls['password']?.value?.length &&
+                  registrationForm.controls['password'].invalid
+                "
+              >
+                Your password isn't strong enough
+                <ul>
+                  <li>at least 8 characters</li>
+                  <li>a mixture of both uppercase and lowercase letters</li>
+                  <li>a mixture of letters and numbers</li>
+                  <li>inclusion of at least one special character, e.g., ! @ # ?</li>
+                </ul>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
+              <mat-label>First name</mat-label>
+              <input matInput type="text" name="firstName" formControlName="firstName" />
+              <mat-error *ngIf="registrationForm.get('firstName')?.hasError('required')">
+                First name is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
+              <mat-label>Last name</mat-label>
+              <input matInput type="text" name="lastName" formControlName="lastName" />
+              <mat-error *ngIf="registrationForm.get('lastName')?.hasError('required')">
+                Last name is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field color="primary" subscriptSizing="dynamic" appearance="fill">
+              <mat-label>Date of bird</mat-label>
+              <input
+                matInput
+                [matDatepicker]="dp"
+                type="text"
+                name="dateOfBird"
+                formControlName="dateOfBird"
+              />
+              <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+              <mat-datepicker #dp></mat-datepicker>
+              <mat-error *ngIf="registrationForm.get('dateOfBird')?.hasError('required')">
+                Date of bird is required
+              </mat-error>
+              <mat-error *ngIf="registrationForm.get('dateOfBird')?.hasError('validDate')">
+                You must be over 18 years old
+              </mat-error>
+            </mat-form-field>
+
+            <mat-button-toggle-group
+              name="fontStyle"
+              aria-label="Font Style"
+              #group="matButtonToggleGroup"
+              formControlName="gender"
+            >
+              <mat-button-toggle value="male" class="half-width">
+                <mat-icon *ngIf="group.value === 'male'">check</mat-icon>
+                <span class="gender-toggle-text">Male</span>
+              </mat-button-toggle>
+              <mat-button-toggle value="female" class="half-width">
+                <mat-icon *ngIf="group.value === 'female'">check</mat-icon>
+                <span class="gender-toggle-text">Female</span>
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+
+            <div class="signUp-phone">
+              <mat-form-field subscriptSizing="dynamic" appearance="fill" class="half-width">
+                <mat-label>Country code</mat-label>
+                <mat-select value="+93" formControlName="countryCode">
+                  <mat-option [value]="'+93'">Ireland (+353)</mat-option>
+                  <mat-option [value]="'+7'">Spain (+34)</mat-option>
+                </mat-select>
+                <mat-error *ngIf="registrationForm.get('countryCode')?.hasError('required')">
+                  Country code is required
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field subscriptSizing="dynamic" class="half-width">
+                <mat-label>Your Number</mat-label>
+                <input
+                  type="tel"
+                  matInput
+                  placeholder="e.g. 111111111"
+                  formControlName="phone"
+                  [minlength]="10"
+                  [maxLength]="12"
+                />
+                <mat-error *ngIf="registrationForm.get('phone')?.hasError('required')">
+                  Phone is required
+                </mat-error>
+                <mat-error *ngIf="registrationForm.get('phone')?.hasError('minlength')">
+                  Min length 10 symbols
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <mat-form-field subscriptSizing="dynamic" appearance="fill">
+              <mat-label>Citizenship</mat-label>
+              <mat-select formControlName="citizenship">
+                <mat-option [value]="'afghanistan'">Afghanistan</mat-option>
+                <mat-option [value]="'russia'">Russia</mat-option>
+              </mat-select>
+              <mat-error *ngIf="registrationForm.get('citizenship')?.hasError('required')">
+                Citizenship is required
+              </mat-error>
+            </mat-form-field>
+            <mat-checkbox color="primary" formControlName="agree">
+              I agree to Airway's
+              <a routerLink="policy" class="singIn-link">Privacy Policy</a>
+              and
+              <a routerLink="terms" class="singIn-link">Terms of Use</a>
+            </mat-checkbox>
+            <button class="login-submit" type="submit" [disabled]="registrationForm.invalid">
+              Sign Up
+            </button>
+          </form>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+    <mat-icon class="singIn-closeButton" (click)="changeStatus()">close</mat-icon>
+  </div>
+</div>

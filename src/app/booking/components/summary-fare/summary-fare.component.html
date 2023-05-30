@@ -1,0 +1,46 @@
+<div class="summary-fare" *ngIf="currentCurrency$ | async as currentCurrency">
+  <div class="summary-fare__wrapper">
+    <div class="summary-fare__passenger" *ngFor="let passenger of passengerTypeArr">
+      <div *ngIf="passengersCount[passenger]">
+        <div class="row-fare title">
+          <div>{{ passengersCount[passenger] }} x {{ passenger | titlecase }} Fare</div>
+          <div>
+            {{
+              fare[passenger] * (currentCurrency$ | async)?.euroCoefficient!
+                | currency : currentCurrency.name : "symbol"
+            }}
+          </div>
+        </div>
+        <div class="summary-fare__passenger-fare">
+          <div class="row-fare">
+            <div>Fare</div>
+            <div>
+              {{
+                getPriceWithoutTax(passenger) * (currentCurrency$ | async)?.euroCoefficient!
+                  | currency : currentCurrency.name : "symbol"
+              }}
+            </div>
+          </div>
+          <div class="row-fare">
+            <div>Tax & Service Charge</div>
+            <div>
+              {{
+                getTax(passenger) * (currentCurrency$ | async)?.euroCoefficient!
+                  | currency : currentCurrency.name : "symbol"
+              }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="summary-fare__total row-fare">
+    <div>Total</div>
+    <div class="summary-fare__total-quantity">
+      {{
+        total * (currentCurrency$ | async)?.euroCoefficient!
+          | currency : currentCurrency.name : "symbol"
+      }}
+    </div>
+  </div>
+</div>

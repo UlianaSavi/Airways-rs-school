@@ -1,0 +1,148 @@
+@import "variables";
+
+::ng-deep .edit-form {
+  position: initial;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  padding: 24px;
+  margin-bottom: 20px;
+
+  background: transparent;
+  box-shadow: $box-shadow;
+
+  &__radio {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 42px;
+    margin-bottom: 12px;
+
+    &-btn.mat-mdc-radio-button .mdc-form-field {
+      color: $primary-text-color;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+
+  &__field {
+    height: 56px;
+    border: 0.5px solid $form-border-color;
+    border-radius: 4px;
+    background: $btn-transparent;
+
+    .mat-mdc-form-field-subscript-wrapper {
+      height: 0;
+    }
+
+    &-dates {
+      width: 310px;
+    }
+
+    &-addition {
+      width: 100%;
+      max-width: 250px;
+      display: flex;
+      align-items: center;
+      padding: 8px 16px;
+
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      cursor: pointer;
+    }
+  }
+
+  &__dates-amount {
+    display: flex;
+  }
+
+  &__switch {
+    position: absolute;
+    top: 115px;
+    right: 45px;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 0.5px solid $form-border-color;
+    border-radius: 50%;
+    background: $white;
+    z-index: 2;
+    cursor: pointer;
+  }
+
+  &__bottom {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__btn {
+    width: 126px;
+    height: 60px;
+  }
+}
+
+.option__city {
+  &-top {
+    color: $second-text-color;
+  }
+
+  &-bottom {
+    color: $third-text-color;
+  }
+}
+
+.passengers-amount {
+  width: 100%;
+
+  &__title {
+    color: #49454f;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+  }
+
+  &__amount {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.addition__dropdown {
+  position: relative;
+  width: 200px;
+  height: 185px;
+  padding: 0px 10px;
+  border-radius: 4px;
+
+  background: $white;
+  z-index: 2;
+  box-shadow: $box-shadow;
+}
+
+@media (max-width: 920px) {
+  .edit-form {
+    flex-wrap: wrap;
+    padding: 24px 10px;
+
+    &__field {
+      width: 45%;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .edit-form__field {
+    width: 100%;
+  }
+}

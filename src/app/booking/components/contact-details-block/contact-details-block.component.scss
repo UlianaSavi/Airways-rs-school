@@ -1,0 +1,61 @@
+@import "variables";
+
+:host {
+  width: 100%;
+}
+
+.container {
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px 0;
+}
+
+.contact {
+  &__title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    &__icon {
+      width: 100%;
+      max-width: 20px;
+      margin-right: 16px;
+    }
+  }
+
+  &__subtext {
+    color: $third-text-color;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 40px;
+    width: 100%;
+    height: fit-content;
+    padding: 32px 44px;
+
+    background: $white;
+    box-shadow: $box-shadow;
+    border-radius: 8px;
+
+    &__item {
+      width: 30%;
+    }
+  }
+}
+
+@media (max-width: 920px) {
+  .contact {
+
+    &__card {
+      flex-direction: column;
+      align-items: stretch;
+
+      &__item {
+        width: 100%;
+      }
+    }
+  }
+}

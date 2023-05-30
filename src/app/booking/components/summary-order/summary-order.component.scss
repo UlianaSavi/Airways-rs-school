@@ -1,0 +1,83 @@
+@import "variables";
+
+:host {
+  max-width: 50%;
+  flex: 1;
+}
+
+.summary-order {
+  background-color: $white;
+  box-shadow: $box-shadow;
+  border-top: 3px solid $primary-text-color;
+  border-radius: 8px;
+
+  &__block {
+    padding: 20px 24px;
+  }
+
+  &__header {
+    height: 100px;
+    background-color: $secondary-background-color;
+  }
+
+  &__flight {
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 20px;
+
+    &-number {
+      margin-right: 20px;
+      color: $primary-text-color;
+    }
+  }
+
+  &__date-time {
+    margin-left: 36px;
+  }
+
+  &__passenger {
+    & + & {
+      border-top: 1px solid $main-background;
+    }
+
+    &-name {
+      margin-bottom: 12px;
+    }
+
+    &-included {
+      padding: 0 28px;
+    }
+  }
+}
+
+@media (max-width: 820px) {
+  .summary-order {
+    &__header {
+      height: 130px;
+    }
+
+    &__block {
+      padding: 10px 14px;
+    }
+
+    &-included {
+      padding: 0;
+    }
+
+    &__flight {
+      font-size: 16px;
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  :host {
+    max-width: 100%
+  }
+
+  .summary-order {
+    &__header {
+      height: fit-content;
+    }
+  }
+}

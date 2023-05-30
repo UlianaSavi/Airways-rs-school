@@ -1,0 +1,66 @@
+<div class="details" *ngIf="currTicket">
+  <div class="details__flight">
+    <div class="details__flight-info details__flight-departure">
+      <div class="info__date">{{ currTicket.date | date : "EEE, MMM d yyyy" }}</div>
+      <div class="info__time">
+        <span>{{ currTicket.times.start }}</span>
+        UTC +1
+      </div>
+      <div class="info__city">{{ currTicket.country.from }}</div>
+    </div>
+    <div class="details__flight-center">
+      <div class="details__flight-center-container">
+        <div class="flight-center__time">{{ getDuration() }}</div>
+        <img
+          class="flight-center__img"
+          [ngClass]="{ mirrorY: currTicket.type === 'back' }"
+          src="/assets/icons/flight.svg"
+          alt="Flight icon"
+        />
+        <div class="flight-center__direct">Direct</div>
+      </div>
+    </div>
+    <div class="details__flight-info details__flight-arrival">
+      <div class="info__date">{{ currTicket.date | date : "EEE, MMM d yyyy" }}</div>
+      <div class="info__time">
+        UTC +1
+        <span>{{ currTicket.times.end }}</span>
+      </div>
+      <div class="info__city">{{ currTicket.country.to }}</div>
+    </div>
+    <div class="details__flight-number">
+      Flight no.
+      <span>{{ currTicket.flightNum }}</span>
+    </div>
+  </div>
+  <div class="details__select" [ngClass]="{ details__selected: isSelected }">
+    <div class="seat-price">
+      <div *ngIf="!isSelected" class="seat" appSeatBackground [availableSeats]="currTicket.seats">
+        {{ currTicket.seats }} seats available
+      </div>
+      <div *ngIf="!isSelected" class="price-title">Price</div>
+      <div
+        *ngIf="currentCurrency$ | async as currentCurrency"
+        class="price"
+        [ngClass]="{ 'price-black': isSelected }"
+      >
+        {{
+          currTicket.price * currentCurrency.euroCoefficient
+            | currency : currentCurrency.name : "symbol"
+        }}
+      </div>
+    </div>
+    <div class="details__select-btn-container">
+      <button
+        class="edit-btn btn-transparent btn"
+        *ngIf="isSelected; else selectBtn"
+        (click)="editTicket()"
+      >
+        Edit
+      </button>
+      <ng-template #selectBtn>
+        <button class="details__select-btn btn" (click)="selectTicket()">Select</button>
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="booking-info container">
+  <div class="container passengers-container">
+    <div class="passengers-information">
+      <div class="passengers-head">
+        <mat-icon class="passengers-head__icon">person</mat-icon>
+        <h3 class="h3-blue">Passengers</h3>
+      </div>
+      <p class="passengers-text">
+        Enter the passenger's names as they appear on document (passport or ID).
+      </p>
+      <app-passengers-info
+        *ngFor="let passengersForm of passengersFormsData"
+        (newValidPassengers)="passengersForm.addPassengersForm($event)"
+        (fullField)="passengersForm.setFormFullField($event)"
+        [id]="passengersForm.id"
+        [cardHead]="passengersForm.cardHead"
+        [ageStatus]="passengersForm.ageStatus"
+      />
+    </div>
+    <app-contact-details-block
+      (fullField)="setFormFullField($event)"
+      (newValidContacts)="addContactForm($event)"
+    ></app-contact-details-block>
+  </div>
+  <div class="booking-info__buttons">
+    <a class="btn btn-transparent" (click)="back()">Back</a>
+    <button
+      class="btn btn-blue"
+      [disabled]="!canContinue"
+      (click)="addDataToStore()"
+      routerLink="/booking/summary"
+    >
+      Continue
+    </button>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="addition__dropdown-item passengers">
+  <div class="passengers__title">
+    <div class="passengers__title-big">{{ passengersType }}</div>
+    <div class="passengers__title-small">{{ passengersAgeText }}</div>
+  </div>
+  <div class="passengers__control">
+    <div class="passengers__control-btn passengers__control-dec" (click)="decrement()">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M3.33325 7.33325V8.66659H12.6666V7.33325H3.33325Z" fill="#454A53" />
+      </svg>
+    </div>
+    <div class="passengers__control-value">
+      {{ countPassengers || 0 }}
+    </div>
+    <div class="passengers__control-btn passengers__control-inc" (click)="increment()">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M12.6666 8.66658H8.66658V12.6666H7.33325V8.66658H3.33325V7.33325H7.33325V3.33325H8.66658V7.33325H12.6666V8.66658Z"
+          fill="#454A53"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
